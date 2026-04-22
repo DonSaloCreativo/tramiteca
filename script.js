@@ -1009,7 +1009,7 @@ const renderResult = (tramite) => {
   const root = document.querySelector("#results-root");
   if (!root) return;
 
-  document.title = `${tramite.titulo} | ChileFácil IA`;
+  document.title = `${tramite.titulo} | Tramiteca`;
   renderSmartRecommendation(getSearchText() || tramite.titulo);
 
   root.innerHTML = `
@@ -1103,7 +1103,7 @@ const renderNoMatch = (query) => {
   if (!root) return;
 
   const suggestions = getSuggestions(query, 3);
-  document.title = "Sin coincidencia exacta | ChileFácil IA";
+  document.title = "Sin coincidencia exacta | Tramiteca";
   renderSmartRecommendation(query);
 
   root.innerHTML = `
@@ -1808,7 +1808,7 @@ const renderSchoolFinder = () => {
   const root = document.querySelector("#results-root");
   if (!root) return;
 
-  document.title = "Educación diferencial | ChileFácil IA";
+  document.title = "Educación diferencial | Tramiteca";
 
   root.innerHTML = `
     <section class="school-finder-hero reveal">
@@ -1835,7 +1835,7 @@ const renderSchoolFinder = () => {
       <p class="form-message" data-school-message role="status" aria-live="polite"></p>
       <div data-school-results></div>
       <p class="school-disclaimer">
-        ChileFácil IA no asigna cupos ni reemplaza la orientación oficial. Para datos completos revisa el Directorio Educación Especial de Mineduc o llama a Ayuda Mineduc 600 600 2626.
+        Tramiteca no asigna cupos ni reemplaza la orientación oficial. Para datos completos revisa el Directorio Educación Especial de Mineduc o llama a Ayuda Mineduc 600 600 2626.
       </p>
       <a class="button button-secondary official-button" href="https://especial.mineduc.cl/directorio-de-establecimientos/" target="_blank" rel="noopener noreferrer">Ver directorio oficial</a>
     </section>
