@@ -552,6 +552,7 @@ const renderDynamicAlerts = () => {
     container.innerHTML = renderAlertCards(generateDynamicAlerts());
     setupRevealAnimations();
   setupMobileMenu();
+  setupMobileNavState();
   });
 };
 
@@ -1098,6 +1099,7 @@ const renderResult = (tramite) => {
   setupAiBox();
   setupRevealAnimations();
   setupMobileMenu();
+  setupMobileNavState();
 };
 
 const renderNoMatch = (query) => {
@@ -1130,6 +1132,7 @@ const renderNoMatch = (query) => {
 
   setupRevealAnimations();
   setupMobileMenu();
+  setupMobileNavState();
 };
 
 const getSchoolMapUrl = (school) => {
@@ -1322,6 +1325,7 @@ const updateSchoolResults = (commune) => {
   setupCommuneChips();
   setupRevealAnimations();
   setupMobileMenu();
+  setupMobileNavState();
 };
 
 const setupSchoolFinder = async () => {
@@ -1360,6 +1364,7 @@ const setupSchoolFinder = async () => {
     updateSchoolResults("");
     setupRevealAnimations();
   setupMobileMenu();
+  setupMobileNavState();
     return;
   }
 
@@ -1485,6 +1490,7 @@ const updatePrtResults = (query = "") => {
   results.innerHTML = renderPrtResults(plants, query);
   setupRevealAnimations();
   setupMobileMenu();
+  setupMobileNavState();
 };
 
 const setActivePrtFilter = (filter) => {
@@ -1786,6 +1792,7 @@ const setupDocumentsPage = () => {
   list.innerHTML = renderDocumentCards();
   setupRevealAnimations();
   setupMobileMenu();
+  setupMobileNavState();
   document.querySelectorAll("[data-document-select]").forEach((button) => {
     button.addEventListener("click", () => setSelectedDocument(button.dataset.documentSelect));
   });
@@ -1854,6 +1861,7 @@ const renderSchoolFinder = () => {
   setupSchoolFinder();
   setupRevealAnimations();
   setupMobileMenu();
+  setupMobileNavState();
 };
 
 const getFormValues = (form) => {
@@ -2507,10 +2515,48 @@ const setupMobileMenu = () => {
     if (window.innerWidth > 720) closeAllMobileMenus();
   });
 };
+const setupMobileNavState = () => {
+  const page = document.body ? document.body.dataset.page : "";
+  const activeByPage = {
+    home: "soluciones",
+    results: "soluciones",
+    diagnostico: "diagnostico",
+    translator: "traductor"
+  };
+  const activeKey = activeByPage[page] || "";
+
+  document.querySelectorAll(".site-header .main-nav").forEach((nav) => {
+    nav.querySelectorAll("a").forEach((link, index) => {
+      link.classList.remove("mobile-nav-active");
+      if (index > 2) return;
+
+      const href = (link.getAttribute("href") || "").toLowerCase();
+      const key = href.includes("traductor")
+        ? "traductor"
+        : href.includes("diagnostico")
+          ? "diagnostico"
+          : href.includes("soluciones") || href.includes("index.html")
+            ? "soluciones"
+            : "";
+
+      if (activeKey && key === activeKey) {
+        link.classList.add("mobile-nav-active");
+      }
+
+      link.addEventListener("click", () => {
+        nav.querySelectorAll("a").forEach((item, itemIndex) => {
+          if (itemIndex < 3) item.classList.remove("mobile-nav-active");
+        });
+        link.classList.add("mobile-nav-active");
+      });
+    });
+  });
+};
 document.addEventListener("DOMContentLoaded", () => {
   setupSearchForms();
   setupRevealAnimations();
   setupMobileMenu();
+  setupMobileNavState();
   renderPersonalizedHub();
   renderDynamicAlerts();
 
@@ -2527,6 +2573,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Punto de extensión: aquí se puede cargar el dataset desde un backend o una base de datos real.
   // Punto de extensión: la caja "Preguntar a la IA" puede conectarse luego a una API de IA.
 });
+
 
 
 
