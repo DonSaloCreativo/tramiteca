@@ -2415,21 +2415,17 @@ body::before {
 
 .brand-logo {
   width: auto;
-  height: 42px;
+  height: 54px;
   display: block;
   object-fit: contain;
 }
 
 .brand-logo-footer {
-  height: 36px;
+  height: 40px;
 }
 
 .brand-name {
-  display: inline-block;
-  font-size: 1.1rem;
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  color: var(--text);
+  display: none;
 }
 
 .main-nav a:not(.button):hover,
@@ -2536,12 +2532,15 @@ body::before {
 
 @media (max-width: 760px) {
   .brand-logo {
-    height: 38px;
-  }
+  width: auto;
+  height: 54px;
+  display: block;
+  object-fit: contain;
+}
 
   .brand-name {
-    font-size: 1rem;
-  }
+  display: none;
+}
 
   .footer-grid,
   .footer-meta,
