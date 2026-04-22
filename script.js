@@ -551,6 +551,7 @@ const renderDynamicAlerts = () => {
   document.querySelectorAll("[data-dynamic-alerts]").forEach((container) => {
     container.innerHTML = renderAlertCards(generateDynamicAlerts());
     setupRevealAnimations();
+  setupMobileMenu();
   });
 };
 
@@ -1096,6 +1097,7 @@ const renderResult = (tramite) => {
 
   setupAiBox();
   setupRevealAnimations();
+  setupMobileMenu();
 };
 
 const renderNoMatch = (query) => {
@@ -1127,6 +1129,7 @@ const renderNoMatch = (query) => {
   `;
 
   setupRevealAnimations();
+  setupMobileMenu();
 };
 
 const getSchoolMapUrl = (school) => {
@@ -1318,6 +1321,7 @@ const updateSchoolResults = (commune) => {
   results.innerHTML = renderSchoolCards(schools, commune);
   setupCommuneChips();
   setupRevealAnimations();
+  setupMobileMenu();
 };
 
 const setupSchoolFinder = async () => {
@@ -1355,6 +1359,7 @@ const setupSchoolFinder = async () => {
     if (availableHelp) availableHelp.textContent = "";
     updateSchoolResults("");
     setupRevealAnimations();
+  setupMobileMenu();
     return;
   }
 
@@ -1479,6 +1484,7 @@ const updatePrtResults = (query = "") => {
   const plants = filterPrtPlants(query);
   results.innerHTML = renderPrtResults(plants, query);
   setupRevealAnimations();
+  setupMobileMenu();
 };
 
 const setActivePrtFilter = (filter) => {
@@ -1779,6 +1785,7 @@ const setupDocumentsPage = () => {
 
   list.innerHTML = renderDocumentCards();
   setupRevealAnimations();
+  setupMobileMenu();
   document.querySelectorAll("[data-document-select]").forEach((button) => {
     button.addEventListener("click", () => setSelectedDocument(button.dataset.documentSelect));
   });
@@ -1843,6 +1850,7 @@ const renderSchoolFinder = () => {
 
   setupSchoolFinder();
   setupRevealAnimations();
+  setupMobileMenu();
 };
 
 const getFormValues = (form) => {
@@ -2433,9 +2441,61 @@ const setupRevealAnimations = () => {
   items.forEach((item) => observer.observe(item));
 };
 
+const setupMobileMenu = () => {
+  const toggles = Array.from(document.querySelectorAll("[data-menu-toggle]"));
+  if (!toggles.length) return;
+
+  const resolveNav = (toggle) => {
+    const header = toggle.closest(".header-grid, .results-header");
+    return header ? header.querySelector(".main-nav") : null;
+  };
+
+  const closeMenu = (toggle) => {
+    const nav = resolveNav(toggle);
+    toggle.classList.remove("is-open");
+    toggle.setAttribute("aria-expanded", "false");
+    if (nav) nav.classList.remove("is-open");
+  };
+
+  const closeAllMenus = () => {
+    toggles.forEach((toggle) => closeMenu(toggle));
+  };
+
+  toggles.forEach((toggle) => {
+    const nav = resolveNav(toggle);
+    if (!nav) return;
+
+    toggle.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      const shouldOpen = !nav.classList.contains("is-open");
+      closeAllMenus();
+      if (shouldOpen) {
+        toggle.classList.add("is-open");
+        toggle.setAttribute("aria-expanded", "true");
+        nav.classList.add("is-open");
+      }
+    });
+
+    nav.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => closeMenu(toggle));
+    });
+  });
+
+  document.addEventListener("click", (event) => {
+    if (!event.target.closest(".main-nav") && !event.target.closest("[data-menu-toggle]")) {
+      closeAllMenus();
+    }
+  });
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 720) closeAllMenus();
+  });
+};
 document.addEventListener("DOMContentLoaded", () => {
   setupSearchForms();
   setupRevealAnimations();
+  setupMobileMenu();
   renderPersonalizedHub();
   renderDynamicAlerts();
 
@@ -2452,4 +2512,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Punto de extensión: aquí se puede cargar el dataset desde un backend o una base de datos real.
   // Punto de extensión: la caja "Preguntar a la IA" puede conectarse luego a una API de IA.
 });
+
+
+
 

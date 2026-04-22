@@ -2415,7 +2415,7 @@ body::before {
 
 .brand-logo {
   width: auto;
-  height: 54px;
+  height: 44px;
   display: block;
   object-fit: contain;
 }
@@ -2548,5 +2548,338 @@ body::before {
     justify-items: start;
     justify-content: flex-start;
     text-align: left;
+  }
+}
+.menu-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 4px;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid rgba(23, 99, 194, 0.14);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 10px 24px rgba(15, 35, 71, 0.08);
+}
+
+.menu-toggle span {
+  width: 18px;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--text);
+  transition: transform 180ms ease, opacity 180ms ease;
+}
+
+.menu-toggle.is-open span:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+
+.menu-toggle.is-open span:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle.is-open span:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+/* Mobile navigation refinement */
+@media (max-width: 720px) {
+  .site-header {
+    overflow: visible;
+  }
+
+  .header-grid,
+  .results-header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    min-height: 64px;
+    padding: 10px 0;
+    gap: 12px;
+  }
+
+  .results-header {
+    row-gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .header-grid .brand,
+  .results-header .brand {
+    margin-right: auto;
+  }
+
+  .brand {
+    gap: 8px;
+  }
+
+  .brand-logo {
+    height: 32px;
+  }
+
+  .brand-name {
+    display: none;
+  }
+
+  .menu-toggle {
+    display: inline-flex;
+    flex: none;
+  }
+
+  .main-nav {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    width: 100%;
+    padding: 14px;
+    border: 1px solid rgba(23, 99, 194, 0.12);
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 16px 34px rgba(15, 35, 71, 0.12);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-8px);
+    transition: opacity 180ms ease, transform 180ms ease, visibility 180ms ease;
+    z-index: 30;
+  }
+
+  .main-nav.is-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  .main-nav a,
+  .main-nav .button,
+  .main-nav .button-small {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .main-nav .button-small {
+    min-height: 38px;
+    padding-inline: 12px;
+    font-size: 0.84rem;
+  }
+
+  .header-search {
+    order: 3;
+    width: 100%;
+  }
+
+  .header-search .search-control {
+    padding: 6px;
+  }
+
+  .header-search .search-control input {
+    min-height: 44px;
+    padding-inline: 12px;
+  }
+
+  .hero-section {
+    padding: 44px 0 28px;
+  }
+
+  .eyebrow {
+    margin-bottom: 12px;
+    padding: 6px 10px;
+    font-size: 0.76rem;
+  }
+
+  h1 {
+    margin-bottom: 12px;
+    font-size: clamp(2rem, 10vw, 2.9rem);
+    line-height: 1.02;
+  }
+
+  .hero-subtitle {
+    margin-bottom: 24px;
+    font-size: 0.98rem;
+  }
+
+  .search-control {
+    padding: 6px;
+    gap: 8px;
+  }
+
+  .search-control input {
+    min-height: 46px;
+    padding-inline: 12px;
+    font-size: 0.96rem;
+  }
+
+  .search-control .button,
+  .ai-form .button,
+  .simple-panel .button {
+    min-height: 42px;
+  }
+
+  .hero-actions-secondary {
+    gap: 10px;
+    margin-top: 16px;
+  }
+
+  .button-hero,
+  .hero-actions-secondary .button {
+    width: 100%;
+    min-height: 42px;
+  }
+
+  .quick-links {
+    gap: 8px;
+    margin-top: 14px;
+  }
+
+  .chip {
+    min-height: 34px;
+    padding: 0 12px;
+    font-size: 0.85rem;
+  }
+
+  .section {
+    padding: 42px 0;
+  }
+
+  .section-heading {
+    margin-bottom: 18px;
+  }
+
+  .objective-grid,
+  .quick-task-grid,
+  .insight-grid,
+  .insight-grid.compact,
+  .case-grid,
+  .card-grid-four,
+  .category-grid,
+  .related-grid,
+  .suggestions,
+  .smart-recommendation-list,
+  .document-grid,
+  .document-form-grid,
+  .school-results,
+  .prt-results {
+    grid-template-columns: 1fr;
+  }
+
+  .objective-card,
+  .info-card,
+  .smart-recommendation-card,
+  .document-card,
+  .school-card,
+  .prt-card {
+    min-height: 0;
+    padding: 16px;
+  }
+
+  .objective-section .section-heading,
+  .objective-card,
+  .objective-copy,
+  .objective-copy strong,
+  .objective-copy small {
+    text-align: center;
+  }
+
+  .objective-card {
+    justify-items: center;
+    gap: 10px;
+    padding: 14px;
+  }
+
+  .objective-icon {
+    width: 42px;
+    height: 42px;
+    margin-inline: auto;
+  }
+
+  .objective-copy strong {
+    font-size: 0.98rem;
+  }
+
+  .objective-copy small {
+    font-size: 0.83rem;
+  }
+
+  .objective-cta {
+    margin-inline: auto;
+  }
+
+  .result-hero,
+  .content-main,
+  .ai-box,
+  .empty-state,
+  .smart-recommendation-box,
+  .school-finder-hero,
+  .school-search-panel,
+  .assistant-hero,
+  .assistant-form,
+  .assistant-result,
+  .document-builder,
+  .document-preview-panel,
+  .translator-panel,
+  .term-panel,
+  .case-selector,
+  .support-helper,
+  .simple-panel,
+  .trust-content,
+  .personalized-hub-inner,
+  .next-step-panel {
+    padding: 18px;
+  }
+
+  .case-card {
+    min-height: 72px;
+    padding: 14px 18px;
+  }
+
+  .site-footer {
+    padding: 34px 0;
+  }
+}
+
+@media (max-width: 760px) {
+  .brand-logo {
+    height: 32px;
+  }
+}
+
+
+
+@media (max-width: 720px) {
+  .site-header .header-grid {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+  }
+
+  .site-header .brand {
+    display: inline-flex !important;
+    align-items: center !important;
+    margin-right: auto !important;
+  }
+
+  .site-header .brand-logo {
+    height: 40px !important;
+  }
+
+  .site-header .menu-toggle {
+    display: inline-flex !important;
+    margin-left: auto;
+  }
+
+  .site-header .main-nav {
+    top: calc(100% + 8px) !important;
   }
 }
