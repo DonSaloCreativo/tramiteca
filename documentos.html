@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Documentos y formatos | ChileF&aacute;cil IA</title>
+  <meta name="description" content="Generador simple de documentos y formatos frecuentes para ChileF&aacute;cil IA.">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body data-page="documents">
+  <header class="site-header">
+    <div class="container header-grid">
+      <a class="brand" href="./index.html"><span class="brand-mark" aria-hidden="true">CF</span><span>ChileF&aacute;cil IA</span></a>
+      <nav class="main-nav" aria-label="Navegaci&oacute;n principal">
+        <a href="./index.html#soluciones">Soluciones</a>
+        <a href="./diagnostico.html">Diagn&oacute;stico</a>
+        <a href="./traductor.html">Traductor</a>
+        <a class="button button-small" href="./index.html">Buscar tr&aacute;mite</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="assistant-page">
+    <section class="container personalized-hub reveal" data-personalized-hub hidden></section>
+
+    <section class="container assistant-hero reveal">
+      <div>
+        <p class="section-kicker">Herramienta pr&aacute;ctica</p>
+        <h1>Documentos y formatos listos para usar</h1>
+        <p>Te ayudamos a entender cu&aacute;ndo suele servir un documento y a generar una versi&oacute;n simple con tus datos.</p>
+      </div>
+      <aside class="assistant-summary-card">
+        <strong>Orientaci&oacute;n inicial</strong>
+        <span>No reemplaza asesor&iacute;a profesional, notarial o legal cuando el caso lo requiere.</span>
+      </aside>
+    </section>
+
+    <section class="container documents-section reveal" aria-labelledby="documents-title">
+      <div class="section-heading compact">
+        <p class="section-kicker">Formatos iniciales</p>
+        <h2 id="documents-title">Elige qu&eacute; documento quieres generar</h2>
+        <p>Parte con una plantilla simple, rev&iacute;sala con calma y confirma si necesitas firma ante notario u otro requisito formal.</p>
+      </div>
+      <div class="document-grid" data-documents-list></div>
+    </section>
+
+    <section class="container document-workspace reveal" aria-labelledby="document-builder-title">
+      <article class="document-builder" data-document-builder id="document-builder-title"></article>
+
+      <aside class="document-preview-panel">
+        <div class="document-preview-header">
+          <div>
+            <p class="section-kicker">Vista previa</p>
+            <h2>Documento generado</h2>
+          </div>
+        </div>
+        <div class="document-preview" data-document-preview>
+          <p>Completa el formulario y aqu&iacute; aparecer&aacute; una vista previa lista para copiar o descargar.</p>
+        </div>
+        <div class="document-actions" data-document-actions>
+          <button class="button button-small button-secondary" type="button" data-copy-document>Copiar texto</button>
+          <button class="button button-small button-secondary" type="button" data-download-txt>Descargar .txt</button>
+          <button class="button button-small" type="button" data-download-html>Descargar HTML imprimible</button>
+        </div>
+        <p class="form-message" data-document-action-message role="status" aria-live="polite"></p>
+      </aside>
+    </section>
+
+    <section class="container notice-box document-global-notice reveal">
+      <strong>Aviso importante</strong>
+      <p>Este documento es una orientaci&oacute;n inicial y puede no reemplazar asesor&iacute;a profesional, notarial o legal seg&uacute;n el caso. Verifica requisitos en el organismo correspondiente antes de usarlo.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div><a class="brand brand-footer" href="./index.html"><span class="brand-mark" aria-hidden="true">CF</span><span>ChileF&aacute;cil IA</span></a><p>ChileF&aacute;cil IA no reemplaza a instituciones oficiales. Te ayudamos a entender mejor los tr&aacute;mites y acceder a sus canales oficiales.</p></div>
+      <nav class="footer-links" aria-label="Enlaces legales"><a href="mailto:contacto@chilefacil.example">Contacto</a><a href="#">T&eacute;rminos</a><a href="#">Privacidad</a></nav>
+    </div>
+  </footer>
+
+  <script src="./script.js"></script>
+</body>
+</html>

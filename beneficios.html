@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Revisar beneficios | ChileFácil IA</title>
+  <meta name="description" content="Guía inicial para revisar posibles beneficios y trámites relacionados en Chile.">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body data-page="assistant" data-module="beneficios">
+  <header class="site-header">
+    <div class="container header-grid">
+      <a class="brand" href="./index.html"><span class="brand-mark" aria-hidden="true">CF</span><span>ChileFácil IA</span></a>
+      <nav class="main-nav" aria-label="Navegación principal">
+        <a href="./index.html#soluciones">Soluciones</a>
+        <a href="./diagnostico.html">Diagnóstico</a>
+        <a href="./traductor.html">Traductor</a>
+        <a class="button button-small" href="./index.html">Buscar trámite</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="assistant-page">
+    <section class="container personalized-hub reveal" data-personalized-hub hidden></section>
+
+    <section class="container assistant-hero reveal">
+      <div>
+        <p class="eyebrow">Orientación inicial</p>
+        <h1>Quiero revisar beneficios</h1>
+        <p>Te sugerimos beneficios o trámites que podrías revisar según tu etapa y necesidades, como una orientación inicial y no como resultado oficial.</p>
+      </div>
+      <div class="assistant-summary-card">
+        <strong>Orientación inicial</strong>
+        <span>La confirmación depende de requisitos oficiales y revisión de cada institución.</span>
+      </div>
+    </section>
+
+    <section class="container assistant-layout">
+      <form class="assistant-form reveal" data-guide-form="beneficios">
+        <h2>Revisión rápida</h2>
+        <p>Con estas respuestas te mostraremos opciones que podrías revisar.</p>
+
+        <fieldset class="question-group">
+          <legend>¿En qué etapa estás?</legend>
+          <label><input type="radio" name="etapa" value="estudiante" required> Estudiante</label>
+          <label><input type="radio" name="etapa" value="trabajando"> Trabajando</label>
+          <label><input type="radio" name="etapa" value="sin-ingresos"> Sin ingresos</label>
+          <label><input type="radio" name="etapa" value="pensionado"> Pensionado/a</label>
+          <label><input type="radio" name="etapa" value="jefatura"> Jefe/a de hogar</label>
+        </fieldset>
+
+        <fieldset class="question-group">
+          <legend>¿Tienes hijos o personas a cargo?</legend>
+          <label><input type="radio" name="cargas" value="si" required> Sí</label>
+          <label><input type="radio" name="cargas" value="no"> No</label>
+        </fieldset>
+
+        <fieldset class="question-group">
+          <legend>¿Tienes Registro Social de Hogares?</legend>
+          <label><input type="radio" name="rsh" value="si" required> Sí</label>
+          <label><input type="radio" name="rsh" value="no"> No</label>
+          <label><input type="radio" name="rsh" value="nose"> No sé</label>
+        </fieldset>
+
+        <fieldset class="question-group">
+          <legend>¿Qué tipo de ayuda te interesa revisar?</legend>
+          <label><input type="radio" name="ayuda" value="vivienda" required> Vivienda</label>
+          <label><input type="radio" name="ayuda" value="salud"> Salud</label>
+          <label><input type="radio" name="ayuda" value="educacion"> Educación</label>
+          <label><input type="radio" name="ayuda" value="ingresos"> Ingresos o bonos</label>
+          <label><input type="radio" name="ayuda" value="nose"> No estoy seguro</label>
+        </fieldset>
+
+        <p class="form-message" data-guide-message role="status" aria-live="polite"></p>
+        <button class="button" type="submit">Ver sugerencias</button>
+      </form>
+
+      <aside class="assistant-result reveal" data-guide-result>
+        <h2>Tus sugerencias aparecerán aquí</h2>
+        <p>Mostraremos trámites relacionados y próximos pasos para revisar en canales oficiales.</p>
+      </aside>
+    </section>
+
+    <section class="container inner-opportunities reveal">
+      <p class="section-kicker">Oportunidades que podrías revisar</p>
+      <div class="insight-grid compact" data-dynamic-alerts>
+        <a class="insight-card" href="./resultados.html?q=Registro%20Social%20de%20Hogares"><span>🏠</span><strong>RSH actualizado</strong><p>Conviene revisarlo antes de postular a muchos apoyos.</p></a>
+        <a class="insight-card" href="./resultados.html?q=Fonasa"><span>🩺</span><strong>Salud y previsión</strong><p>Fonasa puede ser un buen primer chequeo.</p></a>
+        <a class="insight-card" href="./casos.html?caso=sin-ingresos"><span>🧭</span><strong>Ruta si estás sin ingresos</strong><p>Empieza por una ruta prearmada y revisa prioridades.</p></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div><a class="brand brand-footer" href="./index.html"><span class="brand-mark" aria-hidden="true">CF</span><span>ChileFácil IA</span></a><p>ChileFácil IA no reemplaza a instituciones oficiales. Te ayudamos a entender mejor los trámites y acceder a sus canales oficiales.</p></div>
+      <nav class="footer-links" aria-label="Enlaces legales"><a href="mailto:contacto@chilefacil.example">Contacto</a><a href="#">Términos</a><a href="#">Privacidad</a></nav>
+    </div>
+  </footer>
+
+  <script src="./script.js"></script>
+</body>
+</html>

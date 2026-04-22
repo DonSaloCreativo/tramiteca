@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resultados | ChileFácil IA</title>
+  <meta name="description" content="Resultados del buscador inteligente de trámites ChileFácil IA.">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body data-page="results">
+  <header class="site-header">
+    <div class="container results-header">
+      <a class="brand" href="./index.html" aria-label="Ir al inicio de ChileFácil IA">
+        <span class="brand-mark" aria-hidden="true">CF</span>
+        <span>ChileFácil IA</span>
+      </a>
+
+      <form class="search-form header-search" data-search-form novalidate>
+        <label class="sr-only" for="header-search-input">Buscar otro trámite</label>
+        <div class="search-control">
+          <input
+            id="header-search-input"
+            name="q"
+            type="search"
+            autocomplete="off"
+            data-search-input
+            aria-describedby="header-search-error"
+          >
+          <button class="button button-small" type="submit">Buscar</button>
+        </div>
+        <p class="form-message" id="header-search-error" data-form-message role="status" aria-live="polite"></p>
+      </form>
+
+      <nav class="main-nav compact-nav" aria-label="Navegación principal">
+        <a href="./index.html#soluciones">Soluciones</a>
+        <a href="./diagnostico.html">Diagnóstico</a>
+        <a href="./traductor.html">Traductor</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="container personalized-hub reveal" data-personalized-hub hidden></section>
+
+    <section class="results-shell">
+      <div class="container">
+        <div class="smart-recommendation" id="smart-recommendation" aria-live="polite"></div>
+        <div id="results-root" aria-live="polite"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <a class="brand brand-footer" href="./index.html">
+          <span class="brand-mark" aria-hidden="true">CF</span>
+          <span>ChileFácil IA</span>
+        </a>
+        <p>ChileFácil IA no reemplaza a instituciones oficiales. Te ayudamos a entender mejor los trámites y acceder a sus canales oficiales.</p>
+      </div>
+      <nav class="footer-links" aria-label="Enlaces legales">
+        <a href="mailto:contacto@chilefacil.example">Contacto</a>
+        <a href="#">Términos</a>
+        <a href="#">Privacidad</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="./script.js"></script>
+</body>
+</html>

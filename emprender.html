@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiero emprender | ChileFácil IA</title>
+  <meta name="description" content="Mini asistente para orientar los primeros pasos para emprender o formalizarse en Chile.">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body data-page="assistant" data-module="emprender">
+  <header class="site-header">
+    <div class="container header-grid">
+      <a class="brand" href="./index.html"><span class="brand-mark" aria-hidden="true">CF</span><span>ChileFácil IA</span></a>
+      <nav class="main-nav" aria-label="Navegación principal">
+        <a href="./index.html#soluciones">Soluciones</a>
+        <a href="./diagnostico.html">Diagnóstico</a>
+        <a href="./traductor.html">Traductor</a>
+        <a class="button button-small" href="./index.html">Buscar trámite</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="assistant-page">
+    <section class="container assistant-hero reveal">
+      <div>
+        <p class="eyebrow">Asistente por objetivo</p>
+        <h1>Quiero emprender</h1>
+        <p>Te ayudamos a ordenar los primeros pasos para trabajar independiente, vender productos, prestar servicios o crear una empresa.</p>
+      </div>
+      <div class="assistant-summary-card">
+        <strong>Resultado esperado</strong>
+        <span>Una ruta inicial con trámites recomendados, checklist y errores comunes.</span>
+      </div>
+    </section>
+
+    <section class="container assistant-layout">
+      <form class="assistant-form reveal" data-guide-form="emprender">
+        <h2>Cuéntanos tu situación</h2>
+        <p>Responde estas preguntas y te mostraremos un camino sugerido.</p>
+
+        <fieldset class="question-group">
+          <legend>¿Qué quieres hacer?</legend>
+          <label><input type="radio" name="objetivo" value="independiente" required> Trabajar de forma independiente</label>
+          <label><input type="radio" name="objetivo" value="empresa"> Crear una empresa</label>
+          <label><input type="radio" name="objetivo" value="productos"> Vender productos</label>
+          <label><input type="radio" name="objetivo" value="servicios"> Prestar servicios</label>
+        </fieldset>
+
+        <fieldset class="question-group">
+          <legend>¿Emitirás boletas o facturas?</legend>
+          <label><input type="radio" name="documento" value="boletas" required> Boletas</label>
+          <label><input type="radio" name="documento" value="facturas"> Facturas</label>
+          <label><input type="radio" name="documento" value="nose"> No lo sé</label>
+        </fieldset>
+
+        <fieldset class="question-group">
+          <legend>¿Trabajarás solo o con socios?</legend>
+          <label><input type="radio" name="equipo" value="solo" required> Solo</label>
+          <label><input type="radio" name="equipo" value="socios"> Con socios</label>
+          <label><input type="radio" name="equipo" value="indefinido"> Aún no lo defino</label>
+        </fieldset>
+
+        <fieldset class="question-group">
+          <legend>¿Ya tienes Clave Única o clave tributaria?</legend>
+          <label><input type="radio" name="clave" value="si" required> Sí</label>
+          <label><input type="radio" name="clave" value="no"> No</label>
+          <label><input type="radio" name="clave" value="nose"> No estoy seguro</label>
+        </fieldset>
+
+        <p class="form-message" data-guide-message role="status" aria-live="polite"></p>
+        <button class="button" type="submit">Ver orientación</button>
+      </form>
+
+      <aside class="assistant-result reveal" data-guide-result>
+        <h2>Tu orientación aparecerá aquí</h2>
+        <p>El asistente usará tus respuestas para sugerir los primeros pasos sin reemplazar asesoría profesional ni información oficial.</p>
+      </aside>
+    </section>
+
+    <section class="container inner-opportunities reveal">
+      <p class="section-kicker">Oportunidades que podrías revisar</p>
+      <div class="insight-grid compact">
+        <a class="insight-card" href="./resultados.html?q=Inicio%20de%20actividades"><span>💼</span><strong>Inicio de actividades</strong><p>Útil si vas a emitir boletas o facturas.</p></a>
+        <a class="insight-card" href="./resultados.html?q=Clave%20Unica"><span>🔐</span><strong>Clave Única</strong><p>Puede servir para validar identidad en servicios públicos.</p></a>
+        <a class="insight-card" href="./traductor.html"><span>🧠</span><strong>Traducir términos</strong><p>Entiende conceptos como giro, IVA o clave tributaria.</p></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div><a class="brand brand-footer" href="./index.html"><span class="brand-mark" aria-hidden="true">CF</span><span>ChileFácil IA</span></a><p>ChileFácil IA no reemplaza a instituciones oficiales. Te ayudamos a entender mejor los trámites y acceder a sus canales oficiales.</p></div>
+      <nav class="footer-links" aria-label="Enlaces legales"><a href="mailto:contacto@chilefacil.example">Contacto</a><a href="#">Términos</a><a href="#">Privacidad</a></nav>
+    </div>
+  </footer>
+
+  <script src="./script.js"></script>
+</body>
+</html>

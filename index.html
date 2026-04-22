@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChileFácil IA | Asistente de decisiones de vida en Chile</title>
+  <meta name="description" content="Asistente ciudadano para descubrir trámites, beneficios, rutas y próximos pasos según tu situación en Chile.">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body data-page="home">
+  <header class="site-header">
+    <div class="container header-grid">
+      <a class="brand" href="./index.html" aria-label="Ir al inicio de ChileFácil IA">
+        <span class="brand-mark" aria-hidden="true">CF</span>
+        <span>ChileFácil IA</span>
+      </a>
+
+      <nav class="main-nav" aria-label="Navegación principal">
+        <a href="#soluciones">Soluciones</a>
+        <a href="./diagnostico.html">Diagnóstico</a>
+        <a href="./traductor.html">Traductor</a>
+        <a class="button button-small" href="./beneficios.html">Revisar beneficios</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero-section" aria-labelledby="hero-title">
+      <div class="container hero-content reveal">
+        <p class="eyebrow">Asistente de decisiones de vida en Chile</p>
+        <h1 id="hero-title">Descubre qué hacer según tu situación</h1>
+        <p class="hero-subtitle">Te guiamos paso a paso según tu realidad, con rutas claras, beneficios posibles y próximos pasos útiles.</p>
+
+        <form class="search-form search-form-large" data-search-form novalidate>
+          <label class="sr-only" for="home-search">Buscar un trámite, objetivo o situación</label>
+          <div class="search-control">
+            <input id="home-search" name="q" type="search" autocomplete="off" data-search-input aria-describedby="home-search-error">
+            <button class="button" type="submit">Buscar</button>
+          </div>
+          <p class="form-message" id="home-search-error" data-form-message role="status" aria-live="polite"></p>
+        </form>
+
+        <div class="hero-actions-secondary">
+          <a class="button button-secondary button-hero" href="./diagnostico.html">No sé por dónde empezar</a>
+          <a class="button button-secondary button-hero" href="./traductor.html">Traducir un término difícil</a>
+        </div>
+
+        <div class="quick-links" aria-label="Accesos rápidos a trámites">
+          <button type="button" class="chip" data-query="Clave Única">Clave Única</button>
+          <button type="button" class="chip" data-query="Inicio de actividades">Inicio de actividades</button>
+          <button type="button" class="chip" data-query="Fonasa">Fonasa</button>
+          <button type="button" class="chip" data-query="Subsidio DS1">Subsidio DS1</button>
+          <button type="button" class="chip" data-query="Registro Social de Hogares">Registro Social de Hogares</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section objective-section" id="soluciones" aria-labelledby="objective-title">
+      <div class="container">
+        <div class="section-heading centered reveal">
+          <p class="section-kicker">Soluciones por objetivo</p>
+          <h2 id="objective-title">Elige una ruta según lo que quieres resolver</h2>
+          <p>No partas desde un trámite suelto. Parte desde tu situación.</p>
+        </div>
+
+        <div class="objective-grid">
+          <a class="objective-card reveal" href="./emprender.html">
+            <span class="objective-icon" aria-hidden="true">💼</span>
+            <span class="objective-copy">
+              <strong>Quiero emprender</strong>
+              <small>Define si partir como persona natural, empresa, boletas, facturas o permisos.</small>
+            </span>
+            <span class="objective-cta">Comenzar</span>
+          </a>
+
+          <a class="objective-card reveal" href="./casa.html">
+            <span class="objective-icon" aria-hidden="true">🏠</span>
+            <span class="objective-copy">
+              <strong>Quiero postular o comprar una casa</strong>
+              <small>Ordena RSH, ahorro, Subsidio DS1, llamados vigentes y crédito hipotecario.</small>
+            </span>
+            <span class="objective-cta">Ver guía</span>
+          </a>
+
+          <a class="objective-card reveal objective-card-featured" href="./educacion-especial.html">
+            <span class="objective-icon" aria-hidden="true">🎓</span>
+            <span class="objective-copy">
+              <strong>Busco educación especial</strong>
+              <small>Busca establecimientos y entiende diferencias entre escuela especial, lenguaje y PIE.</small>
+            </span>
+            <span class="objective-cta">Explorar</span>
+          </a>
+
+          <a class="objective-card reveal" href="./beneficios.html">
+            <span class="objective-icon" aria-hidden="true">🧾</span>
+            <span class="objective-copy">
+              <strong>Quiero revisar beneficios</strong>
+              <small>Descubre opciones posibles según etapa, cargas, RSH e intereses.</small>
+            </span>
+            <span class="objective-cta">Revisar</span>
+          </a>
+
+          <a class="objective-card reveal" href="./votacion.html">
+            <span class="objective-icon" aria-hidden="true">🗳️</span>
+            <span class="objective-copy">
+              <strong>Elecciones y votación</strong>
+              <small>Revisa tu local de votación y entiende el proceso en simples pasos.</small>
+            </span>
+            <span class="objective-cta">Ir a votación</span>
+          </a>
+          <a class="objective-card reveal" href="./revision-tecnica.html">
+            <span class="objective-icon" aria-hidden="true">&#128663;</span>
+            <span class="objective-copy">
+              <strong>Revisi&oacute;n t&eacute;cnica y veh&iacute;culo</strong>
+              <small>Encuentra plantas por comuna y prep&aacute;rate para avanzar con tu revisi&oacute;n t&eacute;cnica y permiso de circulaci&oacute;n.</small>
+            </span>
+            <span class="objective-cta">Ir al m&oacute;dulo</span>
+          </a>
+
+          <a class="objective-card reveal" href="./documentos.html">
+            <span class="objective-icon" aria-hidden="true">&#128196;</span>
+            <span class="objective-copy">
+              <strong>Documentos y formatos</strong>
+              <small>Genera documentos simples y entiende cu&aacute;ndo usarlos.</small>
+            </span>
+            <span class="objective-cta">Ir al m&oacute;dulo</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="container personalized-hub personalized-hub-home reveal" data-personalized-hub hidden></section>
+
+    <section class="section section-soft" aria-labelledby="opportunity-title">
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="section-kicker">Alertas de oportunidad</p>
+          <h2 id="opportunity-title">Oportunidades que podrías revisar</h2>
+          <p>Ideas rápidas para no perder rutas útiles según situaciones comunes.</p>
+        </div>
+
+        <div class="insight-grid" data-dynamic-alerts>
+          <a class="insight-card reveal" href="./casa.html">
+            <span>🏠</span>
+            <strong>Si ya tienes ahorro y RSH actualizado</strong>
+            <p>Podrías revisar Subsidio DS1 y llamados vigentes del Minvu.</p>
+          </a>
+          <a class="insight-card reveal" href="./resultados.html?q=Bono%20Invierno">
+            <span>☂️</span>
+            <strong>Si eres pensionado/a</strong>
+            <p>Podría interesarte revisar Bono Invierno y salud previsional.</p>
+          </a>
+          <a class="insight-card reveal" href="./emprender.html">
+            <span>💼</span>
+            <strong>Si estás trabajando independiente</strong>
+            <p>Revisa inicio de actividades antes de emitir documentos tributarios.</p>
+          </a>
+          <a class="insight-card reveal" href="./educacion-especial.html">
+            <span>🎓</span>
+            <strong>Si buscas apoyo escolar</strong>
+            <p>Explora educación especial por comuna y tipos de establecimiento.</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="cases-title">
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="section-kicker">Rutas prearmadas</p>
+          <h2 id="cases-title">Casos reales para empezar más rápido</h2>
+          <p>Elige una situación parecida a la tuya y revisa una ruta inicial.</p>
+        </div>
+
+        <div class="case-grid">
+          <a class="case-card reveal" href="./casos.html?caso=tengo-personas-a-cargo">Tengo hijos o personas a cargo</a>
+          <a class="case-card reveal" href="./casos.html?caso=quiero-emprender">Quiero emprender</a>
+          <a class="case-card reveal" href="./casos.html?caso=apoyo-escolar">Busco orientación para apoyo escolar</a>
+          <a class="case-card reveal" href="./casos.html?caso=acompano-adulto-mayor">Acompaño a una persona mayor</a>
+          <a class="case-card reveal" href="./casos.html?caso=sin-ingresos">Estoy sin ingresos</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-soft" id="busquedas-rapidas" aria-labelledby="quick-title">
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="section-kicker">Trámites generales</p>
+          <h2 id="quick-title">Búsquedas rápidas</h2>
+          <p>Accede directo si ya sabes el trámite que necesitas revisar.</p>
+        </div>
+
+        <div class="quick-task-grid">
+          <button type="button" class="quick-task reveal" data-query="Clave Única">Clave Única</button>
+          <button type="button" class="quick-task reveal" data-query="Inicio de actividades">Inicio de actividades</button>
+          <button type="button" class="quick-task reveal" data-query="Registro Social de Hogares">Registro Social de Hogares</button>
+          <button type="button" class="quick-task reveal" data-query="Licencia de conducir">Licencia de conducir</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="trust-band" id="preguntas">
+      <div class="container trust-content reveal">
+        <h2>No somos un sitio del gobierno.</h2>
+        <p>Somos una guía ciudadana independiente que traduce trámites complejos a lenguaje simple y te conecta con canales oficiales.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <a class="brand brand-footer" href="./index.html">
+          <span class="brand-mark" aria-hidden="true">CF</span>
+          <span>ChileFácil IA</span>
+        </a>
+        <p>ChileFácil IA no reemplaza a instituciones oficiales. Te ayudamos a entender mejor los trámites y acceder a sus canales oficiales.</p>
+      </div>
+      <nav class="footer-links" aria-label="Enlaces legales">
+        <a href="mailto:contacto@chilefacil.example">Contacto</a>
+        <a href="#">Términos</a>
+        <a href="#">Privacidad</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="./script.js"></script>
+</body>
+</html>

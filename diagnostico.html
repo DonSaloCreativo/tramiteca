@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>No sé por dónde empezar | ChileFácil IA</title>
+  <meta name="description" content="Mini diagnóstico ciudadano para descubrir rutas y próximos pasos útiles según tu situación en Chile.">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body data-page="diagnostico">
+  <header class="site-header">
+    <div class="container header-grid">
+      <a class="brand" href="./index.html"><span class="brand-mark" aria-hidden="true">CF</span><span>ChileFácil IA</span></a>
+      <nav class="main-nav" aria-label="Navegación principal">
+        <a href="./index.html#soluciones">Soluciones</a>
+        <a href="./traductor.html">Traductor</a>
+        <a class="button button-small" href="./index.html">Buscar trámite</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="assistant-page">
+    <section class="container personalized-hub reveal" data-personalized-hub hidden></section>
+
+    <section class="container assistant-hero reveal">
+      <div>
+        <p class="eyebrow">Mini diagnóstico</p>
+        <h1>No sé por dónde empezar</h1>
+        <p>Responde cuatro preguntas y te mostraremos una ruta inicial con herramientas del sitio que podrían ayudarte ahora.</p>
+      </div>
+      <div class="assistant-summary-card">
+        <strong>En minutos</strong>
+        <span>No es un resultado oficial. Es una orientación para ordenar próximos pasos.</span>
+      </div>
+    </section>
+
+    <section class="container assistant-layout">
+      <form class="assistant-form reveal" data-diagnostic-form>
+        <h2>Cuéntanos tu situación</h2>
+        <p>Usaremos reglas simples para sugerir una ruta inicial.</p>
+
+        <fieldset class="question-group">
+          <legend>¿Qué necesitas resolver hoy?</legend>
+          <label><input type="radio" name="necesidad" value="emprender" required> Emprender / trabajar</label>
+          <label><input type="radio" name="necesidad" value="vivienda"> Vivienda / casa</label>
+          <label><input type="radio" name="necesidad" value="educacion"> Educación / apoyo escolar</label>
+          <label><input type="radio" name="necesidad" value="salud"> Salud</label>
+          <label><input type="radio" name="necesidad" value="beneficios"> Beneficios / bonos</label>
+          <label><input type="radio" name="necesidad" value="nose"> No estoy seguro</label>
+        </fieldset>
+
+        <fieldset class="question-group">
+          <legend>¿Cuál describe mejor tu situación?</legend>
+          <label><input type="radio" name="situacion" value="cuenta-propia" required> Trabajo por cuenta propia</label>
+          <label><input type="radio" name="situacion" value="cargas"> Tengo hijos o personas a cargo</label>
+          <label><input type="radio" name="situacion" value="estudiante"> Soy estudiante</label>
+          <label><input type="radio" name="situacion" value="sin-ingresos"> Estoy sin ingresos</label>
+          <label><input type="radio" name="situacion" value="pensionado"> Soy pensionado/a</label>
+          <label><input type="radio" name="situacion" value="general"> Busco orientación general</label>
+        </fieldset>
+
+        <fieldset class="question-group">
+          <legend>¿Tienes Registro Social de Hogares?</legend>
+          <label><input type="radio" name="rsh" value="si" required> Sí</label>
+          <label><input type="radio" name="rsh" value="no"> No</label>
+          <label><input type="radio" name="rsh" value="nose"> No sé</label>
+        </fieldset>
+
+        <fieldset class="question-group">
+          <legend>¿Prefieres una respuesta rápida o una guía detallada?</legend>
+          <label><input type="radio" name="detalle" value="rapida" required> Rápida</label>
+          <label><input type="radio" name="detalle" value="detallada"> Detallada</label>
+        </fieldset>
+
+        <p class="form-message" data-diagnostic-message role="status" aria-live="polite"></p>
+        <button class="button" type="submit">Crear mi ruta inicial</button>
+      </form>
+
+      <aside class="assistant-result reveal" data-diagnostic-result>
+        <h2>Tu ruta aparecerá aquí</h2>
+        <p>Te mostraremos por dónde partir, qué revisar y qué herramienta usar primero.</p>
+      </aside>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div><a class="brand brand-footer" href="./index.html"><span class="brand-mark" aria-hidden="true">CF</span><span>ChileFácil IA</span></a><p>ChileFácil IA no reemplaza a instituciones oficiales. Te ayudamos a entender mejor los trámites y acceder a sus canales oficiales.</p></div>
+      <nav class="footer-links" aria-label="Enlaces legales"><a href="mailto:contacto@chilefacil.example">Contacto</a><a href="#">Términos</a><a href="#">Privacidad</a></nav>
+    </div>
+  </footer>
+
+  <script src="./script.js"></script>
+</body>
+</html>

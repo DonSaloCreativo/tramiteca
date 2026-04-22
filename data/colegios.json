@@ -1,0 +1,82 @@
+[
+  {
+    "nombre": "Escuela Especial Diferencial San Nectario",
+    "comuna": "La Florida",
+    "region": "Región Metropolitana",
+    "tipo": "Escuela especial",
+    "direccion": "Av. La Florida 9551",
+    "telefono": "+56 2 2850 4100",
+    "dependencia": "Particular subvencionado",
+    "fuente": "Directorio referencial para MVP"
+  },
+  {
+    "nombre": "Escuela Especial de Lenguaje Santa María",
+    "comuna": "Maipú",
+    "region": "Región Metropolitana",
+    "tipo": "Escuela de lenguaje",
+    "direccion": "Av. Pajaritos 2870",
+    "telefono": "+56 2 2766 1200",
+    "dependencia": "Particular subvencionado",
+    "fuente": "Directorio referencial para MVP"
+  },
+  {
+    "nombre": "Centro Educacional Diferencial Esperanza",
+    "comuna": "Puente Alto",
+    "region": "Región Metropolitana",
+    "tipo": "Escuela especial",
+    "direccion": "Av. Concha y Toro 1820",
+    "telefono": "+56 2 2849 3300",
+    "dependencia": "Municipal",
+    "fuente": "Directorio referencial para MVP"
+  },
+  {
+    "nombre": "Escuela Especial Amanecer",
+    "comuna": "Santiago",
+    "region": "Región Metropolitana",
+    "tipo": "Escuela especial",
+    "direccion": "San Diego 1220",
+    "telefono": "+56 2 2632 4400",
+    "dependencia": "Servicio local o municipal",
+    "fuente": "Directorio referencial para MVP"
+  },
+  {
+    "nombre": "Colegio Inclusivo Los Aromos",
+    "comuna": "Ñuñoa",
+    "region": "Región Metropolitana",
+    "tipo": "Establecimiento con PIE",
+    "direccion": "Irarrázaval 4280",
+    "telefono": "+56 2 2255 7800",
+    "dependencia": "Particular subvencionado",
+    "fuente": "Directorio referencial para MVP"
+  },
+  {
+    "nombre": "Escuela Especial Nuevo Horizonte",
+    "comuna": "Valparaíso",
+    "region": "Región de Valparaíso",
+    "tipo": "Escuela especial",
+    "direccion": "Av. Argentina 640",
+    "telefono": "+56 32 221 5400",
+    "dependencia": "Municipal",
+    "fuente": "Directorio referencial para MVP"
+  },
+  {
+    "nombre": "Escuela de Lenguaje Rayito de Sol",
+    "comuna": "Concepción",
+    "region": "Región del Biobío",
+    "tipo": "Escuela de lenguaje",
+    "direccion": "O'Higgins 980",
+    "telefono": "+56 41 222 3100",
+    "dependencia": "Particular subvencionado",
+    "fuente": "Directorio referencial para MVP"
+  },
+  {
+    "nombre": "Colegio con Programa de Integración Los Canelos",
+    "comuna": "Temuco",
+    "region": "Región de La Araucanía",
+    "tipo": "Establecimiento con PIE",
+    "direccion": "Av. Alemania 0845",
+    "telefono": "+56 45 232 1800",
+    "dependencia": "Particular subvencionado",
+    "fuente": "Directorio referencial para MVP"
+  }
+]

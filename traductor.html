@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Traductor de burocracia | ChileFácil IA</title>
+  <meta name="description" content="Herramienta simple para traducir términos y frases burocráticas a lenguaje ciudadano.">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body data-page="translator">
+  <header class="site-header">
+    <div class="container header-grid">
+      <a class="brand" href="./index.html"><span class="brand-mark" aria-hidden="true">CF</span><span>ChileFácil IA</span></a>
+      <nav class="main-nav" aria-label="Navegación principal">
+        <a href="./index.html#soluciones">Soluciones</a>
+        <a href="./diagnostico.html">Diagnóstico</a>
+        <a href="./traductor.html">Traductor</a>
+        <a class="button button-small" href="./index.html">Buscar trámite</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="assistant-page">
+    <section class="container personalized-hub reveal" data-personalized-hub hidden></section>
+
+    <section class="container assistant-hero reveal">
+      <div>
+        <p class="eyebrow">Traductor de burocracia</p>
+        <h1>Convierte términos difíciles en lenguaje simple</h1>
+        <p>Escribe una palabra, sigla o frase breve. Por ahora usamos un diccionario simple para darte una orientación inicial en lenguaje claro.</p>
+      </div>
+      <div class="assistant-summary-card">
+        <strong>Ejemplo</strong>
+        <span>“RSH” significa Registro Social de Hogares, una base usada para evaluar beneficios.</span>
+      </div>
+    </section>
+
+    <section class="container translator-layout">
+      <div class="translator-panel reveal">
+        <label for="bureaucracy-input">Término o frase</label>
+        <textarea id="bureaucracy-input" data-translate-input rows="5" placeholder="Ej: ahorro mínimo, PIE, subsidio habitacional"></textarea>
+        <button class="button" type="button" data-translate-button>Traducir</button>
+        <div class="translator-result" data-translate-result aria-live="polite">
+          <h2>En simple</h2>
+          <p>El resultado aparecerá aquí.</p>
+        </div>
+      </div>
+
+      <aside class="term-panel reveal">
+        <h2>Términos comunes</h2>
+        <p>Haz clic para completar el traductor.</p>
+        <div class="term-list">
+          <button type="button" data-term="RSH">RSH</button>
+          <button type="button" data-term="PIE">PIE</button>
+          <button type="button" data-term="DS1">DS1</button>
+          <button type="button" data-term="Clave Única">Clave Única</button>
+          <button type="button" data-term="Inicio de actividades">Inicio de actividades</button>
+          <button type="button" data-term="Giro">Giro</button>
+          <button type="button" data-term="Tramo">Tramo</button>
+          <button type="button" data-term="Carga familiar">Carga familiar</button>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div><a class="brand brand-footer" href="./index.html"><span class="brand-mark" aria-hidden="true">CF</span><span>ChileFácil IA</span></a><p>ChileFácil IA no reemplaza a instituciones oficiales. Te ayudamos a entender mejor los trámites y acceder a sus canales oficiales.</p></div>
+      <nav class="footer-links" aria-label="Enlaces legales"><a href="mailto:contacto@chilefacil.example">Contacto</a><a href="#">Términos</a><a href="#">Privacidad</a></nav>
+    </div>
+  </footer>
+
+  <script src="./script.js"></script>
+</body>
+</html>

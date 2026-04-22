@@ -1,0 +1,145 @@
+[
+  {
+    "nombre": "PRT San Dámaso Quilicura",
+    "comuna": "Quilicura",
+    "region": "Región Metropolitana",
+    "direccion": "Presidente Eduardo Frei Montalva Nº9500",
+    "telefono": "No informado",
+    "tipo_planta": "Clase B",
+    "concesionario": "San Dámaso",
+    "fuente": "PRT.cl, listado público referencial",
+    "observaciones": "Confirma horario, reserva y tipo de vehículo antes de asistir."
+  },
+  {
+    "nombre": "Chilena Revisiones Técnicas Quilicura",
+    "comuna": "Quilicura",
+    "region": "Región Metropolitana",
+    "direccion": "Senador Jaime Guzmán Errázuriz N°96",
+    "telefono": "No informado",
+    "tipo_planta": "Clase B",
+    "concesionario": "Chilena Revisiones Técnicas",
+    "fuente": "PRT.cl, listado público referencial",
+    "observaciones": "Verifica disponibilidad de reserva y documentos requeridos."
+  },
+  {
+    "nombre": "TÜV Rheinland Quilicura",
+    "comuna": "Quilicura",
+    "region": "Región Metropolitana",
+    "direccion": "Cañaveral N°450-500",
+    "telefono": "No informado",
+    "tipo_planta": "Clase B",
+    "concesionario": "TÜV Rheinland",
+    "fuente": "PRT.cl, listado público referencial",
+    "observaciones": "Revisa si atiende con reserva o por orden de llegada."
+  },
+  {
+    "nombre": "Revisiones Applus Quilicura",
+    "comuna": "Quilicura",
+    "region": "Región Metropolitana",
+    "direccion": "Galvarino N°9430",
+    "telefono": "No informado",
+    "tipo_planta": "Clase B",
+    "concesionario": "Applus Chile S.A.",
+    "fuente": "PRT.cl, listado público referencial",
+    "observaciones": "Confirma horario antes de asistir."
+  },
+  {
+    "nombre": "PRT San Dámaso Colina",
+    "comuna": "Colina",
+    "region": "Región Metropolitana",
+    "direccion": "Camino a Coquimbo S/N, Chacra El Carmen Parcela N°2, Lote N°13",
+    "telefono": "No informado",
+    "tipo_planta": "Clase AB",
+    "concesionario": "San Dámaso",
+    "fuente": "PRT.cl, listado público referencial",
+    "observaciones": "Te conviene confirmar qué clases de vehículos atiende."
+  },
+  {
+    "nombre": "PRT San Dámaso Puente Alto Santa Rosa",
+    "comuna": "Puente Alto",
+    "region": "Región Metropolitana",
+    "direccion": "Av. Santa Rosa N°659-685, Lotes L1 y L2 Las Azaleas Sector 3",
+    "telefono": "No informado",
+    "tipo_planta": "Clase B",
+    "concesionario": "San Dámaso",
+    "fuente": "PRT.cl, listado público referencial",
+    "observaciones": "Revisa demanda y posibilidad de reserva antes de ir."
+  },
+  {
+    "nombre": "PRT San Dámaso Puente Alto Eyzaguirre",
+    "comuna": "Puente Alto",
+    "region": "Región Metropolitana",
+    "direccion": "Av. Eyzaguirre N°3649",
+    "telefono": "No informado",
+    "tipo_planta": "Clase B",
+    "concesionario": "San Dámaso",
+    "fuente": "PRT.cl, listado público referencial",
+    "observaciones": "Confirma atención vigente con la planta."
+  },
+  {
+    "nombre": "PRT Vitacura Las Condes",
+    "comuna": "Vitacura",
+    "region": "Región Metropolitana",
+    "direccion": "Av. Las Condes N°10680",
+    "telefono": "02-4115221",
+    "tipo_planta": "Clase B",
+    "concesionario": "SGS, TÜV Rheinland o Autotest según información pública PRT",
+    "fuente": "PRT.cl, atención preferencial referencial",
+    "observaciones": "Confirma concesionario, horario y condiciones de atención preferencial."
+  },
+  {
+    "nombre": "PRT Cerrillos Vista Alegre",
+    "comuna": "Cerrillos",
+    "region": "Región Metropolitana",
+    "direccion": "Vista Alegre N°2253",
+    "telefono": "02-4115161",
+    "tipo_planta": "Clase B",
+    "concesionario": "SGS, TÜV Rheinland o Autotest según información pública PRT",
+    "fuente": "PRT.cl, atención preferencial referencial",
+    "observaciones": "Verifica si requiere reserva o si funciona por llegada."
+  },
+  {
+    "nombre": "PRT San Joaquín Salvador Allende",
+    "comuna": "San Joaquín",
+    "region": "Región Metropolitana",
+    "direccion": "Av. Salvador Allende N°143",
+    "telefono": "02-5529036",
+    "tipo_planta": "Clase B",
+    "concesionario": "SGS, TÜV Rheinland o Autotest según información pública PRT",
+    "fuente": "PRT.cl, atención preferencial referencial",
+    "observaciones": "Confirma horario y documentos antes de asistir."
+  },
+  {
+    "nombre": "PRT Pudahuel Vespucio",
+    "comuna": "Pudahuel",
+    "region": "Región Metropolitana",
+    "direccion": "Av. Américo Vespucio 1389-1393",
+    "telefono": "02-6019638",
+    "tipo_planta": "Clase B",
+    "concesionario": "SGS, TÜV Rheinland o Autotest según información pública PRT",
+    "fuente": "PRT.cl, atención preferencial referencial",
+    "observaciones": "Podría tener alta demanda en periodos de vencimiento."
+  },
+  {
+    "nombre": "PRT Macul Quilín",
+    "comuna": "Macul",
+    "region": "Región Metropolitana",
+    "direccion": "Av. Quilín N°1721",
+    "telefono": "02-2832387",
+    "tipo_planta": "Clase B",
+    "concesionario": "SGS, TÜV Rheinland o Autotest según información pública PRT",
+    "fuente": "PRT.cl, atención preferencial referencial",
+    "observaciones": "Confirma teléfono, horario y modalidad de atención."
+  },
+  {
+    "nombre": "PRT Las Condes Apoquindo",
+    "comuna": "Las Condes",
+    "region": "Región Metropolitana",
+    "direccion": "Av. Apoquindo N°7825",
+    "telefono": "02-2020352",
+    "tipo_planta": "Clase B",
+    "concesionario": "SGS, TÜV Rheinland o Autotest según información pública PRT",
+    "fuente": "PRT.cl, atención preferencial referencial",
+    "observaciones": "Verifica si la información se mantiene vigente antes de ir."
+  }
+]

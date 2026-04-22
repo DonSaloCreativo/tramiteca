@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Educación especial | ChileFácil IA</title>
+  <meta name="description" content="Buscador referencial de escuelas especiales, escuelas de lenguaje y establecimientos con PIE por comuna.">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body data-page="education-special">
+  <header class="site-header">
+    <div class="container header-grid">
+      <a class="brand" href="./index.html"><span class="brand-mark" aria-hidden="true">CF</span><span>ChileFácil IA</span></a>
+      <nav class="main-nav" aria-label="Navegación principal">
+        <a href="./index.html#soluciones">Soluciones</a>
+        <a href="./diagnostico.html">Diagnóstico</a>
+        <a href="./traductor.html">Traductor</a>
+        <a class="button button-small" href="./index.html">Buscar trámite</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="assistant-page">
+    <section class="container personalized-hub reveal" data-personalized-hub hidden></section>
+
+    <section class="container school-finder-hero reveal">
+      <div>
+        <span class="school-finder-badge">Versión beta</span>
+        <h1>Educación especial</h1>
+        <p>Busca por comuna escuelas especiales, escuelas de lenguaje y establecimientos con Programa de Integración Escolar. Esta herramienta está en versión beta y por ahora muestra datos referenciales de algunas comunas para ayudarte a explorar opciones.</p>
+      </div>
+      <aside class="school-finder-note" aria-label="Información importante">
+        <strong>Antes de decidir</strong>
+        <span>Confirma cupos, requisitos y modalidad directamente con el establecimiento o en canales oficiales de Mineduc.</span>
+      </aside>
+    </section>
+
+    <section class="container support-helper reveal" aria-labelledby="support-helper-title">
+      <div>
+        <p class="section-kicker">Antes de buscar</p>
+        <h2 id="support-helper-title">¿No sabes qué apoyo buscar?</h2>
+        <p>Elige una opción y te explicamos en simple qué significa. Si estás partiendo, primero identifica qué tipo de apoyo necesita el estudiante y luego revisa opciones por comuna.</p>
+      </div>
+      <div class="support-options" aria-label="Tipos de apoyo escolar">
+        <button type="button" data-support-type="especial">Escuela especial</button>
+        <button type="button" data-support-type="lenguaje">Escuela de lenguaje</button>
+        <button type="button" data-support-type="pie">PIE</button>
+        <button type="button" data-support-type="nose">No estoy seguro</button>
+      </div>
+      <div class="support-result" data-support-result aria-live="polite">
+        <strong>Ruta sugerida si estás perdido</strong>
+        <p>Parte reuniendo antecedentes del estudiante, consulta orientación profesional y luego busca establecimientos por comuna.</p>
+      </div>
+    </section>
+
+    <section class="container school-search-panel reveal" aria-labelledby="school-search-title">
+      <div class="section-heading compact">
+        <p class="section-kicker">Buscador por comuna</p>
+        <h2 id="school-search-title">Encontrar establecimientos</h2>
+        <p>Escribe una comuna y revisa datos básicos para contactar o ubicar opciones cercanas. La cobertura irá creciendo con nuevas comunas.</p>
+      </div>
+
+      <form class="school-search-form" data-school-form novalidate>
+        <div class="field-group">
+          <label for="school-commune">Comuna</label>
+          <input id="school-commune" type="search" data-school-commune placeholder="Ej: La Florida, Maipú, Valparaíso">
+        </div>
+        <button class="button" type="submit">Buscar</button>
+      </form>
+
+      <div class="school-filter-bar" aria-label="Filtrar por tipo de establecimiento">
+        <button class="school-filter is-active" type="button" data-school-filter="all" aria-pressed="true">Todos</button>
+        <button class="school-filter" type="button" data-school-filter="escuela especial" aria-pressed="false">Escuela especial</button>
+        <button class="school-filter" type="button" data-school-filter="escuela de lenguaje" aria-pressed="false">Escuela de lenguaje</button>
+        <button class="school-filter" type="button" data-school-filter="pie" aria-pressed="false">PIE</button>
+      </div>
+
+      <p class="available-communes-help" data-available-communes-help></p>
+
+      <p class="form-message" data-school-message role="status" aria-live="polite"></p>
+      <div data-school-results></div>
+
+      <div class="notice-box">
+        <strong>Información referencial</strong>
+        <p>ChileFácil IA no asigna cupos ni reemplaza la orientación oficial. Para datos completos revisa el Directorio Educación Especial de Mineduc o llama a Ayuda Mineduc 600 600 2626.</p>
+      </div>
+
+      <div class="notice-box notice-soft">
+        <strong>Cómo interpretar los resultados</strong>
+        <p>Usa las tarjetas como punto de partida: revisa tipo de establecimiento, comuna y contacto. Luego confirma directamente cupos, requisitos de ingreso y apoyos disponibles.</p>
+      </div>
+
+      <a class="button button-secondary official-button" href="https://especial.mineduc.cl/directorio-de-establecimientos/" target="_blank" rel="noopener noreferrer">Ver directorio oficial</a>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div><a class="brand brand-footer" href="./index.html"><span class="brand-mark" aria-hidden="true">CF</span><span>ChileFácil IA</span></a><p>ChileFácil IA no reemplaza a instituciones oficiales. Te ayudamos a entender mejor los trámites y acceder a sus canales oficiales.</p></div>
+      <nav class="footer-links" aria-label="Enlaces legales"><a href="mailto:contacto@chilefacil.example">Contacto</a><a href="#">Términos</a><a href="#">Privacidad</a></nav>
+    </div>
+  </footer>
+
+  <script src="./script.js"></script>
+</body>
+</html>
