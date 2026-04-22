@@ -513,7 +513,7 @@ const vehicleNextSteps = [
 ];
 
 const hasVehicleContext = () => {
-  const page = document.body?.dataset.page;
+  const page = document.body ? document.body.dataset.page : undefined;
   const query = normalizeText(getSearchText());
 
   if (page === "revision-tecnica") return true;
@@ -558,7 +558,7 @@ const renderDynamicAlerts = () => {
 const renderPersonalizedHub = () => {
   const profile = getUserProfile();
   document.querySelectorAll("[data-personalized-hub]").forEach((hub) => {
-    const isHome = document.body?.dataset.page === "home";
+    const isHome = document.body && document.body.dataset.page === "home";
 
     if (isHome && !profile) {
       hub.hidden = true;
@@ -1335,7 +1335,7 @@ const setupSchoolFinder = async () => {
 
   setupSupportHelper();
 
-  if (profile?.necesidad === "educacion") {
+  if (profile && profile.necesidad === "educacion") {
     const helper = document.querySelector(".support-helper");
     if (helper && !helper.querySelector(".profile-context-note")) {
       helper.insertAdjacentHTML("beforeend", `
@@ -1741,7 +1741,7 @@ const setSelectedDocument = (id) => {
   });
 
   const form = builder.querySelector("[data-document-form]");
-  form?.addEventListener("submit", (event) => {
+  if (form) form.addEventListener("submit", (event) => {
     event.preventDefault();
     if (!form.checkValidity()) {
       const message = form.querySelector("[data-document-message]");
@@ -1762,7 +1762,7 @@ const setSelectedDocument = (id) => {
 const downloadDocument = (type = "txt") => {
   if (!currentDocumentText) return;
 
-  const title = documentsData[selectedDocumentId]?.title || "documento";
+  const title = documentsData[selectedDocumentId] ? documentsData[selectedDocumentId].title : "documento";
   const safeName = normalizeText(title).replace(/\s+/g, "-") || "documento";
   const content = type === "html"
     ? `<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><title>${title}</title><style>body{font-family:Arial,sans-serif;line-height:1.6;max-width:760px;margin:40px auto;padding:0 24px;white-space:pre-wrap;color:#1f2937;}</style></head><body>${escapeHtml(currentDocumentText)}</body></html>`
@@ -1790,7 +1790,8 @@ const setupDocumentsPage = () => {
     button.addEventListener("click", () => setSelectedDocument(button.dataset.documentSelect));
   });
 
-  actions.querySelector("[data-copy-document]")?.addEventListener("click", async () => {
+  const copyDocumentButton = actions.querySelector("[data-copy-document]");
+  if (copyDocumentButton) copyDocumentButton.addEventListener("click", async () => {
     const message = document.querySelector("[data-document-action-message]");
     if (!currentDocumentText) {
       if (message) message.textContent = "Primero genera un documento para poder copiarlo.";
@@ -1805,8 +1806,10 @@ const setupDocumentsPage = () => {
     }
   });
 
-  actions.querySelector("[data-download-txt]")?.addEventListener("click", () => downloadDocument("txt"));
-  actions.querySelector("[data-download-html]")?.addEventListener("click", () => downloadDocument("html"));
+  const downloadTxtButton = actions.querySelector("[data-download-txt]");
+  if (downloadTxtButton) downloadTxtButton.addEventListener("click", () => downloadDocument("txt"));
+  const downloadHtmlButton = actions.querySelector("[data-download-html]");
+  if (downloadHtmlButton) downloadHtmlButton.addEventListener("click", () => downloadDocument("html"));
 
   setSelectedDocument(selectedDocumentId);
 };
@@ -2379,7 +2382,7 @@ const renderCase = (caseId) => {
   });
 
   const contextualLinks = [...data.links];
-  if (resolvedCaseId === "apoyo-escolar" && profile?.necesidad === "educacion") {
+  if (resolvedCaseId === "apoyo-escolar" && profile && profile.necesidad === "educacion") {
     contextualLinks.unshift({ label: "Buscar por comuna", href: "./educacion-especial.html" });
   }
   if (resolvedCaseId === "sin-ingresos") {
@@ -2441,55 +2444,67 @@ const setupRevealAnimations = () => {
   items.forEach((item) => observer.observe(item));
 };
 
-const setupMobileMenu = () => {
-  const toggles = Array.from(document.querySelectorAll("[data-menu-toggle]"));
-  if (!toggles.length) return;
+const resolveMobileMenuNav = (toggle) => {
+  const header = toggle.closest(".header-grid, .results-header");
+  return header ? header.querySelector(".main-nav") : null;
+};
 
-  const resolveNav = (toggle) => {
-    const header = toggle.closest(".header-grid, .results-header");
-    return header ? header.querySelector(".main-nav") : null;
-  };
-
-  const closeMenu = (toggle) => {
-    const nav = resolveNav(toggle);
+const closeAllMobileMenus = () => {
+  document.querySelectorAll("[data-menu-toggle]").forEach((toggle) => {
+    const nav = resolveMobileMenuNav(toggle);
     toggle.classList.remove("is-open");
     toggle.setAttribute("aria-expanded", "false");
     if (nav) nav.classList.remove("is-open");
-  };
+  });
+};
 
-  const closeAllMenus = () => {
-    toggles.forEach((toggle) => closeMenu(toggle));
-  };
+window.toggleMobileMenu = (toggle) => {
+  if (!toggle) return false;
+  const nav = resolveMobileMenuNav(toggle);
+  if (!nav) return false;
 
-  toggles.forEach((toggle) => {
-    const nav = resolveNav(toggle);
+  const shouldOpen = !nav.classList.contains("is-open");
+  closeAllMobileMenus();
+
+  if (shouldOpen) {
+    toggle.classList.add("is-open");
+    toggle.setAttribute("aria-expanded", "true");
+    nav.classList.add("is-open");
+  }
+
+  return false;
+};
+
+const setupMobileMenu = () => {
+  document.querySelectorAll("[data-menu-toggle]").forEach((toggle) => {
+    const nav = resolveMobileMenuNav(toggle);
     if (!nav) return;
 
     toggle.addEventListener("click", (event) => {
       event.preventDefault();
       event.stopPropagation();
-      const shouldOpen = !nav.classList.contains("is-open");
-      closeAllMenus();
-      if (shouldOpen) {
-        toggle.classList.add("is-open");
-        toggle.setAttribute("aria-expanded", "true");
-        nav.classList.add("is-open");
-      }
+      window.toggleMobileMenu(toggle);
     });
 
+    toggle.addEventListener("touchstart", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      window.toggleMobileMenu(toggle);
+    }, { passive: false });
+
     nav.querySelectorAll("a").forEach((link) => {
-      link.addEventListener("click", () => closeMenu(toggle));
+      link.addEventListener("click", closeAllMobileMenus);
     });
   });
 
   document.addEventListener("click", (event) => {
     if (!event.target.closest(".main-nav") && !event.target.closest("[data-menu-toggle]")) {
-      closeAllMenus();
+      closeAllMobileMenus();
     }
   });
 
   window.addEventListener("resize", () => {
-    if (window.innerWidth > 720) closeAllMenus();
+    if (window.innerWidth > 720) closeAllMobileMenus();
   });
 };
 document.addEventListener("DOMContentLoaded", () => {
@@ -2512,6 +2527,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // Punto de extensión: aquí se puede cargar el dataset desde un backend o una base de datos real.
   // Punto de extensión: la caja "Preguntar a la IA" puede conectarse luego a una API de IA.
 });
+
+
+
 
 
 
