@@ -1,239 +1,481 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tramiteca | Guía clara para trámites y decisiones en Chile</title>
-  <meta name="description" content="Tramiteca te ayuda a entender trámites, beneficios y próximos pasos con orientación clara y útil para la vida en Chile.">
-  <link rel="stylesheet" href="./styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LlamaBarrio - Tu comunidad conectada</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="apple-touch-icon" href="images/icon-192.png.png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#ff8f3d">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="LlamaBarrio">
 </head>
-<body data-page="home">
-  <header class="site-header">
-    <div class="container header-grid">
-      <a class="brand" href="./index.html" aria-label="Ir al inicio de Tramiteca">
-  <img src="./assets/logo.png" alt="Tramiteca" class="brand-logo">
-  <span class="brand-name">Tramiteca</span>
-</a>
-      <button class="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" data-menu-toggle onclick="toggleMobileMenu(this)">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <a href="index.html"><img src="images/logo.png" alt="LlamaBarrio" class="logo-img"></a>
+            </div>
+            <div class="nav-right desktop-only">
+                <a href="#" class="btn-recomienda" data-form-modal="tally">+ Recomienda picada</a>
+                <a href="emprendimientos.html" class="btn-emprendimientos">Pymes y servicios</a>
+                <a href="#" class="btn-negocio-blue" data-form-modal="business">Soy Local</a>
+            </div>
+        </div>
+    </nav>
 
-      <nav class="main-nav" aria-label="Navegación principal">
-        <a href="#soluciones">Soluciones</a>
-        <a href="./diagnostico.html">Diagnóstico</a>
-        <a href="./traductor.html">Traductor</a>
-        <a class="button button-small" href="./beneficios.html">Revisar beneficios</a>
-      </nav>
+    <header class="hero">
+        <div class="hero-floating-icons" aria-hidden="true">
+            <span class="float-food food-1">&#127828;</span>
+            <span class="float-food food-2">&#127829;</span>
+            <span class="float-food food-3">&#127839;</span>
+            <span class="float-food food-4">&#127790;</span>
+            <span class="float-food food-5">&#127828;</span>
+            <span class="float-food food-6">&#127829;</span>
+        </div>
+        <div class="hero-badge">Comunidad local · Datos reales</div>
+        <h1>Descubre picadas reales <span class="highlight-word">de tu barrio</span></h1>
+      <p class="hero-copy">Datos verificados por vecinos como tú</p>
+
+        <div class="search-area">
+            <div class="oval-input loc-select">
+                <span class="icon-mark">📍</span>
+                <select class="clean-select" id="comuna-select">
+                    <option value="">Todas las comunas</option>
+                    <option>Alhué</option>
+                    <option>Buin</option>
+                    <option>Calera de Tango</option>
+                    <option>Cerrillos</option>
+                    <option>Cerro Navia</option>
+                    <option>Colina</option>
+                    <option>Conchalí</option>
+                    <option>Curacaví</option>
+                    <option>El Bosque</option>
+                    <option>El Monte</option>
+                    <option>Estación Central</option>
+                    <option>Huechuraba</option>
+                    <option>Independencia</option>
+                    <option>Isla de Maipo</option>
+                    <option>La Cisterna</option>
+                    <option>La Florida</option>
+                    <option>La Granja</option>
+                    <option>La Pintana</option>
+                    <option>La Reina</option>
+                    <option>Lampa</option>
+                    <option>Las Condes</option>
+                    <option>Lo Barnechea</option>
+                    <option>Lo Espejo</option>
+                    <option>Lo Prado</option>
+                    <option>Macul</option>
+                    <option>Maipú</option>
+                    <option>María Pinto</option>
+                    <option>Melipilla</option>
+                    <option>Ñuñoa</option>
+                    <option>Padre Hurtado</option>
+                    <option>Paine</option>
+                    <option>Pedro Aguirre Cerda</option>
+                    <option>Peñaflor</option>
+                    <option>Peñalolén</option>
+                    <option>Pirque</option>
+                    <option>Providencia</option>
+                    <option>Pudahuel</option>
+                    <option>Puente Alto</option>
+                    <option>Quilicura</option>
+                    <option>Quinta Normal</option>
+                    <option>Recoleta</option>
+                    <option>Renca</option>
+                    <option>San Bernardo</option>
+                    <option>San Joaquín</option>
+                    <option>San José de Maipo</option>
+                    <option>San Miguel</option>
+                    <option>San Pedro</option>
+                    <option>San Ramón</option>
+                    <option>Santiago</option>
+                    <option>Talagante</option>
+                    <option>Tiltil</option>
+                    <option>Vitacura</option>
+                </select>
+            </div>
+            <div class="oval-input search-box">
+                <span class="icon-mark">🔎</span>
+                <input type="text" id="main-search" placeholder="Qué quieres comer o encontrar">
+            </div>
+            <button class="btn-buscar-main" type="button">Buscar</button>
+        </div>
+
+        <div class="hero-categories" id="hero-categories">
+            <button type="button" class="category-pill is-active" data-category="Todas">Todas</button>
+            <button type="button" class="category-pill" data-category="Completos">Completos</button>
+            <button type="button" class="category-pill" data-category="Panadería">Panadería</button>
+            <button type="button" class="category-pill" data-category="Cafeterías">Cafeterías</button>
+            <button type="button" class="category-pill" data-category="Pizzas">Pizzas</button>
+            <button type="button" class="category-pill" data-category="Botillería">Botillería</button>
+        </div>
+
+        <div class="mini-how-section">
+            <div class="mini-how-header">
+                <h3 class="mini-how-title">¿Cómo funciona?</h3>
+            </div>
+            <div class="mini-how-steps">
+                <div class="mini-step-item">
+                    <div class="mini-step-number">1</div>
+                    <div class="mini-step-text">Busca tu barrio y categoría</div>
+                </div>
+                <div class="mini-step-arrow">→</div>
+                <div class="mini-step-item">
+                    <div class="mini-step-number">2</div>
+                    <div class="mini-step-text">Descubre recomendaciones reales</div>
+                </div>
+                <div class="mini-step-arrow">→</div>
+                <div class="mini-step-item">
+                    <div class="mini-step-number">3</div>
+                    <div class="mini-step-text">Comparte tus mejores datos</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-wrapper">
+        <!-- JOYITAS -->
+        <section class="section-block community-section">
+            <div class="section-heading">
+                <h2 class="section-title">Joyitas de la comunidad</h2>
+                <p class="sub-small">Recomendaciones de vecinos del barrio</p>
+                <p class="mobile-swipe-hint">Desliza hacia un lado para ver más</p>
+            </div>
+            <div class="community-grid" id="joyitas-grid"></div>
+        </section>
+
+        <section class="section-block offers-section is-hidden" id="offers-section">
+            <div class="section-heading section-heading-split offers-heading">
+                <div>
+                    <h2 class="section-title">Ofertas de hoy</h2>
+                    <p class="sub-small">Avisos breves y promociones puntuales de locales publicados</p>
+                </div>
+            </div>
+            <div class="offers-feed" id="offers-feed"></div>
+        </section>
+
+        <!-- LOCALES -->
+        <section class="section-block locals-section-wrapper">
+            <div class="section-heading section-heading-split">
+                <div>
+                    <h2 class="section-title">Locales cerca tuyo</h2>
+                    <p class="sub-small" id="current-comuna-label">Todas las comunas</p>
+                </div>
+                <div class="mini-badges">
+                    <button type="button" class="mini-filter" id="open-now-filter">Abierto ahora</button>
+                </div>
+            </div>
+            <div class="locals-grid" id="locals-grid"></div>
+            <div id="load-more-hint" class="load-more-hint" hidden>
+                <p>Mostrando 10 primeros resultados</p>
+                <p style="font-size: 0.85rem; color: #999;">Usa los filtros arriba para encontrar exactamente lo que buscas</p>
+            </div>
+            <div id="no-results" class="no-results" hidden>
+                <p class="no-results-title">😕 No encontramos picadas por aquí...</p>
+                <p class="no-results-text">¡pero puedes ser el primero en recomendar una!</p>
+                <a href="#" class="btn-empty-state" data-form-modal="tally">Recomendar picada</a>
+            </div>
+        </section>
+
+        <!-- DESTACADOS (Imagen pequeña + Trending) -->
+        <section class="section-block destacados-section">
+            <h2 class="destacados-title">✨ Destacados</h2>
+            <div class="destacados-wrapper">
+                <div class="destacados-oferta">
+                    <img id="destacados-img" src="images/promocion1.png" alt="Oferta destacada" class="destacados-img">
+                </div>
+                <div class="destacados-trending">
+                    <h3 class="trending-title">🔥 Top del barrio</h3>
+                    <div class="trending-compact" id="trending-compact"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA ÚNICA: ¿TIENES UNA PICADA INCREÍBLE? -->
+        <section class="cta-banner">
+            <div class="cta-desc">
+                <strong>¿Tienes una picada increíble?</strong>
+                <span>Aparece gratis en LlamaBarrio y compártela con tu comuna.</span>
+            </div>
+            <a href="#" class="btn-contact" data-form-modal="tally">Contáctanos →</a>
+        </section>
+    </main>
+
+    <!-- FOOTER EXTENDIDO (3 COLUMNAS) -->
+    <section class="footer-extended">
+        <div class="footer-extended-container">
+            <!-- COLUMNA 1: TOP CATEGORÍAS -->
+            <div class="footer-column">
+                <h3>🏆 Top Categorías</h3>
+                <ul id="top-categories-list">
+                    <li><a href="#">Completos</a></li>
+                    <li><a href="#">Panadería</a></li>
+                    <li><a href="#">Pizzas</a></li>
+                    <li><a href="#">Botillería</a></li>
+                </ul>
+            </div>
+
+            <!-- COLUMNA 2: AYUDA -->
+            <div class="footer-column">
+                <h3>❓ Ayuda</h3>
+                <ul>
+                    <li><a href="javascript:void(0);" onclick="abrirFAQ(); return false;">Preguntas Frecuentes</a></li>
+                    <li><a href="javascript:void(0);" onclick="abrirComoUsar(); return false;">¿Cómo usar LlamaBarrio?</a></li>
+                    <li><a href="#" data-form-modal="business">Contacto para locales</a></li>
+                </ul>
+            </div>
+
+            <!-- COLUMNA 3: INFO -->
+            <div class="footer-column">
+                <h3>ℹ️ Información</h3>
+                <ul>
+                    <li><a href="javascript:void(0);" onclick="abrirQuienesSomos(); return false;">¿Quiénes somos?</a></li>
+                    <li><a href="#" class="footer-ads-link" data-form-modal="business">Publicidad para mi negocio</a></li>
+                    <li><a href="emprendimientos.html">Pymes y servicios</a></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER NEGRO -->
+    <footer class="site-footer">
+        <div class="footer-links">
+            <p>LlamaBarrio © 2026 · Creado por <a href="https://www.fullcreator.cl" target="_blank" rel="noopener noreferrer">FullCreator Lab</a></p>
+            <p><a href="#">Términos</a> · <a href="#">Privacidad</a></p>
+        </div>
+    </footer>
+
+    <!-- MODAL DE DETALLE -->
+    <div id="modal-detalle" class="modal-overlay">
+        <div class="modal-card">
+            <button type="button" onclick="cerrarModal()" class="close-btn">×</button>
+            <div class="modal-header-img"><img id="modal-img" src="" alt=""></div>
+            <div class="modal-content">
+                <span class="modal-tag" id="modal-categoria"></span>
+                <h2 id="modal-titulo"></h2>
+                <p id="modal-desc" class="modal-desc"></p>
+                <div class="modal-info-pill">
+                    <p id="modal-dir"></p>
+                    <p id="modal-hor"></p>
+                    <a id="modal-contacto" href="#"></a>
+                    <span id="modal-precio" style="font-weight:600;"></span>
+                    <span id="modal-autor" style="font-size:13px; color:#a68b66;"></span>
+                </div>
+                <a id="modal-wa" href="#" target="_blank" rel="noopener noreferrer" class="btn-wa">Enviar WhatsApp</a>
+            </div>
+        </div>
     </div>
-  </header>
 
-  <main>
-    <section class="hero-section" aria-labelledby="hero-title">
-      <div class="container hero-content reveal">
-        <p class="eyebrow">Asistente de decisiones de vida en Chile</p>
-        <h1 id="hero-title">Descubre qué hacer según tu situación</h1>
-        <p class="hero-subtitle">Te guiamos paso a paso según tu realidad, con rutas claras, beneficios posibles y próximos pasos útiles.</p>
-
-        <form class="search-form search-form-large" data-search-form novalidate>
-          <label class="sr-only" for="home-search">Buscar un trámite, objetivo o situación</label>
-          <div class="search-control">
-            <input id="home-search" name="q" type="search" autocomplete="off" data-search-input aria-describedby="home-search-error">
-            <button class="button" type="submit">Buscar</button>
-          </div>
-          <p class="form-message" id="home-search-error" data-form-message role="status" aria-live="polite"></p>
-        </form>
-
-        <div class="hero-actions-secondary">
-          <a class="button button-secondary button-hero" href="./diagnostico.html">No sé por dónde empezar</a>
-          <a class="button button-secondary button-hero" href="./traductor.html">Traducir un término difícil</a>
+    <!-- MODAL DE FORMULARIO -->
+    <div id="form-modal" class="modal-overlay">
+        <div class="form-modal-card">
+            <button type="button" class="close-btn" onclick="cerrarFormulario()">&times;</button>
+            <iframe id="form-modal-frame" src="" title="Formulario LlamaBarrio" loading="lazy"></iframe>
         </div>
-
-        <div class="quick-links" aria-label="Accesos rápidos a trámites">
-          <button type="button" class="chip" data-query="Clave Única">Clave Única</button>
-          <button type="button" class="chip" data-query="Inicio de actividades">Inicio de actividades</button>
-          <button type="button" class="chip" data-query="Fonasa">Fonasa</button>
-          <button type="button" class="chip" data-query="Subsidio DS1">Subsidio DS1</button>
-          <button type="button" class="chip" data-query="Registro Social de Hogares">Registro Social de Hogares</button>
-        </div>
-      </div>
-    </section>
-
-    <section class="section objective-section" id="soluciones" aria-labelledby="objective-title">
-      <div class="container">
-        <div class="section-heading centered reveal">
-          <p class="section-kicker">Soluciones por objetivo</p>
-          <h2 id="objective-title">Elige una ruta según lo que quieres resolver</h2>
-          <p>No partas desde un trámite suelto. Parte desde tu situación.</p>
-        </div>
-
-        <div class="objective-grid">
-          <a class="objective-card reveal" href="./emprender.html">
-            <span class="objective-icon" aria-hidden="true">💼</span>
-            <span class="objective-copy">
-              <strong>Quiero emprender</strong>
-              <small>Define si partir como persona natural, empresa, boletas, facturas o permisos.</small>
-            </span>
-            <span class="objective-cta">Comenzar</span>
-          </a>
-
-          <a class="objective-card reveal" href="./casa.html">
-            <span class="objective-icon" aria-hidden="true">🏠</span>
-            <span class="objective-copy">
-              <strong>Quiero postular o comprar una casa</strong>
-              <small>Ordena RSH, ahorro, Subsidio DS1, llamados vigentes y crédito hipotecario.</small>
-            </span>
-            <span class="objective-cta">Ver guía</span>
-          </a>
-
-          <a class="objective-card reveal objective-card-featured" href="./educacion-especial.html">
-            <span class="objective-icon" aria-hidden="true">🎓</span>
-            <span class="objective-copy">
-              <strong>Busco educación especial</strong>
-              <small>Busca establecimientos y entiende diferencias entre escuela especial, lenguaje y PIE.</small>
-            </span>
-            <span class="objective-cta">Explorar</span>
-          </a>
-
-          <a class="objective-card reveal" href="./beneficios.html">
-            <span class="objective-icon" aria-hidden="true">🧾</span>
-            <span class="objective-copy">
-              <strong>Quiero revisar beneficios</strong>
-              <small>Descubre opciones posibles según etapa, cargas, RSH e intereses.</small>
-            </span>
-            <span class="objective-cta">Revisar</span>
-          </a>
-
-          <a class="objective-card reveal" href="./votacion.html">
-            <span class="objective-icon" aria-hidden="true">🗳️</span>
-            <span class="objective-copy">
-              <strong>Elecciones y votación</strong>
-              <small>Revisa tu local de votación y entiende el proceso en simples pasos.</small>
-            </span>
-            <span class="objective-cta">Ir a votación</span>
-          </a>
-          <a class="objective-card reveal" href="./revision-tecnica.html">
-            <span class="objective-icon" aria-hidden="true">&#128663;</span>
-            <span class="objective-copy">
-              <strong>Revisi&oacute;n t&eacute;cnica y veh&iacute;culo</strong>
-              <small>Encuentra plantas por comuna y prep&aacute;rate para avanzar con tu revisi&oacute;n t&eacute;cnica y permiso de circulaci&oacute;n.</small>
-            </span>
-            <span class="objective-cta">Ir al m&oacute;dulo</span>
-          </a>
-
-          <a class="objective-card reveal" href="./documentos.html">
-            <span class="objective-icon" aria-hidden="true">&#128196;</span>
-            <span class="objective-copy">
-              <strong>Documentos y formatos</strong>
-              <small>Genera documentos simples y entiende cu&aacute;ndo usarlos.</small>
-            </span>
-            <span class="objective-cta">Ir al m&oacute;dulo</span>
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <section class="container personalized-hub personalized-hub-home reveal" data-personalized-hub hidden></section>
-
-    <section class="section section-soft" aria-labelledby="opportunity-title">
-      <div class="container">
-        <div class="section-heading reveal">
-          <p class="section-kicker">Alertas de oportunidad</p>
-          <h2 id="opportunity-title">Oportunidades que podrías revisar</h2>
-          <p>Ideas rápidas para no perder rutas útiles según situaciones comunes.</p>
-        </div>
-
-        <div class="insight-grid" data-dynamic-alerts>
-          <a class="insight-card reveal" href="./casa.html">
-            <span>🏠</span>
-            <strong>Si ya tienes ahorro y RSH actualizado</strong>
-            <p>Podrías revisar Subsidio DS1 y llamados vigentes del Minvu.</p>
-          </a>
-          <a class="insight-card reveal" href="./resultados.html?q=Bono%20Invierno">
-            <span>☂️</span>
-            <strong>Si eres pensionado/a</strong>
-            <p>Podría interesarte revisar Bono Invierno y salud previsional.</p>
-          </a>
-          <a class="insight-card reveal" href="./emprender.html">
-            <span>💼</span>
-            <strong>Si estás trabajando independiente</strong>
-            <p>Revisa inicio de actividades antes de emitir documentos tributarios.</p>
-          </a>
-          <a class="insight-card reveal" href="./educacion-especial.html">
-            <span>🎓</span>
-            <strong>Si buscas apoyo escolar</strong>
-            <p>Explora educación especial por comuna y tipos de establecimiento.</p>
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" aria-labelledby="cases-title">
-      <div class="container">
-        <div class="section-heading reveal">
-          <p class="section-kicker">Rutas prearmadas</p>
-          <h2 id="cases-title">Casos reales para empezar más rápido</h2>
-          <p>Elige una situación parecida a la tuya y revisa una ruta inicial.</p>
-        </div>
-
-        <div class="case-grid">
-          <a class="case-card reveal" href="./casos.html?caso=tengo-personas-a-cargo">Tengo hijos o personas a cargo</a>
-          <a class="case-card reveal" href="./casos.html?caso=quiero-emprender">Quiero emprender</a>
-          <a class="case-card reveal" href="./casos.html?caso=apoyo-escolar">Busco orientación para apoyo escolar</a>
-          <a class="case-card reveal" href="./casos.html?caso=acompano-adulto-mayor">Acompaño a una persona mayor</a>
-          <a class="case-card reveal" href="./casos.html?caso=sin-ingresos">Estoy sin ingresos</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="section section-soft" id="busquedas-rapidas" aria-labelledby="quick-title">
-      <div class="container">
-        <div class="section-heading reveal">
-          <p class="section-kicker">Trámites generales</p>
-          <h2 id="quick-title">Búsquedas rápidas</h2>
-          <p>Accede directo si ya sabes el trámite que necesitas revisar.</p>
-        </div>
-
-        <div class="quick-task-grid">
-          <button type="button" class="quick-task reveal" data-query="Clave Única">Clave Única</button>
-          <button type="button" class="quick-task reveal" data-query="Inicio de actividades">Inicio de actividades</button>
-          <button type="button" class="quick-task reveal" data-query="Registro Social de Hogares">Registro Social de Hogares</button>
-          <button type="button" class="quick-task reveal" data-query="Licencia de conducir">Licencia de conducir</button>
-        </div>
-      </div>
-    </section>
-
-    <section class="trust-band" id="preguntas">
-      <div class="container trust-content reveal">
-        <h2>No somos un sitio del gobierno.</h2>
-        <p>Somos una guía ciudadana independiente que traduce trámites complejos a lenguaje simple y te conecta con canales oficiales.</p>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-  <div class="container footer-grid">
-    <div>
-      <a class="brand brand-footer" href="./index.html" aria-label="Ir al inicio de Tramiteca">
-        <img src="./assets/logo.png" alt="Tramiteca" class="brand-logo brand-logo-footer">
-        <span class="brand-name">Tramiteca</span>
-      </a>
-      <p>Información clara para entender mejor tus trámites, documentos y próximos pasos.</p>
     </div>
-    <div class="footer-meta">
-      <nav class="footer-links" aria-label="Enlaces del sitio">
-        <a href="./index.html#soluciones">Soluciones</a>
-        <a href="./diagnostico.html">Diagnóstico</a>
-        <a href="./traductor.html">Traductor</a>
-      </nav>
-      <p>Creado por <a href="https://www.fullcreator.cl" target="_blank" rel="noopener noreferrer">FullCreator Lab</a></p>
-    </div>
-  </div>
-</footer>
 
-  <script src="./script.js"></script>
+    <div id="business-form-modal" class="modal-overlay">
+        <div class="business-form-card">
+            <button type="button" class="close-btn" onclick="cerrarBusinessFormulario()">&times;</button>
+            <div class="business-form-content">
+                <h2>Publicitar mi local o negocio</h2>
+                <p class="business-form-subtitle">Si eres local o persona natural y quieres contactarte por publicidad, escríbenos aquí.</p>
+                <form action="https://formsubmit.co/salomon.creativo@gmail.com" method="POST" class="business-form-grid">
+                    <input type="hidden" name="_subject" value="Nuevo contacto comercial desde LlamaBarrio">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_template" value="table">
+                    <label class="business-field">
+                        <span>Nombre</span>
+                        <input type="text" name="Nombre" required>
+                    </label>
+                    <label class="business-field">
+                        <span>Correo</span>
+                        <input type="email" name="Correo" required>
+                    </label>
+                    <label class="business-field">
+                        <span>Teléfono</span>
+                        <input type="tel" name="Telefono" required>
+                    </label>
+                    <label class="business-field business-field-full">
+                        <span>Solicitud</span>
+                        <textarea name="Solicitud" rows="5" required></textarea>
+                    </label>
+                    <button type="submit" class="btn-contact business-submit">Enviar solicitud</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL FAQ -->
+    <div id="faq-modal" class="modal-overlay">
+        <div class="faq-modal-card">
+            <button type="button" class="close-btn" onclick="cerrarFAQ()">&times;</button>
+            <div class="faq-content">
+                <h2>Preguntas Frecuentes</h2>
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            <span>¿Qué es LlamaBarrio?</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>LlamaBarrio es una plataforma comunitaria que conecta a vecinos con las mejores picadas, locales y recomendaciones de sus barrios. Funcionamos como una red local donde los datos son reales, verificados por la comunidad y sin intermediarios. Cada recomendación viene de personas como tú que conocen el barrio.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            <span>¿Cómo recomiendo una picada?</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Es muy simple. Haz clic en el botón "Recomendar picada" que encontrarás en cualquier parte de la web o en la app. Completa el formulario con:</p>
+                            <ul>
+                                <li>Nombre del local o picada</li>
+                                <li>Ubicación exacta</li>
+                                <li>Descripción de qué ofrecen</li>
+                                <li>Tu nombre (opcional)</li>
+                                <li>Una foto (opcional)</li>
+                                <li>WhatsApp del local (opcional)</li>
+                            </ul>
+                            <p>Una vez enviado, nuestro equipo verifica la información y la publica en 24-48 horas.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            <span>¿Es gratis?</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Completamente gratis. Tanto para usuarios que buscan picadas como para negocios que quieren aparecer. LlamaBarrio no cobra comisiones, no tiene publicidad invasiva y nunca venderemos tus datos. Nuestro objetivo es que la comunidad local prospere.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            <span>¿Cómo contacto a un local?</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Al ver los detalles de cualquier picada o local, encontrarás un botón "Enviar WhatsApp" que te conecta directamente con ellos. Así te aseguras de disponibilidad, precios actuales y cualquier consulta especial. Todo directo, sin intermediarios.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            <span>¿Es seguro?</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Sí. Verificamos que las recomendaciones provengan de vecinos reales de la comunidad. No permitimos spam, bots ni información falsa. Además, cada negocio es independiente y responsable de su servicio. Tus recomendaciones nos ayudan a mantener la comunidad limpia y confiable.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL CÓMO USAR -->
+    <div id="como-usar-modal" class="modal-overlay">
+        <div class="info-modal-card">
+            <button type="button" class="close-btn" onclick="cerrarComoUsar()">&times;</button>
+            <div class="info-content">
+                <h2>¿Cómo usar LlamaBarrio?</h2>
+                <div class="info-steps">
+                    <div class="info-step">
+                        <div class="step-number">1</div>
+                        <div class="step-desc">
+                            <strong>Busca tu barrio y categoría</strong>
+                            <p>Selecciona la comuna donde te encuentras y elige qué tipo de dato buscas: completos, cafeterías, pizzas, botillería u otra opción disponible.</p>
+                        </div>
+                    </div>
+                    <div class="info-step">
+                        <div class="step-number">2</div>
+                        <div class="step-desc">
+                            <strong>Descubre recomendaciones reales</strong>
+                            <p>Explora todas las picadas y locales recomendados por vecinos como tú. Lee las descripciones, mira las imágenes y conoce los horarios de atención.</p>
+                        </div>
+                    </div>
+                    <div class="info-step">
+                        <div class="step-number">3</div>
+                        <div class="step-desc">
+                            <strong>Comparte tus mejores datos</strong>
+                            <p>¿Encontraste una picada increíble? Recomiéndala en LlamaBarrio para que otros vecinos también la descubran. Así fortalecemos la comunidad local.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL QUIÉNES SOMOS -->
+    <div id="quienes-somos-modal" class="modal-overlay">
+        <div class="info-modal-card">
+            <button type="button" class="close-btn" onclick="cerrarQuienesSomos()">&times;</button>
+            <div class="info-content">
+                <h2>¿Quiénes somos?</h2>
+                <p class="about-text">LlamaBarrio conecta personas con picadas, pero no operamos ni vendemos en los locales. Cada negocio es independiente y responsable de su servicio. Nuestro objetivo es fortalecer la comunidad local, generando un espacio donde los vecinos puedan compartir sus mejores recomendaciones y descubrir opciones auténticas en sus barrios.</p>
+                <div class="about-cta-box">
+                    <p class="about-cta-text">Si eres local o persona natural y quieres contactarte por publicidad, escríbenos.</p>
+                    <a href="#" class="btn-contact about-cta-button" data-form-modal="business">Publicitar mi local o negocio</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- NAVBAR INFERIOR MÓVIL (SOLO TELÉFONO) -->
+    <div class="mobile-navbar">
+        <a href="#" class="mobile-nav-item active" data-section="inicio">
+            <span class="mobile-nav-icon">🏠</span>
+            <span class="mobile-nav-label">Inicio</span>
+        </a>
+        <a href="#" class="mobile-nav-item" data-section="joyitas">
+            <span class="mobile-nav-icon">🎁</span>
+            <span class="mobile-nav-label">Joyitas</span>
+        </a>
+        <a href="#" class="mobile-nav-item" data-form-modal="tally">
+            <span class="mobile-nav-icon">➕</span>
+            <span class="mobile-nav-label">Recomendar</span>
+        </a>
+        <a href="#" class="mobile-nav-item" data-form-modal="business">
+            <span class="mobile-nav-icon">🏪</span>
+            <span class="mobile-nav-label">Soy Local</span>
+        </a>
+        <a href="emprendimientos.html" class="mobile-nav-item">
+            <span class="mobile-nav-icon">🛍️</span>
+            <span class="mobile-nav-label">Pymes</span>
+        </a>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const destacadosImg = document.querySelector('#destacados-img');
+        if (destacadosImg) {
+            const promoImages = ['images/promocion1.png', 'images/promocion2.png', 'images/promocion3.png'];
+            let idx = 0;
+            destacadosImg.src = promoImages[idx];
+            setInterval(() => {
+                idx = (idx + 1) % promoImages.length;
+                destacadosImg.src = promoImages[idx];
+            }, 8000);
+        }
+
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('./sw.js').catch(function(error) {
+                    console.error('Service worker registration failed:', error);
+                });
+            });
+        }
+    });
+    </script>
 </body>
 </html>
-
-

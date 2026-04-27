@@ -1,2583 +1,1038 @@
-﻿const tramites = [
-  {
-    id: "clave-unica",
-    titulo: "Clave Única",
-    resumen: "Código personal para acceder a servicios digitales del Estado de Chile.",
-    descripcion: "La Clave Única permite identificarte en plataformas públicas y realizar trámites en línea sin ir a una oficina. Es gratuita y se puede obtener por internet o presencialmente.",
-    institucion: "Registro Civil",
-    tiempo: "10 a 20 minutos",
-    dificultad: "Baja",
-    modalidad: "Online o presencial",
-    requisitos: ["Cédula de identidad vigente.", "Correo electrónico personal.", "Teléfono o dispositivo para completar la verificación."],
-    pasos: ["Ingresa al sitio oficial del Registro Civil o ChileAtiende.", "Solicita el código de activación y valida tu identidad.", "Crea tu contraseña y guarda tus datos de acceso en un lugar seguro."],
-    errores_comunes: ["Usar un correo al que no tienes acceso.", "Confundir el código de activación con la contraseña final.", "No revisar la vigencia de la cédula antes de comenzar."],
-    documentos: ["Cédula de identidad"],
-    relacionadas: ["certificado-antecedentes", "registro-social-hogares", "fonasa"],
-    url: "https://www.chileatiende.gob.cl/fichas/11331-claveunica",
-    categoria: "Identidad y certificados"
-  },
-  {
-    id: "inicio-actividades",
-    titulo: "Inicio de actividades",
-    resumen: "Aviso al SII para comenzar una actividad económica como persona o empresa.",
-    descripcion: "El inicio de actividades informa al Servicio de Impuestos Internos que empezarás a emitir boletas, facturas o desarrollar una actividad comercial. Es un paso clave para emprender formalmente.",
-    institucion: "Servicio de Impuestos Internos",
-    tiempo: "15 a 30 minutos",
-    dificultad: "Media",
-    modalidad: "Online",
-    requisitos: ["RUT o Clave Tributaria.", "Definir la actividad económica que realizarás.", "Domicilio tributario actualizado."],
-    pasos: ["Entra al sitio del SII con tus credenciales.", "Busca la opción de inicio de actividades.", "Completa el giro, dirección y datos solicitados.", "Revisa el resumen y confirma el envío."],
-    errores_comunes: ["Elegir un giro que no representa tu actividad real.", "Ingresar un domicilio tributario incompleto.", "No revisar si necesitas documentos adicionales por tu tipo de actividad."],
-    documentos: ["RUT", "Clave Tributaria", "Antecedentes del domicilio"],
-    relacionadas: ["operacion-renta", "permiso-circulacion", "clave-unica"],
-    url: "https://www.sii.cl",
-    categoria: "Trabajo e impuestos"
-  },
-  {
-    id: "fonasa",
-    titulo: "Afiliación a Fonasa",
-    resumen: "Inscripción al sistema público de salud para acceder a cobertura médica.",
-    descripcion: "La afiliación a Fonasa permite recibir cobertura en la red pública y comprar bonos de atención. Pueden inscribirse trabajadores, pensionados, personas sin ingresos y cargas familiares.",
-    institucion: "Fonasa",
-    tiempo: "10 a 25 minutos",
-    dificultad: "Baja",
-    modalidad: "Online o presencial",
-    requisitos: ["Cédula de identidad.", "Clave Única para el trámite online.", "Antecedentes laborales o previsionales si corresponde."],
-    pasos: ["Ingresa al sitio de Fonasa o ChileAtiende.", "Selecciona la solicitud de afiliación.", "Completa tus datos y adjunta antecedentes si se piden.", "Descarga o guarda el comprobante."],
-    errores_comunes: ["No declarar correctamente las cargas familiares.", "No actualizar datos después de cambiar de trabajo.", "Intentar afiliarse sin tener documentos básicos a mano."],
-    documentos: ["Cédula de identidad", "Contrato o liquidación si aplica", "Certificado de cargas si aplica"],
-    relacionadas: ["clave-unica", "registro-social-hogares", "bono-invierno"],
-    url: "https://www.fonasa.cl",
-    categoria: "Salud y previsión"
-  },
-  {
-    id: "subsidio-ds1",
-    titulo: "Subsidio DS1",
-    resumen: "Apoyo estatal para comprar o construir una vivienda para familias de sectores medios.",
-    descripcion: "El Subsidio DS1 ayuda a familias que tienen capacidad de ahorro y buscan comprar o construir una vivienda. La postulación depende del tramo, ahorro mínimo y Registro Social de Hogares.",
-    institucion: "Ministerio de Vivienda y Urbanismo",
-    tiempo: "Según calendario de postulación",
-    dificultad: "Media",
-    modalidad: "Online",
-    requisitos: ["Cuenta de ahorro para la vivienda.", "Ahorro mínimo depositado antes de la fecha exigida.", "Registro Social de Hogares actualizado.", "No ser propietario de una vivienda, salvo excepciones."],
-    pasos: ["Revisa el llamado vigente del Minvu.", "Comprueba tu tramo y ahorro mínimo.", "Ingresa con Clave Única al portal de postulación.", "Completa la solicitud y guarda el comprobante."],
-    errores_comunes: ["Depositar el ahorro después de la fecha límite.", "No actualizar el Registro Social de Hogares.", "Postular a un tramo que no corresponde a tu situación."],
-    documentos: ["Clave Única", "Cuenta de ahorro", "Registro Social de Hogares"],
-    relacionadas: ["registro-social-hogares", "clave-unica", "bono-invierno"],
-    url: "https://www.minvu.gob.cl",
-    categoria: "Vivienda y subsidios"
-  },
-  {
-    id: "permiso-circulacion",
-    titulo: "Permiso de circulación",
-    resumen: "Pago anual que autoriza a un vehículo a circular legalmente.",
-    descripcion: "El permiso de circulación se paga cada año en una municipalidad. Para obtenerlo debes tener al día la revisión técnica, SOAP, multas y otros antecedentes del vehículo.",
-    institucion: "Municipalidades",
-    tiempo: "10 a 30 minutos",
-    dificultad: "Baja",
-    modalidad: "Online o presencial",
-    requisitos: ["Permiso anterior.", "SOAP vigente.", "Revisión técnica y gases al día.", "No registrar multas impagas asociadas al vehículo."],
-    pasos: ["Entra al portal de la municipalidad donde pagarás.", "Ingresa la patente del vehículo.", "Revisa antecedentes y multas.", "Paga y descarga el comprobante."],
-    errores_comunes: ["Comprar el SOAP con datos incorrectos.", "Olvidar revisar multas pendientes.", "Pagar fuera del plazo y generar intereses o multas."],
-    documentos: ["Permiso anterior", "SOAP", "Revisión técnica"],
-    relacionadas: ["licencia-conducir", "certificado-antecedentes", "inicio-actividades"],
-    url: "https://www.chileatiende.gob.cl",
-    categoria: "Transporte"
-  },
-  {
-    id: "certificado-antecedentes",
-    titulo: "Certificado de antecedentes",
-    resumen: "Documento que informa si una persona registra antecedentes penales.",
-    descripcion: "Este certificado se solicita para fines particulares, laborales u otros trámites. Puede obtenerse en línea con Clave Única o presencialmente en oficinas habilitadas.",
-    institucion: "Registro Civil",
-    tiempo: "5 a 10 minutos",
-    dificultad: "Baja",
-    modalidad: "Online o presencial",
-    requisitos: ["Cédula de identidad.", "Clave Única para solicitarlo por internet.", "Seleccionar el tipo de certificado requerido."],
-    pasos: ["Ingresa al portal del Registro Civil.", "Selecciona certificado de antecedentes.", "Autentícate con Clave Única.", "Descarga el certificado en PDF."],
-    errores_comunes: ["Elegir un certificado distinto al solicitado.", "No revisar el objetivo del documento antes de descargarlo.", "Usar una Clave Única bloqueada o desactualizada."],
-    documentos: ["Clave Única", "Cédula de identidad"],
-    relacionadas: ["clave-unica", "licencia-conducir", "registro-social-hogares"],
-    url: "https://www.registrocivil.cl",
-    categoria: "Identidad y certificados"
-  },
-  {
-    id: "operacion-renta",
-    titulo: "Operación Renta",
-    resumen: "Proceso anual para declarar ingresos y revisar devolución o pago de impuestos.",
-    descripcion: "La Operación Renta permite declarar ingresos del año anterior. El SII suele proponer una declaración, pero es importante revisar los datos antes de enviarla.",
-    institucion: "Servicio de Impuestos Internos",
-    tiempo: "20 a 45 minutos",
-    dificultad: "Media",
-    modalidad: "Online",
-    requisitos: ["Clave Tributaria o Clave Única.", "Información de ingresos, boletas, sueldos o inversiones.", "Datos bancarios si corresponde devolución."],
-    pasos: ["Ingresa al portal de renta del SII.", "Revisa la propuesta de declaración.", "Corrige o agrega información si falta.", "Envía la declaración y guarda el comprobante."],
-    errores_comunes: ["Enviar sin revisar boletas o retenciones.", "Ingresar una cuenta bancaria incorrecta.", "No declarar ingresos adicionales cuando corresponde."],
-    documentos: ["Clave Tributaria", "Comprobantes de ingresos", "Datos bancarios"],
-    relacionadas: ["inicio-actividades", "clave-unica", "registro-social-hogares"],
-    url: "https://www.sii.cl",
-    categoria: "Trabajo e impuestos"
-  },
-  {
-    id: "registro-social-hogares",
-    titulo: "Registro Social de Hogares",
-    resumen: "Sistema que clasifica hogares para acceder a beneficios sociales.",
-    descripcion: "El Registro Social de Hogares reúne información del grupo familiar, ingresos y domicilio. Mantenerlo actualizado ayuda a postular correctamente a beneficios del Estado.",
-    institucion: "Ministerio de Desarrollo Social y Familia",
-    tiempo: "20 a 40 minutos",
-    dificultad: "Media",
-    modalidad: "Online o municipal",
-    requisitos: ["Clave Única.", "Datos de quienes viven en el hogar.", "Documentos que acrediten domicilio o composición familiar si se solicitan."],
-    pasos: ["Ingresa al portal del Registro Social de Hogares.", "Revisa tu cartola actual.", "Solicita actualización si hay cambios.", "Adjunta documentos y espera la revisión."],
-    errores_comunes: ["No incluir a todos los integrantes del hogar.", "Mantener un domicilio antiguo.", "No adjuntar documentos cuando el sistema los solicita."],
-    documentos: ["Clave Única", "Comprobante de domicilio", "Documentos familiares si aplica"],
-    relacionadas: ["subsidio-ds1", "bono-invierno", "fonasa"],
-    url: "https://registrosocial.gob.cl",
-    categoria: "Beneficios sociales"
-  },
-  {
-    id: "licencia-conducir",
-    titulo: "Licencia de conducir",
-    resumen: "Documento municipal que habilita a conducir vehículos según la clase autorizada.",
-    descripcion: "La licencia de conducir se solicita en la municipalidad correspondiente. Normalmente incluye examen médico, teórico y práctico, además de documentos personales.",
-    institucion: "Municipalidades",
-    tiempo: "Variable según agenda municipal",
-    dificultad: "Media",
-    modalidad: "Presencial",
-    requisitos: ["Cédula de identidad vigente.", "Certificado de estudios, según clase solicitada.", "Rendir exámenes exigidos por la municipalidad."],
-    pasos: ["Agenda hora en tu municipalidad.", "Reúne documentos personales y certificado de estudios.", "Rinde examen médico, teórico y práctico.", "Paga los derechos municipales si apruebas."],
-    errores_comunes: ["Llegar sin certificado de estudios.", "No estudiar el material oficial para el examen teórico.", "Agendar en una municipalidad que no corresponde a tu domicilio."],
-    documentos: ["Cédula de identidad", "Certificado de estudios", "Comprobante de domicilio si lo piden"],
-    relacionadas: ["permiso-circulacion", "certificado-antecedentes", "clave-unica"],
-    url: "https://www.chileatiende.gob.cl",
-    categoria: "Transporte"
-  },
-  {
-    id: "bono-invierno",
-    titulo: "Bono Invierno",
-    resumen: "Beneficio estatal para apoyar a personas pensionadas durante los meses fríos.",
-    descripcion: "El Bono Invierno es un aporte que se paga a personas que cumplen requisitos de edad, pensión y situación previsional. Generalmente se entrega de forma automática si corresponde.",
-    institucion: "Instituto de Previsión Social",
-    tiempo: "Pago según calendario anual",
-    dificultad: "Baja",
-    modalidad: "Automático o consulta online",
-    requisitos: ["Cumplir edad mínima definida para el beneficio.", "Recibir una pensión que califique.", "No superar límites o condiciones establecidos para el año."],
-    pasos: ["Revisa si cumples las condiciones generales.", "Consulta con tu RUT en canales oficiales.", "Verifica fecha y forma de pago.", "Solicita orientación si no aparece el beneficio y crees cumplir requisitos."],
-    errores_comunes: ["Asumir que requiere postulación cuando suele ser automático.", "No revisar la institución pagadora.", "Confundirlo con otros bonos estacionales."],
-    documentos: ["Cédula de identidad", "Datos de pensión"],
-    relacionadas: ["fonasa", "registro-social-hogares", "subsidio-ds1"],
-    url: "https://www.chileatiende.gob.cl",
-    categoria: "Beneficios sociales"
-  }
-];
+﻿const API_BASE = "https://script.google.com/macros/s/AKfycbzbdLTbh0a9sVSC7DOB04QrLLANsSak2pd4qQE2GqZ1BSDqwtgD69vot3R2MQk-GFV0uw/exec";
+const formUrls = {
+    tally: "https://tally.so/r/ja7DOQ",
+    business: "https://forms.gle/k3VE5zWxYB5Fxrdk6"
+};
+let locales = [];
+let joyitas = [];
+let ofertasHoy = [];
 
-let establecimientosDiferenciales = [];
-let schoolsDataLoadError = false;
-let schoolsDataLoadPromise = null;
-let activeSchoolFilter = "all";
-let plantasPrt = [];
-let prtDataLoadError = false;
-let prtDataLoadPromise = null;
-let activePrtFilter = "all";
+function normalizeFieldName(value) {
+    return String(value || "")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .replace(/[^a-z0-9]/g, "");
+}
 
-const loadSchoolsData = async () => {
-  if (schoolsDataLoadPromise) return schoolsDataLoadPromise;
+function normalizeSearchText(value) {
+    return String(value || "")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .replace(/[^a-z0-9\s,]/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+}
 
-  schoolsDataLoadPromise = fetch("./data/colegios.json")
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(`No se pudo cargar colegios.json (${response.status})`);
-      }
-      return response.json();
-    })
-    .then((data) => {
-      establecimientosDiferenciales = Array.isArray(data) ? data : [];
-      schoolsDataLoadError = false;
-      return establecimientosDiferenciales;
-    })
-    .catch((error) => {
-      console.error("Error al cargar establecimientos diferenciales:", error);
-      establecimientosDiferenciales = [];
-      schoolsDataLoadError = true;
-      return establecimientosDiferenciales;
+function getSearchVariants(term) {
+    const normalized = normalizeSearchText(term);
+    if (!normalized) return [];
+
+    const variants = new Set([normalized]);
+    const words = normalized.split(" ").filter(Boolean);
+
+    words.forEach((word) => {
+        variants.add(word);
+
+        if (word.endsWith("es") && word.length > 3) {
+            variants.add(word.slice(0, -2));
+        }
+
+        if (word.endsWith("s") && word.length > 2) {
+            variants.add(word.slice(0, -1));
+        }
+
+        if (!word.endsWith("s")) {
+            variants.add(`${word}s`);
+            variants.add(`${word}es`);
+        }
     });
 
-  return schoolsDataLoadPromise;
-};
+    return Array.from(variants);
+}
 
-const loadPrtData = async () => {
-  if (prtDataLoadPromise) return prtDataLoadPromise;
+function getFieldValue(source, preferredKeys = [], partialKeys = []) {
+    if (!source || typeof source !== "object") return "";
 
-  prtDataLoadPromise = fetch("./data/plantas-prt.json")
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(`No se pudo cargar plantas-prt.json (${response.status})`);
-      }
-      return response.json();
-    })
-    .then((data) => {
-      plantasPrt = Array.isArray(data) ? data : [];
-      prtDataLoadError = false;
-      return plantasPrt;
-    })
-    .catch((error) => {
-      console.error("Error al cargar plantas de revisión técnica:", error);
-      plantasPrt = [];
-      prtDataLoadError = true;
-      return plantasPrt;
-    });
+    for (const key of preferredKeys) {
+        if (source[key] !== undefined && source[key] !== null && String(source[key]).trim() !== "") {
+            return String(source[key]).trim();
+        }
+    }
 
-  return prtDataLoadPromise;
-};
+    const entries = Object.entries(source);
+    for (const [rawKey, rawValue] of entries) {
+        if (rawValue === undefined || rawValue === null || String(rawValue).trim() === "") continue;
+        const normalizedKey = normalizeFieldName(rawKey);
+        if (partialKeys.some((partial) => normalizedKey.includes(normalizeFieldName(partial)))) {
+            return String(rawValue).trim();
+        }
+    }
 
-const placeholderExamples = [
-  "¿Cómo saco mi Clave Única?",
-  "Pasos para iniciar actividades",
-  "Cómo postular al subsidio DS1",
-  "Certificado de antecedentes",
-  "Cómo afiliarme a Fonasa"
-];
+    return "";
+}
 
-const bureaucracyDictionary = {
-  rsh: {
-    title: "Registro Social de Hogares",
-    simple: "Es una base de información sobre tu hogar que muchas instituciones usan para evaluar beneficios.",
-    related: ["Registro Social de Hogares", "Subsidio DS1", "beneficios sociales"]
-  },
-  pie: {
-    title: "Programa de Integración Escolar",
-    simple: "Es un apoyo dentro de algunos establecimientos para estudiantes que requieren ayudas educativas específicas.",
-    related: ["educación especial", "escuela especial", "apoyo escolar"]
-  },
-  ds1: {
-    title: "Subsidio DS1",
-    simple: "Es un apoyo habitacional para familias de sectores medios que quieren comprar o construir vivienda y cumplen requisitos.",
-    related: ["ahorro mínimo", "vivienda", "Minvu"]
-  },
-  "clave unica": {
-    title: "Clave Única",
-    simple: "Es una contraseña personal para entrar a servicios digitales del Estado y hacer trámites en línea.",
-    related: ["Registro Civil", "ChileAtiende"]
-  },
-  "inicio de actividades": {
-    title: "Inicio de actividades",
-    simple: "Es avisarle al SII que empezarás una actividad económica para emitir boletas, facturas o trabajar formalmente.",
-    related: ["SII", "giro", "boletas"]
-  },
-  giro: {
-    title: "Giro",
-    simple: "Es la actividad económica que declaras ante el SII. Debe parecerse a lo que realmente vendes o haces.",
-    related: ["inicio de actividades", "SII"]
-  },
-  tramo: {
-    title: "Tramo",
-    simple: "Es una clasificación que puede usarse para ordenar hogares, ingresos o cobertura, según el sistema del trámite.",
-    related: ["RSH", "Fonasa"]
-  },
-  dependencia: {
-    title: "Dependencia",
-    simple: "En educación, indica quién administra o financia principalmente un establecimiento: municipal, particular subvencionado, particular, entre otros.",
-    related: ["educación especial", "colegios"]
-  },
-  "subsidio habitacional": {
-    title: "Subsidio habitacional",
-    simple: "Es un apoyo del Estado para comprar, construir, arrendar o mejorar una vivienda, según el programa y requisitos.",
-    related: ["Subsidio DS1", "Minvu", "ahorro vivienda"]
-  },
-  "ahorro minimo": {
-    title: "Ahorro mínimo",
-    simple: "Es el monto que debes tener guardado antes de una fecha definida para postular a ciertos subsidios.",
-    related: ["Subsidio DS1", "cuenta de ahorro"]
-  },
-  "carga familiar": {
-    title: "Carga familiar",
-    simple: "Es una persona que depende económicamente de otra y puede influir en beneficios, salud o asignaciones.",
-    related: ["beneficios", "RSH", "Fonasa"]
-  }
-};
+function getScheduleValue(source, preferredKeys = [], partialKeys = []) {
+    return getFieldValue(source, preferredKeys, partialKeys);
+}
 
-const casesData = {
-  "tengo-personas-a-cargo": {
-    title: "Tengo hijos o personas a cargo",
-    summary: "Podrías partir por ordenar datos del hogar, salud, apoyos familiares y educación.",
-    steps: ["Revisa o actualiza tu Registro Social de Hogares.", "Ten a mano datos de hijos o personas a cargo.", "Revisa Fonasa y beneficios familiares.", "Explora apoyos de educación si corresponde.", "Usa el perfilador de beneficios para priorizar."],
-    recommendations: ["Registro Social de Hogares", "Fonasa", "Beneficios familiares", "Educación y cuidados"],
-    links: [
-      { label: "Revisar beneficios", href: "./beneficios.html" },
-      { label: "Ver RSH", href: "./resultados.html?q=Registro%20Social%20de%20Hogares" }
-    ]
-  },
-  "quiero-emprender": {
-    title: "Quiero emprender",
-    summary: "La ruta inicial suele ser ordenar acceso, formalización básica y documentos tributarios.",
-    steps: ["Valida Clave Única o clave tributaria.", "Define giro y si operarás como persona natural o empresa.", "Revisa inicio de actividades.", "Define boletas o facturas.", "Evalúa permisos si vendes alimentos u otros productos regulados."],
-    recommendations: ["Inicio de actividades", "Giro", "Boletas o facturas"],
-    links: [
-      { label: "Ir a emprender", href: "./emprender.html" },
-      { label: "Ver inicio de actividades", href: "./resultados.html?q=Inicio%20de%20actividades" }
-    ]
-  },
-  "apoyo-escolar": {
-    title: "Busco orientación para apoyo escolar",
-    summary: "Primero conviene entender el tipo de apoyo y luego revisar opciones por comuna.",
-    steps: ["Reúne antecedentes del estudiante.", "Distingue escuela especial, escuela de lenguaje y PIE.", "Busca opciones por comuna.", "Contacta establecimientos y confirma cupos.", "Consulta canales oficiales de Mineduc."],
-    recommendations: ["Educación especial", "PIE", "Escuela de lenguaje"],
-    links: [
-      { label: "Buscar educación especial", href: "./educacion-especial.html" },
-      { label: "Traducir PIE", href: "./traductor.html" }
-    ]
-  },
-  "acompano-adulto-mayor": {
-    title: "Acompaño a una persona mayor",
-    summary: "Podrías revisar salud, Registro Social de Hogares y beneficios para pensionados o personas mayores.",
-    steps: ["Confirma datos del hogar en RSH.", "Revisa Fonasa o cobertura de salud.", "Consulta posibles bonos o apoyos.", "Ten documentos de pensión a mano.", "Usa beneficios para priorizar opciones."],
-    recommendations: ["Bono Invierno", "Fonasa", "Registro Social de Hogares"],
-    links: [
-      { label: "Ver Bono Invierno", href: "./resultados.html?q=Bono%20Invierno" },
-      { label: "Revisar beneficios", href: "./beneficios.html" }
-    ]
-  },
-  "sin-ingresos": {
-    title: "Estoy sin ingresos y no sé por dónde partir",
-    summary: "La prioridad suele ser ordenar RSH, salud y apoyos de ingresos antes de trámites más específicos.",
-    steps: ["Revisa si tienes Registro Social de Hogares.", "Actualiza integrantes y domicilio.", "Revisa Fonasa.", "Explora beneficios o bonos vigentes.", "Define si necesitas ruta laboral, vivienda o apoyo familiar."],
-    recommendations: ["RSH", "Fonasa", "Beneficios", "Diagnóstico inicial"],
-    links: [
-      { label: "Hacer diagnóstico", href: "./diagnostico.html" },
-      { label: "Revisar beneficios", href: "./beneficios.html" }
-    ]
-  }
-};
+function getTodaySchedule(local) {
+    const hoy = new Date().getDay();
+    if (hoy >= 1 && hoy <= 5) return local.horLV || "";
+    if (hoy === 6) return local.horS || "";
+    return local.horD || "";
+}
 
-const caseAliases = {
-  "mama-soltera": "tengo-personas-a-cargo",
-  "emprender-internet": "quiero-emprender",
-  "adulto-mayor": "acompano-adulto-mayor"
-};
+function getScheduleSummary(local) {
+    const bloques = [];
+    if (local.horLV) bloques.push(`L-V: ${local.horLV}`);
+    if (local.horS) bloques.push(`Sáb: ${local.horS}`);
+    if (local.horD) bloques.push(`Dom: ${local.horD}`);
+    return bloques.join(" | ");
+}
 
-const normalizeText = (text) =>
-  String(text || "")
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[¿?.,]/g, "")
-    .trim();
+function getScheduleSummaryHtml(local) {
+    const bloques = [];
+    if (local.horLV) bloques.push(`L-V: ${local.horLV}`);
+    if (local.horS) bloques.push(`Sáb: ${local.horS}`);
+    if (local.horD) bloques.push(`Dom: ${local.horD}`);
+    return bloques.join("<br>");
+}
 
-const USER_PROFILE_KEY = "chilefacil_userProfile";
+function getPriorityValue(source) {
+    const raw = getFieldValue(source, ["Prioridad", "prioridad"], ["prioridad"]);
+    const normalized = String(raw || "").trim().toLowerCase();
 
-const saveUserProfile = (data) => {
-  const current = getUserProfile();
-  const profile = {
-    ...current,
-    ...data,
-    ultimaInteraccion: Date.now()
-  };
+    if (!normalized) return 999;
+    if (/^\d+$/.test(normalized)) return Number(normalized);
+    if (normalized === "destacado" || normalized === "premium") return 1;
+    if (normalized === "media") return 2;
+    if (normalized === "normal") return 3;
 
-  localStorage.setItem(USER_PROFILE_KEY, JSON.stringify(profile));
-  return profile;
-};
+    return 999;
+}
 
-const getUserProfile = () => {
-  try {
-    return JSON.parse(localStorage.getItem(USER_PROFILE_KEY)) || null;
-  } catch (error) {
-    console.warn("No se pudo leer el perfil guardado:", error);
+function parseDateValue(value) {
+    const raw = String(value || "").trim();
+    if (!raw) return null;
+
+    const isoMatch = raw.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    if (isoMatch) {
+        const [, year, month, day] = isoMatch;
+        return new Date(Number(year), Number(month) - 1, Number(day), 0, 0, 0, 0);
+    }
+
+    const slashMatch = raw.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})$/);
+    if (slashMatch) {
+        const [, day, month, year] = slashMatch;
+        return new Date(Number(year), Number(month) - 1, Number(day), 0, 0, 0, 0);
+    }
+
+    const parsed = new Date(raw);
+    return Number.isNaN(parsed.getTime()) ? null : parsed;
+}
+
+function parseDurationMs(value) {
+    const raw = String(value || "")
+        .trim()
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+    if (!raw) return null;
+
+    const match = raw.match(/(\d+)\s*(hora|horas|dia|dias|semana|semanas|mes|meses)/);
+    if (!match) return null;
+
+    const amount = Number(match[1]);
+    const unit = match[2];
+
+    if (unit.startsWith("hora")) return amount * 60 * 60 * 1000;
+    if (unit.startsWith("dia")) return amount * 24 * 60 * 60 * 1000;
+    if (unit.startsWith("semana")) return amount * 7 * 24 * 60 * 60 * 1000;
+    if (unit.startsWith("mes")) return amount * 30 * 24 * 60 * 60 * 1000;
+
     return null;
-  }
-};
+}
 
-const hasUserProfile = () => Boolean(getUserProfile());
+function isOfferActive(oferta) {
+    if (!oferta.desde || !oferta.tiempoMs) return true;
 
-const generateDynamicAlerts = (profile = getUserProfile()) => {
-  const alerts = [];
+    const start = parseDateValue(oferta.desde);
+    if (!start) return true;
 
-  if (!profile) {
-    return [
-      { icon: "🗳️", title: "¿Tienes que votar pronto?", text: "Revisa tu local de votación en segundos desde el sitio oficial.", href: "./votacion.html" },
-      { icon: "🚗", title: "Revisión técnica y permiso", text: "Podrías buscar una planta por comuna antes de renovar documentos del vehículo.", href: "./revision-tecnica.html" },
-      { icon: "🧭", title: "No sabes por dónde partir", text: "Haz un diagnóstico rápido y recibe una ruta inicial.", href: "./diagnostico.html" },
-      { icon: "🧾", title: "Revisar beneficios sin promesas", text: "Explora apoyos posibles según tu situación.", href: "./beneficios.html" }
-    ];
-  }
+    const expiresAt = start.getTime() + oferta.tiempoMs;
+    return Date.now() <= expiresAt;
+}
 
-  if (profile.situacion === "sin-ingresos" || profile.etapa === "sin-ingresos") {
-    alerts.push({ icon: "🧾", title: "Podrías priorizar ingresos y RSH", text: "Revisa apoyos de ingresos y datos del Registro Social de Hogares.", href: "./beneficios.html?modo=perfil" });
-    alerts.push({ icon: "🏠", title: "Clasificación social actualizada", text: "Explora beneficios que suelen usar información del hogar.", href: "./resultados.html?q=Registro%20Social%20de%20Hogares" });
-  }
+function getOfferExpiryDate(oferta) {
+    if (!oferta.desde || !oferta.tiempoMs) return null;
 
-  if (profile.necesidad === "vivienda" || profile.interes === "vivienda" || profile.ayuda === "vivienda") {
-    alerts.push({ icon: "🏠", title: "Ordena ahorro + RSH", text: "Antes de postular, revisa RSH, ahorro y llamado vigente.", href: "./casa.html" });
-    alerts.push({ icon: "🧾", title: "Subsidio DS1 podría ser relevante", text: "Revísalo si ya tienes ahorro y estás mirando vivienda.", href: "./resultados.html?q=Subsidio%20DS1" });
-  }
+    const start = parseDateValue(oferta.desde);
+    if (!start) return null;
 
-  if (profile.cargas === "si" || profile.situacion === "cargas") {
-    alerts.push({ icon: "👨‍👩‍👧", title: "Apoyos familiares", text: "Podrías revisar beneficios asociados a cargas y composición del hogar.", href: "./beneficios.html?modo=perfil" });
-    alerts.push({ icon: "🎓", title: "Educación y cuidados", text: "Si buscas apoyo escolar, revisa educación especial por comuna.", href: "./educacion-especial.html" });
-  }
+    return new Date(start.getTime() + oferta.tiempoMs);
+}
 
-  if (profile.necesidad === "educacion") {
-    alerts.push({ icon: "🎓", title: "Esto podría servir para apoyo escolar", text: "Compara escuela especial, escuela de lenguaje y PIE.", href: "./educacion-especial.html" });
-  }
+function formatDateDisplay(date) {
+    if (!(date instanceof Date) || Number.isNaN(date.getTime())) return "";
 
-  if (profile.necesidad === "emprender" || profile.situacion === "cuenta-propia") {
-    alerts.push({ icon: "💼", title: "Formalización inicial", text: "Revisa inicio de actividades, giro y documentos tributarios.", href: "./emprender.html" });
-  }
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+}
 
-  if (profile.situacion === "pensionado" || profile.etapa === "pensionado") {
-    alerts.push({ icon: "☂️", title: "Persona pensionada", text: "Podrías revisar Bono Invierno y cobertura de salud.", href: "./resultados.html?q=Bono%20Invierno" });
-  }
+function fetchSheetData(sheetName) {
+    return fetch(`${API_BASE}?hoja=${encodeURIComponent(sheetName)}`)
+        .then((response) => response.json())
+        .catch(() => []);
+}
 
-  if (profile.necesidad === "transporte" || profile.interes === "vehiculo" || profile.vehiculo === "si") {
-    alerts.push({ icon: "🚗", title: "Permiso y revisión técnica", text: "Si estás resolviendo documentos del vehículo, revisa también plantas de revisión técnica por comuna.", href: "./revision-tecnica.html" });
-  }
+function fetchOffersData() {
+    return fetchSheetData("Ofertas de hoy").then((data) => {
+        if (Array.isArray(data) && data.length) return data;
+        return fetchSheetData("Ofertas Hoy");
+    });
+}
 
-  return alerts.slice(0, 4);
-};
+function getPhoneHref(value) {
+    const raw = String(value || "").trim();
+    if (!raw) return "";
+    if (/sin contacto/i.test(raw)) return "";
 
-const generateNextSteps = (profile = getUserProfile()) => {
-  const steps = [];
+    let digits = raw.replace(/\D/g, "");
+    if (!digits) return "";
 
-  const addStep = (text, href) => {
-    const exists = steps.some((step) => step.text === text || step.href === href);
-    if (!exists) {
-      steps.push({ text, href });
-    }
-  };
-
-  if (!profile) {
-    return [
-      { text: "Haz el diagnóstico inicial", href: "./diagnostico.html" },
-      { text: "Explora una ruta por objetivo", href: "./index.html#soluciones" },
-      { text: "Revisa trámites básicos como Clave Única", href: "./resultados.html?q=Clave%20Unica" }
-    ];
-  }
-
-  if (profile.situacion === "sin-ingresos" || profile.etapa === "sin-ingresos") {
-    addStep("Verifica si tienes Registro Social de Hogares", "./resultados.html?q=Registro%20Social%20de%20Hogares");
-    addStep("Revisa tu situación en Fonasa", "./resultados.html?q=Fonasa");
-    addStep("Explora apoyos de ingresos disponibles", "./beneficios.html?modo=perfil");
-  }
-
-  if (profile.necesidad === "vivienda" || profile.interes === "vivienda" || profile.ayuda === "vivienda") {
-    addStep("Confirma si tienes ahorro para vivienda", "./casa.html");
-    addStep("Revisa tu tramo en el Registro Social de Hogares", "./resultados.html?q=Registro%20Social%20de%20Hogares");
-    addStep("Explora Subsidio DS1", "./resultados.html?q=Subsidio%20DS1");
-  }
-
-  if (profile.situacion === "cargas" || profile.cargas === "si") {
-    addStep("Actualiza datos de tu hogar en el RSH", "./resultados.html?q=Registro%20Social%20de%20Hogares");
-    addStep("Revisa apoyos familiares disponibles", "./beneficios.html?modo=perfil");
-    addStep("Evalúa educación o cuidado si aplica", "./educacion-especial.html");
-  }
-
-  if (profile.necesidad === "educacion") {
-    addStep("Compara escuela especial, lenguaje y PIE", "./educacion-especial.html");
-    addStep("Revisa apoyos familiares disponibles", "./beneficios.html?modo=perfil");
-    addStep("Traduce términos como PIE o dependencia", "./traductor.html");
-  }
-
-  if (profile.necesidad === "emprender" || profile.situacion === "cuenta-propia") {
-    addStep("Confirma si tienes Clave Única o clave tributaria", "./resultados.html?q=Clave%20Unica");
-    addStep("Revisa Inicio de Actividades", "./resultados.html?q=Inicio%20de%20actividades");
-    addStep("Define si operarás como persona natural o empresa", "./emprender.html");
-  }
-
-  if (profile.situacion === "pensionado" || profile.etapa === "pensionado") {
-    addStep("Podrías revisar Bono Invierno", "./resultados.html?q=Bono%20Invierno");
-    addStep("Revisa tu situación en Fonasa", "./resultados.html?q=Fonasa");
-    addStep("Explora beneficios relacionados", "./beneficios.html?modo=perfil");
-  }
-
-  if (profile.necesidad === "transporte" || profile.interes === "vehiculo" || profile.vehiculo === "si") {
-    addStep("Busca una planta de revisión técnica por comuna", "./revision-tecnica.html");
-    addStep("Revisa permiso de circulación", "./resultados.html?q=Permiso%20de%20circulaci%C3%B3n");
-  }
-
-  if (profile.rsh === "no" || profile.rsh === "nose") {
-    addStep("Te recomendamos empezar por revisar tu RSH", "./resultados.html?q=Registro%20Social%20de%20Hogares");
-  }
-
-  if (!steps.length) {
-    addStep("Actualiza tu diagnóstico inicial", "./diagnostico.html");
-    addStep("Revisa beneficios sugeridos para tu situación", "./beneficios.html?modo=perfil");
-    addStep("Traduce términos difíciles antes de postular", "./traductor.html");
-  }
-
-  return steps.slice(0, 5);
-};
-
-const vehicleNextSteps = [
-  { text: "Busca una planta por comuna", href: "./revision-tecnica.html" },
-  { text: "Revisa documentos del vehículo", href: "./revision-tecnica.html#antes-de-ir" },
-  { text: "Revisa permiso de circulación", href: "./resultados.html?q=Permiso%20de%20circulaci%C3%B3n" }
-];
-
-const hasVehicleContext = () => {
-  const page = document.body ? document.body.dataset.page : undefined;
-  const query = normalizeText(getSearchText());
-
-  if (page === "revision-tecnica") return true;
-
-  return [
-    "permiso de circulacion",
-    "revision tecnica",
-    "prt",
-    "vehiculo",
-    "licencia de conducir",
-    "transporte"
-  ].some((term) => query.includes(term));
-};
-
-const mergePrioritySteps = (prioritySteps, baseSteps) => {
-  const merged = [];
-  [...prioritySteps, ...baseSteps].forEach((step) => {
-    const exists = merged.some((item) => item.href === step.href || item.text === step.text);
-    if (!exists) merged.push(step);
-  });
-
-  return merged.slice(0, 3);
-};
-
-const renderAlertCards = (alerts) =>
-  alerts.map((alert) => `
-    <a class="insight-card reveal" href="${alert.href}">
-      <span>${alert.icon}</span>
-      <strong>${alert.title}</strong>
-      <p>${alert.text}</p>
-    </a>
-  `).join("");
-
-const renderDynamicAlerts = () => {
-  document.querySelectorAll("[data-dynamic-alerts]").forEach((container) => {
-    container.innerHTML = renderAlertCards(generateDynamicAlerts());
-    setupRevealAnimations();
-  setupMobileMenu();
-  setupMobileNavState();
-  });
-};
-
-const renderPersonalizedHub = () => {
-  const profile = getUserProfile();
-  document.querySelectorAll("[data-personalized-hub]").forEach((hub) => {
-    const isHome = document.body && document.body.dataset.page === "home";
-
-    if (isHome && !profile) {
-      hub.hidden = true;
-      return;
+    if (digits.startsWith("56")) {
+        return `tel:+${digits}`;
     }
 
-    const steps = hasVehicleContext()
-      ? mergePrioritySteps(vehicleNextSteps, generateNextSteps(profile))
-      : generateNextSteps(profile).slice(0, 3);
-    const intro = profile
-      ? "Te dejamos acciones simples para avanzar sin perderte entre trámites."
-      : "Te recomendamos estas acciones simples para partir con claridad.";
-    const title = profile ? "Recomendado para ti" : "Primeros pasos sugeridos";
-
-    hub.hidden = false;
-    hub.innerHTML = `
-      <div class="next-step-panel">
-        <div class="next-step-copy">
-          <p class="section-kicker">${profile ? "Basado en tu situación" : "Para empezar"}</p>
-          <h2>${title}</h2>
-          <p>${intro}</p>
-        </div>
-        <ol class="next-step-list" aria-label="Pasos sugeridos">
-          ${steps.map((step, index) => `
-            <li>
-              <a href="${step.href}">
-                <span aria-hidden="true">${index + 1}</span>
-                <strong>${step.text}</strong>
-              </a>
-            </li>
-          `).join("")}
-        </ol>
-        <div class="personalized-actions">
-          <a class="button button-small button-secondary" href="./diagnostico.html">${profile ? "Actualizar diagnóstico" : "Hacer diagnóstico"}</a>
-          <a class="button button-small" href="./beneficios.html?modo=perfil">Ver beneficios</a>
-        </div>
-      </div>
-    `;
-  });
-};
-
-const getTramiteById = (id) => tramites.find((item) => item.id === id);
-
-const getSearchText = () => {
-  const params = new URLSearchParams(window.location.search);
-  return params.get("q") || "";
-};
-
-const getPageMode = () => {
-  const params = new URLSearchParams(window.location.search);
-  return params.get("modo") || "";
-};
-
-const specialModules = [
-  {
-    id: "emprender",
-    url: "./emprender.html",
-    keywords: [
-      "emprender",
-      "emprendimiento",
-      "iniciar negocio",
-      "crear empresa",
-      "vender",
-      "prestar servicios",
-      "trabajar independiente",
-      "formalizarme"
-    ]
-  },
-  {
-    id: "casa",
-    url: "./casa.html",
-    keywords: [
-      "casa",
-      "vivienda",
-      "comprar casa",
-      "comprar vivienda",
-      "subsidio habitacional",
-      "subsidio vivienda",
-      "postular casa",
-      "postular vivienda",
-      "credito hipotecario",
-      "ahorro vivienda"
-    ]
-  },
-  {
-    id: "educacion-especial",
-    url: "./educacion-especial.html",
-    keywords: [
-      "educacion especial",
-      "educación especial",
-      "educacion diferencial",
-      "educación diferencial",
-      "colegio especial",
-      "colegios especiales",
-      "escuela especial",
-      "escuelas especiales",
-      "escuela de lenguaje",
-      "pie",
-      "programa de integracion escolar",
-      "programa de integración escolar"
-    ]
-  },
-  {
-    id: "beneficios",
-    url: "./beneficios.html",
-    keywords: [
-      "beneficios",
-      "bonos",
-      "ayudas",
-      "subsidios",
-      "que beneficios tengo",
-      "qué beneficios tengo",
-      "beneficios sociales",
-      "ayuda del estado",
-      "apoyo estatal"
-    ]
-  },
-  {
-    id: "diagnostico",
-    url: "./diagnostico.html",
-    keywords: [
-      "no se por donde empezar",
-      "no sé por dónde empezar",
-      "orientacion general",
-      "orientación general",
-      "que hago",
-      "qué hago",
-      "ayudame",
-      "guia personal"
-    ]
-  },
-  {
-    id: "traductor",
-    url: "./traductor.html",
-    keywords: [
-      "traducir",
-      "no entiendo",
-      "que significa",
-      "qué significa",
-      "termino dificil",
-      "término difícil",
-      "burocracia"
-    ]
-  },
-  {
-    id: "revision-tecnica",
-    url: "./revision-tecnica.html",
-    keywords: [
-      "revision tecnica",
-      "revisión técnica",
-      "planta revision tecnica",
-      "planta revisión técnica",
-      "plantas revision tecnica",
-      "plantas revisión técnica",
-      "prt",
-      "donde hacer revision tecnica",
-      "dónde hacer revisión técnica",
-      "revisar auto",
-      "documentos del vehiculo",
-      "documentos del vehículo"
-    ]
-  },
-  {
-    id: "documentos-formatos",
-    url: "./documentos.html",
-    keywords: [
-      "documentos",
-      "formatos",
-      "plantillas",
-      "poder simple",
-      "declaracion jurada",
-      "declaración jurada",
-      "carta poder",
-      "contrato simple",
-      "contrato prestacion servicios",
-      "contrato prestación servicios",
-      "prestacion de servicios",
-      "prestación de servicios"
-    ]
-  }
-];
-
-const specificTramiteAliases = [
-  "clave unica",
-  "inicio de actividades",
-  "fonasa",
-  "subsidio ds1",
-  "permiso de circulacion",
-  "certificado de antecedentes",
-  "operacion renta",
-  "registro social de hogares",
-  "licencia de conducir",
-  "bono invierno"
-];
-
-const goToResults = (query) => {
-  window.location.href = `./resultados.html?q=${encodeURIComponent(query)}`;
-};
-
-const keywordMatches = (normalizedQuery, normalizedKeyword) => {
-  if (!normalizedKeyword) return false;
-
-  if (normalizedKeyword.length <= 3) {
-    return normalizedQuery.split(/\s+/).includes(normalizedKeyword);
-  }
-
-  return normalizedQuery.includes(normalizedKeyword);
-};
-
-const hasSpecificTramiteIntent = (query) => {
-  const normalizedQuery = normalizeText(query);
-
-  return specificTramiteAliases.some((alias) => {
-    const normalizedAlias = normalizeText(alias);
-    return keywordMatches(normalizedQuery, normalizedAlias);
-  });
-};
-
-const getSpecialModuleMatch = (query) => {
-  if (hasSpecificTramiteIntent(query)) return null;
-
-  const normalizedQuery = normalizeText(query);
-  if (!normalizedQuery) return null;
-
-  return specialModules.find((module) =>
-    module.keywords.some((keyword) => keywordMatches(normalizedQuery, normalizeText(keyword)))
-  ) || null;
-};
-
-const navigateSearch = (query) => {
-  const moduleMatch = getSpecialModuleMatch(query);
-
-  if (moduleMatch) {
-    window.location.href = moduleMatch.url;
-    return;
-  }
-
-  goToResults(query);
-};
-
-const showMessage = (form, message) => {
-  const messageEl = form.querySelector("[data-form-message]");
-  if (messageEl) messageEl.textContent = message;
-};
-
-const escapeHtml = (text) =>
-  String(text || "")
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
-
-const setupSearchForms = () => {
-  document.querySelectorAll("[data-search-form]").forEach((form) => {
-    const input = form.querySelector("[data-search-input]");
-    if (!input) return;
-
-    form.addEventListener("submit", (event) => {
-      event.preventDefault();
-      const query = input.value.trim();
-
-      if (!query) {
-        showMessage(form, "Escribe el nombre de un trámite para comenzar.");
-        input.focus();
-        return;
-      }
-
-      showMessage(form, "");
-      navigateSearch(query);
-    });
-
-    input.addEventListener("input", () => showMessage(form, ""));
-  });
-};
-
-const setupHomeInteractions = () => {
-  const homeInput = document.querySelector("#home-search");
-  if (!homeInput) return;
-
-  let index = 0;
-  homeInput.placeholder = placeholderExamples[index];
-
-  setInterval(() => {
-    if (document.activeElement === homeInput || homeInput.value.trim()) return;
-    index = (index + 1) % placeholderExamples.length;
-    homeInput.placeholder = placeholderExamples[index];
-  }, 3000);
-
-  document.querySelectorAll("[data-query]").forEach((button) => {
-    button.addEventListener("click", () => {
-      const query = button.dataset.query;
-      homeInput.value = query;
-      navigateSearch(query);
-    });
-  });
-};
-
-const findBestMatch = (query) => {
-  const normalizedQuery = normalizeText(query);
-  if (!normalizedQuery) return null;
-
-  const exact = tramites.find((item) => normalizeText(item.titulo) === normalizedQuery);
-  if (exact) return exact;
-
-  const partial = tramites.find((item) => {
-    const title = normalizeText(item.titulo);
-    const category = normalizeText(item.categoria);
-    return title.includes(normalizedQuery) || normalizedQuery.includes(title) || category.includes(normalizedQuery);
-  });
-
-  if (partial) return partial;
-
-  const words = normalizedQuery.split(/\s+/).filter((word) => word.length > 2);
-  return tramites.find((item) => {
-    const haystack = normalizeText(`${item.titulo} ${item.resumen} ${item.categoria}`);
-    return words.some((word) => haystack.includes(word));
-  }) || null;
-};
-
-const getSuggestions = (query, limit = 3) => {
-  const normalizedQuery = normalizeText(query);
-  const words = normalizedQuery.split(/\s+/).filter((word) => word.length > 2);
-
-  const scored = tramites.map((item) => {
-    const haystack = normalizeText(`${item.titulo} ${item.resumen} ${item.categoria}`);
-    const score = words.reduce((total, word) => total + (haystack.includes(word) ? 1 : 0), 0);
-    return { item, score };
-  });
-
-  const best = scored
-    .filter(({ score }) => score > 0)
-    .sort((a, b) => b.score - a.score)
-    .map(({ item }) => item);
-
-  return (best.length ? best : tramites.slice(0, 5)).slice(0, limit);
-};
-
-const createList = (items, ordered = false) => {
-  const tag = ordered ? "ol" : "ul";
-  const className = ordered ? "step-list" : "clean-list";
-  return `<${tag} class="${className}">${items.map((item) => `<li>${item}</li>`).join("")}</${tag}>`;
-};
-
-const renderRelatedCards = (ids) =>
-  ids
-    .map(getTramiteById)
-    .filter(Boolean)
-    .map((item) => `
-      <a class="info-card reveal" href="./resultados.html?q=${encodeURIComponent(item.titulo)}">
-        <span class="card-icon" aria-hidden="true">${getCategoryIcon(item.categoria)}</span>
-        <h3>${item.titulo}</h3>
-        <p>${item.resumen}</p>
-      </a>
-    `)
-    .join("");
-
-const getCategoryIcon = (category) => {
-  const normalized = normalizeText(category);
-  if (normalized.includes("identidad")) return "🪪";
-  if (normalized.includes("salud")) return "🩺";
-  if (normalized.includes("vivienda")) return "🏡";
-  if (normalized.includes("trabajo")) return "💼";
-  if (normalized.includes("transporte")) return "🚗";
-  return "📌";
-};
-
-const renderVehicleContextAlert = (tramite) => {
-  const text = normalizeText(`${tramite.titulo} ${tramite.categoria} ${tramite.resumen}`);
-  const isVehicleRelated = ["permiso de circulacion", "licencia de conducir", "transporte", "vehiculo"].some((term) => text.includes(term));
-
-  if (!isVehicleRelated) return "";
-
-  return `
-    <section class="notice-box notice-soft vehicle-context-box reveal">
-      <strong>También podría servirte</strong>
-      <p>Si estás resolviendo documentos del vehículo, te conviene revisar también una planta de revisión técnica por comuna antes de avanzar.</p>
-      <a class="button button-small button-secondary" href="./revision-tecnica.html">Buscar planta de revisión técnica</a>
-    </section>
-  `;
-};
-
-const getSmartRecommendations = (query) => {
-  const normalizedQuery = normalizeText(query);
-  const recommendations = [];
-  const addRecommendation = (title, text, href) => {
-    const exists = recommendations.some((item) => item.title === title || item.href === href);
-    if (!exists) recommendations.push({ title, text, href });
-  };
-
-  if (normalizedQuery.includes("emprender") || normalizedQuery.includes("empresa") || normalizedQuery.includes("negocio")) {
-    addRecommendation("Partir por Inicio de Actividades", "Si quieres formalizarte, suele ser una de las primeras revisiones útiles.", "./resultados.html?q=Inicio%20de%20actividades");
-    addRecommendation("Confirmar Clave Única", "Te conviene revisar si ya tienes acceso activo para hacer gestiones en línea.", "./resultados.html?q=Clave%20Unica");
-  }
-
-  if (normalizedQuery.includes("beneficio") || normalizedQuery.includes("bono") || normalizedQuery.includes("ayuda")) {
-    addRecommendation("Revisar tu RSH", "Muchos beneficios usan esa información para orientar la revisión inicial.", "./resultados.html?q=Registro%20Social%20de%20Hogares");
-    addRecommendation("Explorar beneficios guiados", "Puedes partir por una orientación simple antes de revisar requisitos oficiales.", "./beneficios.html?modo=perfil");
-  }
-
-  if (normalizedQuery.includes("casa") || normalizedQuery.includes("vivienda") || normalizedQuery.includes("subsidio")) {
-    addRecommendation("Mirar Subsidio DS1", "Es una de las primeras rutas a revisar si estás pensando en compra o postulación habitacional.", "./resultados.html?q=Subsidio%20DS1");
-    addRecommendation("Ordenar ahorro y RSH", "Antes de postular, te conviene aclarar ahorro disponible y situación del hogar.", "./casa.html");
-  }
-
-  if (normalizedQuery.includes("salud") || normalizedQuery.includes("fonasa")) {
-    addRecommendation("Revisar Fonasa", "Puede ser un buen punto de partida para salud, cobertura y cargas familiares.", "./resultados.html?q=Fonasa");
-  }
-
-  if (normalizedQuery.includes("auto") || normalizedQuery.includes("vehiculo") || normalizedQuery.includes("vehículo") || normalizedQuery.includes("circulacion") || normalizedQuery.includes("circulación")) {
-    addRecommendation("Revisar permiso de circulación", "Te conviene confirmar documentos y pasos antes de pagar o renovar.", "./resultados.html?q=Permiso%20de%20circulaci%C3%B3n");
-    addRecommendation("Buscar revisión técnica", "Si estás resolviendo temas del vehículo, una planta por comuna puede ser el siguiente paso útil.", "./revision-tecnica.html");
-  }
-
-  if (!recommendations.length) {
-    addRecommendation("Partir por el diagnóstico", "Si la búsqueda es amplia, una ruta guiada puede ayudarte a ordenar el primer paso.", "./diagnostico.html");
-    addRecommendation("Traducir un término difícil", "Cuando una palabra traba la búsqueda, conviene aclararla antes de seguir.", "./traductor.html");
-  }
-
-  return recommendations.slice(0, 3);
-};
-
-const renderSmartRecommendation = (query) => {
-  const container = document.querySelector("#smart-recommendation");
-  if (!container) return;
-
-  const recommendations = getSmartRecommendations(query);
-  container.innerHTML = `
-    <section class="smart-recommendation-box reveal" aria-labelledby="smart-recommendation-title">
-      <div class="smart-recommendation-copy">
-        <p class="section-kicker">Recomendación rápida</p>
-        <h2 id="smart-recommendation-title">Esto es lo más relevante para ti ahora</h2>
-        <p>Según lo que buscaste, te recomendamos partir por esto.</p>
-      </div>
-      <div class="smart-recommendation-list">
-        ${recommendations.map((item) => `
-          <article class="smart-recommendation-card">
-            <h3>${item.title}</h3>
-            <p>${item.text}</p>
-            <a class="button button-small button-secondary" href="${item.href}">Ver pasos</a>
-          </article>
-        `).join("")}
-      </div>
-    </section>
-  `;
-};
-
-const renderResult = (tramite) => {
-  const root = document.querySelector("#results-root");
-  if (!root) return;
-
-  document.title = `${tramite.titulo} | Tramiteca`;
-  renderSmartRecommendation(getSearchText() || tramite.titulo);
-
-  root.innerHTML = `
-    <article class="result-hero reveal">
-      <p class="eyebrow">${tramite.categoria}</p>
-      <h1>${tramite.titulo}</h1>
-      <p class="result-summary">${tramite.resumen}</p>
-      <div class="metadata-row" aria-label="Datos principales del trámite">
-        <span class="meta-pill">Institución: <strong>${tramite.institucion}</strong></span>
-        <span class="meta-pill">Tiempo: <strong>${tramite.tiempo}</strong></span>
-        <span class="meta-pill difficulty-${normalizeText(tramite.dificultad)}">Dificultad: <strong>${tramite.dificultad}</strong></span>
-      </div>
-    </article>
-
-    <div class="content-layout">
-      <div>
-        <article class="content-main reveal">
-          <section class="content-section">
-            <h2>Qué es este trámite</h2>
-            <p>${tramite.descripcion}</p>
-          </section>
-
-          <section class="content-section">
-            <h2>Requisitos</h2>
-            ${createList(tramite.requisitos)}
-          </section>
-
-          <section class="content-section">
-            <h2>Pasos para realizarlo</h2>
-            ${createList(tramite.pasos, true)}
-          </section>
-
-          <section class="content-section">
-            <h2>Errores comunes o recomendaciones</h2>
-            ${createList(tramite.errores_comunes)}
-          </section>
-
-          ${renderVehicleContextAlert(tramite)}
-
-          <a class="button official-button" href="${tramite.url}" target="_blank" rel="noopener noreferrer">Ir al sitio oficial</a>
-        </article>
-
-        <section class="ai-box reveal" aria-labelledby="ai-help-title">
-          <h2 id="ai-help-title">Haz una pregunta sobre este trámite</h2>
-          <p>Escribe tu duda y te mostraremos cómo funcionará el asistente dentro del producto.</p>
-          <form class="ai-form" data-ai-form>
-            <label class="sr-only" for="ai-question">Pregunta sobre ${tramite.titulo}</label>
-            <input id="ai-question" type="text" placeholder="Ej: ¿Puedo hacerlo online?">
-            <button class="button" type="submit">Preguntar</button>
-          </form>
-          <p class="ai-response" data-ai-response role="status" aria-live="polite">Próximamente podrás conversar con el asistente IA sobre este trámite.</p>
-        </section>
-      </div>
-
-      <aside class="side-panel reveal" aria-label="Resumen del trámite">
-        <section class="side-block">
-          <h2>Resumen rápido</h2>
-          <div class="side-data">
-            <div class="data-item"><span>Institución</span><strong>${tramite.institucion}</strong></div>
-            <div class="data-item"><span>Tiempo estimado</span><strong>${tramite.tiempo}</strong></div>
-            <div class="data-item"><span>Modalidad</span><strong>${tramite.modalidad}</strong></div>
-          </div>
-        </section>
-
-        <section class="side-block">
-          <h3>Documentos clave</h3>
-          <ul class="side-list">${tramite.documentos.map((doc) => `<li>${doc}</li>`).join("")}</ul>
-        </section>
-
-        <section class="side-block">
-          <h3>Preguntas relacionadas</h3>
-          ${tramite.relacionadas.map(getTramiteById).filter(Boolean).map((item) => `
-            <a class="related-question" href="./resultados.html?q=${encodeURIComponent(item.titulo)}">${item.titulo}</a>
-          `).join("")}
-        </section>
-      </aside>
-    </div>
-
-    <section class="related-section" aria-labelledby="related-title">
-      <h2 id="related-title">Trámites relacionados</h2>
-      <div class="related-grid">${renderRelatedCards(tramite.relacionadas)}</div>
-    </section>
-  `;
-
-  setupAiBox();
-  setupRevealAnimations();
-  setupMobileMenu();
-  setupMobileNavState();
-};
-
-const renderNoMatch = (query) => {
-  const root = document.querySelector("#results-root");
-  if (!root) return;
-
-  const suggestions = getSuggestions(query, 3);
-  document.title = "Sin coincidencia exacta | Tramiteca";
-  renderSmartRecommendation(query);
-
-  root.innerHTML = `
-    <section class="empty-state reveal">
-      <p class="eyebrow">Búsqueda: ${query || "sin texto"}</p>
-      <h1>No encontramos una coincidencia exacta</h1>
-      <p>Pero encontramos información relacionada que podría ayudarte.</p>
-
-      <div class="suggestions">
-        ${suggestions.map((item) => `
-          <a class="info-card" href="./resultados.html?q=${encodeURIComponent(item.titulo)}">
-            <span class="card-icon" aria-hidden="true">${getCategoryIcon(item.categoria)}</span>
-            <h3>${item.titulo}</h3>
-            <p>${item.resumen}</p>
-          </a>
-        `).join("")}
-      </div>
-
-      <a class="button button-secondary" href="./index.html">Volver al inicio</a>
-    </section>
-  `;
-
-  setupRevealAnimations();
-  setupMobileMenu();
-  setupMobileNavState();
-};
-
-const getSchoolMapUrl = (school) => {
-  const query = `${school.nombre} ${school.direccion} ${school.comuna}`;
-  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
-};
-
-const getAvailableCommunes = () => {
-  const communes = establecimientosDiferenciales.map((school) => school.comuna);
-  return [...new Set(communes)].sort((a, b) => a.localeCompare(b, "es"));
-};
-
-const renderAvailableCommuneChips = () =>
-  getAvailableCommunes()
-    .map((commune) => `<button class="commune-chip" type="button" data-commune-chip="${commune}">${commune}</button>`)
-    .join("");
-
-const renderSchoolsLoadError = () => `
-  <div class="school-empty" role="status">
-    <h3>No pudimos cargar los establecimientos en este momento.</h3>
-    <p>Intenta nuevamente más tarde o revisa el directorio oficial de Mineduc para buscar información actualizada.</p>
-  </div>
-`;
-
-const setupCommuneChips = () => {
-  const input = document.querySelector("[data-school-commune]");
-  if (!input) return;
-
-  document.querySelectorAll("[data-commune-chip]").forEach((chip) => {
-    chip.addEventListener("click", () => {
-      const commune = chip.dataset.communeChip;
-      input.value = commune;
-      updateSchoolResults(commune);
-      input.focus();
-    });
-  });
-};
-
-const renderSchoolCards = (schools, searchedCommune = "") => {
-  if (schoolsDataLoadError) return renderSchoolsLoadError();
-
-  if (!schools.length) {
-    const hasActiveFilter = activeSchoolFilter !== "all";
-    const title = hasActiveFilter ? "No hay resultados con ese filtro" : "Todavía no tenemos datos para esa comuna";
-    const text = hasActiveFilter
-      ? "Prueba con otro tipo de establecimiento, cambia el texto de búsqueda o revisa una comuna disponible."
-      : "Este buscador está en versión beta y por ahora solo incluye algunas comunas con datos referenciales. Puedes probar con una de las comunas disponibles o revisar el directorio oficial de Mineduc.";
-
-    return `
-      <div class="school-empty" role="status">
-        <h3>${title}</h3>
-        <p>${text}</p>
-        ${searchedCommune ? `<p class="school-empty-query">Búsqueda realizada: <strong>${searchedCommune}</strong></p>` : ""}
-        <div class="available-communes" aria-label="Comunas disponibles actualmente">
-          ${renderAvailableCommuneChips()}
-        </div>
-      </div>
-    `;
-  }
-
-  return `
-    <div class="school-results">
-      ${schools.map((school) => `
-        <article class="school-card reveal">
-          <h3>${school.nombre}</h3>
-          <dl class="school-meta">
-            <div><dt>Tipo</dt><dd>${school.tipo}</dd></div>
-            <div><dt>Comuna</dt><dd>${school.comuna}, ${school.region}</dd></div>
-            <div><dt>Dirección</dt><dd>${school.direccion}</dd></div>
-            <div><dt>Teléfono</dt><dd>${school.telefono}</dd></div>
-            <div><dt>Dependencia</dt><dd>${school.dependencia}</dd></div>
-          </dl>
-          <div class="school-card-actions">
-            <a href="${getSchoolMapUrl(school)}" target="_blank" rel="noopener noreferrer">Ver en mapa</a>
-            <a href="tel:${school.telefono.replace(/[^+0-9]/g, "")}">Llamar</a>
-          </div>
-        </article>
-      `).join("")}
-    </div>
-  `;
-};
-
-const filterSchoolsByCommune = (query) => {
-  const normalizedQuery = normalizeText(query);
-  const filteredByType = filterSchoolsByType(establecimientosDiferenciales);
-
-  if (!normalizedQuery) {
-    return activeSchoolFilter === "all" ? filteredByType.slice(0, 5) : filteredByType;
-  }
-
-  const words = normalizedQuery.split(/\s+/).filter((w) => w.length > 2);
-
-  return filteredByType.filter((school) => {
-    const text = normalizeText(`
-      ${school.nombre}
-      ${school.comuna}
-      ${school.tipo}
-      ${school.region}
-      ${school.dependencia}
-    `);
-
-    return words.some((word) => text.includes(word));
-  });
-};
-
-const filterSchoolsByType = (schools) => {
-  if (activeSchoolFilter === "all") return schools;
-
-  return schools.filter((school) => {
-    const type = normalizeText(school.tipo);
-    const filter = normalizeText(activeSchoolFilter);
-
-    if (filter === "pie") return type.includes("pie");
-    return type.includes(filter);
-  });
-};
-
-const updateSchoolFilterButtons = () => {
-  document.querySelectorAll("[data-school-filter]").forEach((button) => {
-    const isActive = button.dataset.schoolFilter === activeSchoolFilter;
-    button.classList.toggle("is-active", isActive);
-    button.setAttribute("aria-pressed", String(isActive));
-  });
-};
-
-const setActiveSchoolFilter = (filter) => {
-  activeSchoolFilter = filter || "all";
-  updateSchoolFilterButtons();
-
-  const input = document.querySelector("[data-school-commune]");
-  updateSchoolResults(input ? input.value.trim() : "");
-};
-
-const setupSchoolFilters = () => {
-  document.querySelectorAll("[data-school-filter]").forEach((button) => {
-    button.addEventListener("click", () => {
-      setActiveSchoolFilter(button.dataset.schoolFilter);
-    });
-  });
-
-  updateSchoolFilterButtons();
-};
-
-const supportExplanations = {
-  especial: {
-    title: "Escuela especial",
-    text: "Suele atender a estudiantes que requieren apoyos más especializados y una modalidad educativa adaptada."
-  },
-  lenguaje: {
-    title: "Escuela de lenguaje",
-    text: "Está orientada a niños y niñas con necesidades específicas en desarrollo del lenguaje, según evaluación profesional."
-  },
-  pie: {
-    title: "PIE",
-    text: "El Programa de Integración Escolar funciona dentro de establecimientos regulares que entregan apoyos a estudiantes con necesidades educativas."
-  },
-  nose: {
-    title: "Si no estás seguro",
-    text: "Parte por reunir antecedentes, consultar evaluación profesional y preguntar al establecimiento qué apoyos concretos ofrece."
-  }
-};
-
-const setupSupportHelper = () => {
-  const result = document.querySelector("[data-support-result]");
-  if (!result) return;
-
-  document.querySelectorAll("[data-support-type]").forEach((button) => {
-    button.addEventListener("click", () => {
-      const explanation = supportExplanations[button.dataset.supportType];
-      if (!explanation) return;
-
-      document.querySelectorAll("[data-support-type]").forEach((item) => item.classList.remove("is-active"));
-      button.classList.add("is-active");
-      result.innerHTML = `<strong>${explanation.title}</strong><p>${explanation.text}</p>`;
-    });
-  });
-};
-
-const updateSchoolResults = (commune) => {
-  const results = document.querySelector("[data-school-results]");
-  if (!results) return;
-
-  if (schoolsDataLoadError) {
-    results.innerHTML = renderSchoolsLoadError();
-    return;
-  }
-
-  const schools = filterSchoolsByCommune(commune);
-  results.innerHTML = renderSchoolCards(schools, commune);
-  setupCommuneChips();
-  setupRevealAnimations();
-  setupMobileMenu();
-  setupMobileNavState();
-};
-
-const setupSchoolFinder = async () => {
-  const form = document.querySelector("[data-school-form]");
-  const input = document.querySelector("[data-school-commune]");
-  const message = document.querySelector("[data-school-message]");
-  const availableHelp = document.querySelector("[data-available-communes-help]");
-  const profile = getUserProfile();
-
-  if (!form || !input) return;
-
-  setupSupportHelper();
-
-  if (profile && profile.necesidad === "educacion") {
-    const helper = document.querySelector(".support-helper");
-    if (helper && !helper.querySelector(".profile-context-note")) {
-      helper.insertAdjacentHTML("beforeend", `
-        <div class="profile-context-note">
-          <strong>Esto podría ser útil para tu situación</strong>
-          <p>Como indicaste interés en educación o apoyo escolar, revisa primero el tipo de apoyo y luego filtra establecimientos por comuna.</p>
-          <a href="./casos.html?caso=apoyo-escolar">Ver ruta apoyo escolar</a>
-        </div>
-      `);
-    }
-  }
-
-  if (availableHelp) {
-    availableHelp.textContent = "Cargando comunas disponibles...";
-  }
-
-  await loadSchoolsData();
-  setupSchoolFilters();
-
-  if (schoolsDataLoadError) {
-    if (availableHelp) availableHelp.textContent = "";
-    updateSchoolResults("");
-    setupRevealAnimations();
-  setupMobileMenu();
-  setupMobileNavState();
-    return;
-  }
-
-  if (availableHelp) {
-    availableHelp.innerHTML = `Comunas disponibles actualmente: ${renderAvailableCommuneChips()}`;
-  }
-
-  updateSchoolResults("");
-  setupCommuneChips();
-
-  form.addEventListener("submit", (event) => {
-    event.preventDefault();
-    const commune = input.value.trim();
-
-    if (!commune) {
-      if (message) message.textContent = "Escribe una comuna para buscar establecimientos.";
-      input.focus();
-      return;
+    if (digits.length === 9 && digits.startsWith("9")) {
+        return `tel:+56${digits}`;
     }
 
-    if (message) message.textContent = "";
-    updateSchoolResults(commune);
-  });
-
-  input.addEventListener("input", () => {
-    if (message) message.textContent = "";
-  });
-};
-
-const getPrtMapUrl = (plant) =>
-  `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${plant.direccion} ${plant.comuna} ${plant.region}`)}`;
-
-const renderPrtLoadError = () => `
-  <div class="school-empty" role="status">
-    <h3>No pudimos cargar las plantas en este momento.</h3>
-    <p>Intenta nuevamente más tarde o revisa directamente el sitio oficial de PRT para confirmar información actualizada.</p>
-  </div>
-`;
-
-const filterPrtPlantsByType = (plants) => {
-  if (activePrtFilter === "all") return plants;
-
-  const filter = normalizeText(activePrtFilter);
-  return plants.filter((plant) => normalizeText(plant.tipo_planta).includes(filter));
-};
-
-const filterPrtPlants = (query = "") => {
-  const normalizedQuery = normalizeText(query);
-  const filteredByType = filterPrtPlantsByType(plantasPrt);
-
-  if (!normalizedQuery) {
-    return activePrtFilter === "all" ? filteredByType.slice(0, 6) : filteredByType;
-  }
-
-  const words = normalizedQuery.split(/\s+/).filter((word) => word.length > 2);
-
-  return filteredByType.filter((plant) => {
-    const text = normalizeText(`
-      ${plant.nombre}
-      ${plant.comuna}
-      ${plant.region}
-      ${plant.concesionario}
-      ${plant.tipo_planta}
-      ${plant.direccion}
-    `);
-
-    return words.some((word) => text.includes(word));
-  });
-};
-
-const renderPrtResults = (plants, query = "") => {
-  if (prtDataLoadError) return renderPrtLoadError();
-
-  if (!plants.length) {
-    return `
-      <div class="school-empty" role="status">
-        <h3>No encontramos plantas con esa búsqueda</h3>
-        <p>Prueba con otra comuna, concesionario o tipo de planta. Esta base es referencial y se irá ampliando.</p>
-        ${query ? `<p class="school-empty-query">Búsqueda realizada: <strong>${query}</strong></p>` : ""}
-      </div>
-    `;
-  }
-
-  return `
-    <div class="prt-results">
-      ${plants.map((plant) => `
-        <article class="prt-card reveal">
-          <div class="prt-card-header">
-            <span>${plant.tipo_planta}</span>
-            <small>${plant.fuente}</small>
-          </div>
-          <h3>${plant.nombre}</h3>
-          <dl class="school-meta">
-            <div><dt>Comuna</dt><dd>${plant.comuna}, ${plant.region}</dd></div>
-            <div><dt>Dirección</dt><dd>${plant.direccion}</dd></div>
-            <div><dt>Concesionario</dt><dd>${plant.concesionario}</dd></div>
-            <div><dt>Teléfono</dt><dd>${plant.telefono}</dd></div>
-          </dl>
-          <p>${plant.observaciones}</p>
-          <div class="school-card-actions">
-            <a href="${getPrtMapUrl(plant)}" target="_blank" rel="noopener noreferrer">Cómo llegar</a>
-            ${plant.telefono && plant.telefono !== "No informado" ? `<a href="tel:${plant.telefono.replace(/[^+0-9]/g, "")}">Llamar</a>` : ""}
-          </div>
-        </article>
-      `).join("")}
-    </div>
-  `;
-};
-
-const updatePrtFilterButtons = () => {
-  document.querySelectorAll("[data-prt-filter]").forEach((button) => {
-    const isActive = button.dataset.prtFilter === activePrtFilter;
-    button.classList.toggle("is-active", isActive);
-    button.setAttribute("aria-pressed", String(isActive));
-  });
-};
-
-const updatePrtResults = (query = "") => {
-  const results = document.querySelector("[data-prt-results]");
-  if (!results) return;
-
-  const plants = filterPrtPlants(query);
-  results.innerHTML = renderPrtResults(plants, query);
-  setupRevealAnimations();
-  setupMobileMenu();
-  setupMobileNavState();
-};
-
-const setActivePrtFilter = (filter) => {
-  activePrtFilter = filter || "all";
-  updatePrtFilterButtons();
-
-  const input = document.querySelector("[data-prt-search]");
-  updatePrtResults(input ? input.value.trim() : "");
-};
-
-const setupPrtFilters = () => {
-  document.querySelectorAll("[data-prt-filter]").forEach((button) => {
-    button.addEventListener("click", () => {
-      setActivePrtFilter(button.dataset.prtFilter);
-    });
-  });
-
-  updatePrtFilterButtons();
-};
-
-const setupPrtFinder = async () => {
-  const form = document.querySelector("[data-prt-form]");
-  const input = document.querySelector("[data-prt-search]");
-  const message = document.querySelector("[data-prt-message]");
-  const results = document.querySelector("[data-prt-results]");
-
-  if (!form || !input || !results) return;
-
-  results.innerHTML = `
-    <div class="school-empty" role="status">
-      <h3>Cargando plantas de revisión técnica...</h3>
-      <p>Estamos preparando el listado referencial.</p>
-    </div>
-  `;
-
-  await loadPrtData();
-  setupPrtFilters();
-  updatePrtResults("");
-
-  form.addEventListener("submit", (event) => {
-    event.preventDefault();
-    const query = input.value.trim();
-
-    if (!query && activePrtFilter === "all") {
-      if (message) message.textContent = "Puedes escribir una comuna, nombre o concesionario para afinar la búsqueda.";
-      updatePrtResults("");
-      input.focus();
-      return;
+    if (digits.length === 8 || digits.length === 9) {
+        return `tel:+56${digits}`;
     }
 
-    if (message) message.textContent = "";
-    updatePrtResults(query);
-  });
+    return `tel:+${digits}`;
+}
 
-  input.addEventListener("input", () => {
-    if (message) message.textContent = "";
-    updatePrtResults(input.value.trim());
-  });
-};
-
-const documentsData = {
-  poderSimple: {
-    title: "Poder simple",
-    description: "Autoriza a otra persona a realizar una gestión específica en tu nombre.",
-    uses: "Suele usarse para trámites simples donde no se exige poder notarial.",
-    disclaimers: ["Confirma si el trámite requiere firma ante notario.", "Verifica requisitos en el organismo correspondiente."],
-    fields: [
-      { name: "ciudad", label: "Ciudad", placeholder: "Ej: Santiago" },
-      { name: "fecha", label: "Fecha", placeholder: "Ej: 20 de abril de 2026" },
-      { name: "otorgante", label: "Nombre de quien otorga el poder", placeholder: "Nombre completo" },
-      { name: "rutOtorgante", label: "RUT de quien otorga", placeholder: "12.345.678-9" },
-      { name: "autorizado", label: "Nombre de la persona autorizada", placeholder: "Nombre completo" },
-      { name: "rutAutorizado", label: "RUT de la persona autorizada", placeholder: "12.345.678-9" },
-      { name: "gestion", label: "Gestión autorizada", placeholder: "Ej: retirar un certificado, presentar documentos..." }
-    ],
-    template: (data) => `PODER SIMPLE
-
-En ${data.ciudad}, con fecha ${data.fecha}, yo, ${data.otorgante}, RUT ${data.rutOtorgante}, autorizo a ${data.autorizado}, RUT ${data.rutAutorizado}, para realizar en mi nombre la siguiente gestión:
-
-${data.gestion}
-
-Este poder se entrega únicamente para la gestión indicada.
-
-Firma de quien otorga: ______________________________
-Nombre: ${data.otorgante}
-RUT: ${data.rutOtorgante}`
-  },
-  declaracionJurada: {
-    title: "Declaración jurada simple",
-    description: "Deja por escrito una afirmación personal bajo responsabilidad de quien declara.",
-    uses: "Suele usarse para informar domicilio, situación personal, ingresos u otros antecedentes simples.",
-    disclaimers: ["Algunos organismos pueden exigir declaración jurada ante notario.", "Declara solo información verdadera y verificable."],
-    fields: [
-      { name: "ciudad", label: "Ciudad", placeholder: "Ej: Valparaíso" },
-      { name: "fecha", label: "Fecha", placeholder: "Ej: 20 de abril de 2026" },
-      { name: "declarante", label: "Nombre de quien declara", placeholder: "Nombre completo" },
-      { name: "rutDeclarante", label: "RUT", placeholder: "12.345.678-9" },
-      { name: "domicilio", label: "Domicilio", placeholder: "Dirección completa" },
-      { name: "declaracion", label: "Declaración", placeholder: "Ej: declaro que vivo en..." },
-      { name: "finalidad", label: "Para qué se usará", placeholder: "Ej: presentar ante municipalidad..." }
-    ],
-    template: (data) => `DECLARACIÓN JURADA SIMPLE
-
-En ${data.ciudad}, con fecha ${data.fecha}, yo, ${data.declarante}, RUT ${data.rutDeclarante}, domiciliado/a en ${data.domicilio}, declaro bajo mi responsabilidad lo siguiente:
-
-${data.declaracion}
-
-La presente declaración se emite para: ${data.finalidad}
-
-Firma: ______________________________
-Nombre: ${data.declarante}
-RUT: ${data.rutDeclarante}`
-  },
-  cartaPoder: {
-    title: "Carta poder",
-    description: "Comunica formalmente que una persona queda autorizada para actuar por otra en una gestión.",
-    uses: "Suele usarse para retiros, entregas, representación simple o trámites administrativos.",
-    disclaimers: ["Confirma si basta carta poder simple o si se exige documento notarial.", "Adjunta copias de cédula si el organismo lo solicita."],
-    fields: [
-      { name: "ciudad", label: "Ciudad", placeholder: "Ej: Concepción" },
-      { name: "fecha", label: "Fecha", placeholder: "Ej: 20 de abril de 2026" },
-      { name: "destinatario", label: "Dirigido a", placeholder: "Ej: Municipalidad, institución, empresa..." },
-      { name: "otorgante", label: "Nombre de quien autoriza", placeholder: "Nombre completo" },
-      { name: "rutOtorgante", label: "RUT de quien autoriza", placeholder: "12.345.678-9" },
-      { name: "autorizado", label: "Nombre de quien actuará", placeholder: "Nombre completo" },
-      { name: "rutAutorizado", label: "RUT de quien actuará", placeholder: "12.345.678-9" },
-      { name: "motivo", label: "Motivo o trámite", placeholder: "Ej: retirar documentos, presentar solicitud..." }
-    ],
-    template: (data) => `CARTA PODER
-
-${data.ciudad}, ${data.fecha}
-
-Señores/as:
-${data.destinatario}
-
-Por medio de la presente, yo, ${data.otorgante}, RUT ${data.rutOtorgante}, autorizo a ${data.autorizado}, RUT ${data.rutAutorizado}, para actuar en mi nombre respecto de la siguiente gestión:
-
-${data.motivo}
-
-Solicito considerar esta autorización para los fines indicados.
-
-Atentamente,
-
-Firma: ______________________________
-Nombre: ${data.otorgante}
-RUT: ${data.rutOtorgante}`
-  },
-  contratoServicios: {
-    title: "Contrato simple de prestación de servicios",
-    description: "Ordena por escrito un acuerdo básico entre quien presta un servicio y quien lo contrata.",
-    uses: "Suele servir para trabajos independientes, servicios puntuales o acuerdos de bajo riesgo.",
-    disclaimers: ["Para servicios complejos, montos altos o obligaciones sensibles, te conviene pedir asesoría profesional.", "Revisa impuestos, boletas o facturas si corresponde."],
-    fields: [
-      { name: "ciudad", label: "Ciudad", placeholder: "Ej: Santiago" },
-      { name: "fecha", label: "Fecha", placeholder: "Ej: 20 de abril de 2026" },
-      { name: "cliente", label: "Nombre del cliente", placeholder: "Persona o empresa contratante" },
-      { name: "rutCliente", label: "RUT del cliente", placeholder: "12.345.678-9" },
-      { name: "prestador", label: "Nombre de quien presta el servicio", placeholder: "Persona o empresa prestadora" },
-      { name: "rutPrestador", label: "RUT del prestador", placeholder: "12.345.678-9" },
-      { name: "servicio", label: "Servicio acordado", placeholder: "Describe el servicio con claridad" },
-      { name: "plazo", label: "Plazo o fecha de entrega", placeholder: "Ej: 30 días, hasta tal fecha..." },
-      { name: "pago", label: "Precio y forma de pago", placeholder: "Ej: $100.000 contra entrega..." }
-    ],
-    template: (data) => `CONTRATO SIMPLE DE PRESTACIÓN DE SERVICIOS
-
-En ${data.ciudad}, con fecha ${data.fecha}, comparecen por una parte ${data.cliente}, RUT ${data.rutCliente}, en adelante "el cliente"; y por otra parte ${data.prestador}, RUT ${data.rutPrestador}, en adelante "el prestador".
-
-PRIMERO: Servicio
-El prestador se obliga a realizar el siguiente servicio:
-${data.servicio}
-
-SEGUNDO: Plazo
-El servicio se realizará en el siguiente plazo o fecha acordada:
-${data.plazo}
-
-TERCERO: Pago
-El precio y forma de pago acordados son:
-${data.pago}
-
-CUARTO: Alcance
-Este documento resume un acuerdo simple entre las partes. Cualquier cambio relevante debería quedar por escrito.
-
-Firma cliente: ______________________________
-Nombre: ${data.cliente}
-RUT: ${data.rutCliente}
-
-Firma prestador: ______________________________
-Nombre: ${data.prestador}
-RUT: ${data.rutPrestador}`
-  }
-};
-
-let selectedDocumentId = "poderSimple";
-let currentDocumentText = "";
-
-const renderDocumentCards = () =>
-  Object.entries(documentsData).map(([id, document]) => `
-    <article class="document-card reveal">
-      <h3>${document.title}</h3>
-      <p>${document.description}</p>
-      <div class="document-use">
-        <strong>Cuándo suele usarse</strong>
-        <span>${document.uses}</span>
-      </div>
-      <button class="button button-small" type="button" data-document-select="${id}">Generar</button>
-    </article>
-  `).join("");
-
-const renderDocumentForm = (id) => {
-  const document = documentsData[id];
-  if (!document) return "";
-
-  return `
-    <p class="section-kicker">Generador guiado</p>
-    <h2>${document.title}</h2>
-    <p>${document.description}</p>
-    <form class="document-form-grid" data-document-form>
-      ${document.fields.map((field) => `
-        <div class="field-group">
-          <label for="doc-${field.name}">${field.label}</label>
-          <input id="doc-${field.name}" name="${field.name}" type="text" placeholder="${field.placeholder}" required>
-        </div>
-      `).join("")}
-      <p class="form-message" data-document-message role="status" aria-live="polite"></p>
-      <button class="button" type="submit">Generar documento</button>
-    </form>
-    <div class="notice-box">
-      <strong>Aviso importante</strong>
-      <p>Este documento es una orientación inicial y puede no reemplazar asesoría profesional, notarial o legal según el caso.</p>
-      <ul class="clean-list">${document.disclaimers.map((item) => `<li>${item}</li>`).join("")}</ul>
-    </div>
-  `;
-};
-
-const updateDocumentPreview = (text = "") => {
-  const preview = document.querySelector("[data-document-preview]");
-  if (!preview) return;
-
-  currentDocumentText = text;
-  preview.innerHTML = text
-    ? `<pre>${escapeHtml(text)}</pre>`
-    : `<p>Completa el formulario y aquí aparecerá una vista previa lista para copiar o descargar.</p>`;
-};
-
-const setSelectedDocument = (id) => {
-  selectedDocumentId = id;
-  const builder = document.querySelector("[data-document-builder]");
-  if (!builder) return;
-
-  builder.innerHTML = renderDocumentForm(id);
-  updateDocumentPreview("");
-  document.querySelectorAll("[data-document-select]").forEach((button) => {
-    button.classList.toggle("is-active", button.dataset.documentSelect === id);
-  });
-
-  const form = builder.querySelector("[data-document-form]");
-  if (form) form.addEventListener("submit", (event) => {
-    event.preventDefault();
-    if (!form.checkValidity()) {
-      const message = form.querySelector("[data-document-message]");
-      if (message) message.textContent = "Completa los campos mínimos para generar el documento.";
-      return;
-    }
-
-    const data = Object.fromEntries(new FormData(form).entries());
-    const text = documentsData[selectedDocumentId].template(data);
-    const message = form.querySelector("[data-document-message]");
-    if (message) message.textContent = "Documento generado. Revísalo antes de usarlo.";
-    updateDocumentPreview(text);
-  });
-
-  builder.scrollIntoView({ behavior: "smooth", block: "start" });
-};
-
-const downloadDocument = (type = "txt") => {
-  if (!currentDocumentText) return;
-
-  const title = documentsData[selectedDocumentId] ? documentsData[selectedDocumentId].title : "documento";
-  const safeName = normalizeText(title).replace(/\s+/g, "-") || "documento";
-  const content = type === "html"
-    ? `<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><title>${title}</title><style>body{font-family:Arial,sans-serif;line-height:1.6;max-width:760px;margin:40px auto;padding:0 24px;white-space:pre-wrap;color:#1f2937;}</style></head><body>${escapeHtml(currentDocumentText)}</body></html>`
-    : currentDocumentText;
-  const blob = new Blob([content], { type: type === "html" ? "text/html;charset=utf-8" : "text/plain;charset=utf-8" });
-  const link = document.createElement("a");
-  link.href = URL.createObjectURL(blob);
-  link.download = `${safeName}.${type}`;
-  document.body.appendChild(link);
-  link.click();
-  link.remove();
-  URL.revokeObjectURL(link.href);
-};
-
-const setupDocumentsPage = () => {
-  const list = document.querySelector("[data-documents-list]");
-  const builder = document.querySelector("[data-document-builder]");
-  const actions = document.querySelector("[data-document-actions]");
-  if (!list || !builder || !actions) return;
-
-  list.innerHTML = renderDocumentCards();
-  setupRevealAnimations();
-  setupMobileMenu();
-  setupMobileNavState();
-  document.querySelectorAll("[data-document-select]").forEach((button) => {
-    button.addEventListener("click", () => setSelectedDocument(button.dataset.documentSelect));
-  });
-
-  const copyDocumentButton = actions.querySelector("[data-copy-document]");
-  if (copyDocumentButton) copyDocumentButton.addEventListener("click", async () => {
-    const message = document.querySelector("[data-document-action-message]");
-    if (!currentDocumentText) {
-      if (message) message.textContent = "Primero genera un documento para poder copiarlo.";
-      return;
-    }
-
-    try {
-      await navigator.clipboard.writeText(currentDocumentText);
-      if (message) message.textContent = "Texto copiado al portapapeles.";
-    } catch (error) {
-      if (message) message.textContent = "No se pudo copiar automáticamente. Puedes seleccionar el texto de la vista previa.";
-    }
-  });
-
-  const downloadTxtButton = actions.querySelector("[data-download-txt]");
-  if (downloadTxtButton) downloadTxtButton.addEventListener("click", () => downloadDocument("txt"));
-  const downloadHtmlButton = actions.querySelector("[data-download-html]");
-  if (downloadHtmlButton) downloadHtmlButton.addEventListener("click", () => downloadDocument("html"));
-
-  setSelectedDocument(selectedDocumentId);
-};
-
-const renderSchoolFinder = () => {
-  const root = document.querySelector("#results-root");
-  if (!root) return;
-
-  document.title = "Educación diferencial | Tramiteca";
-
-  root.innerHTML = `
-    <section class="school-finder-hero reveal">
-      <div>
-        <span class="school-finder-badge">Orientación para familias</span>
-        <h1>Educación diferencial</h1>
-        <p>Busca por comuna escuelas especiales, escuelas de lenguaje y establecimientos con Programa de Integración Escolar. Esta primera versión muestra datos referenciales para probar la experiencia.</p>
-      </div>
-      <aside class="school-finder-note" aria-label="Información importante">
-        <strong>Antes de decidir</strong>
-        <span>Confirma cupos, requisitos y modalidad directamente con el establecimiento o en canales oficiales de Mineduc.</span>
-      </aside>
-    </section>
-
-    <section class="school-search-panel reveal" aria-labelledby="school-search-title">
-      <h2 id="school-search-title">Encontrar establecimientos por comuna</h2>
-      <form class="school-search-form" data-school-form novalidate>
-        <div class="field-group">
-          <label for="school-commune">Comuna</label>
-          <input id="school-commune" type="search" data-school-commune placeholder="Ej: La Florida, Maipú, Valparaíso">
-        </div>
-        <button class="button" type="submit">Buscar</button>
-      </form>
-      <p class="form-message" data-school-message role="status" aria-live="polite"></p>
-      <div data-school-results></div>
-      <p class="school-disclaimer">
-        Tramiteca no asigna cupos ni reemplaza la orientación oficial. Para datos completos revisa el Directorio Educación Especial de Mineduc o llama a Ayuda Mineduc 600 600 2626.
-      </p>
-      <a class="button button-secondary official-button" href="https://especial.mineduc.cl/directorio-de-establecimientos/" target="_blank" rel="noopener noreferrer">Ver directorio oficial</a>
-    </section>
-  `;
-
-  setupSchoolFinder();
-  setupRevealAnimations();
-  setupMobileMenu();
-  setupMobileNavState();
-};
-
-const getFormValues = (form) => {
-  const data = new FormData(form);
-  return Object.fromEntries(data.entries());
-};
-
-const renderRouteSteps = (steps = []) => {
-  if (!steps.length) return "";
-
-  return `
-    <div class="result-block">
-      <h3>Tu ruta sugerida</h3>
-      <ol class="route-timeline">
-        ${steps.map((step) => `<li>${step}</li>`).join("")}
-      </ol>
-    </div>
-  `;
-};
-
-const renderOptionalList = (title, items = []) => {
-  if (!items.length) return "";
-
-  return `
-    <div class="result-block">
-      <h3>${title}</h3>
-      <ul class="clean-list">${items.map((item) => `<li>${item}</li>`).join("")}</ul>
-    </div>
-  `;
-};
-
-const renderGuideResult = ({ title, summary, checklist = [], recommendations = [], warnings = [], links = [], nextStep = "", routeSteps = [], reasons = [], documents = [], badge = "Orientación sugerida" }) => `
-  <div class="result-panel is-ready">
-    <p class="section-kicker">${badge}</p>
-    <h2>${title}</h2>
-    <p>${summary}</p>
-
-    ${renderRouteSteps(routeSteps)}
-
-    <div class="result-block">
-      <h3>Checklist inicial</h3>
-      <ul class="guide-checklist">${checklist.map((item) => `<li>${item}</li>`).join("")}</ul>
-    </div>
-
-    ${renderOptionalList("Por qué podría ser relevante para tu caso", reasons)}
-    ${renderOptionalList("Documentos o datos a mano", documents)}
-
-    <div class="result-block">
-      <h3>Recomendaciones</h3>
-      <ul class="clean-list">${recommendations.map((item) => `<li>${item}</li>`).join("")}</ul>
-    </div>
-
-    ${warnings.length ? `<div class="notice-box">
-      <strong>Ten presente</strong>
-      <p>${warnings.join(" ")}</p>
-    </div>` : ""}
-
-    <div class="result-links">
-      ${links.map((link) => `<a class="button button-secondary" href="${link.href}">${link.label}</a>`).join("")}
-    </div>
-
-    <div class="next-step">
-      <strong>Siguiente paso sugerido</strong>
-      <span>${nextStep}</span>
-    </div>
-
-    <div class="ai-future-box">
-      <strong>Próxima versión con IA</strong>
-      <span>Más adelante podremos enviar tus respuestas a un asistente IA para generar una ruta más precisa y conversacional.</span>
-    </div>
-  </div>
-`;
-
-const buildBusinessGuide = (answers) => {
-  const checklist = [];
-  const recommendations = [];
-
-  if (answers.clave !== "si") {
-    checklist.push("Obtén o recupera tu Clave Única y clave tributaria antes de iniciar trámites.");
-  }
-
-  checklist.push("Define si operarás como persona natural o si necesitas crear una empresa.");
-  checklist.push("Revisa el inicio de actividades en el SII antes de emitir documentos tributarios.");
-
-  if (answers.documento === "facturas") {
-    recommendations.push("Si emitirás facturas, revisa giro, actividad económica y obligaciones de IVA.");
-  } else if (answers.documento === "boletas") {
-    recommendations.push("Si emitirás boletas, podrías partir como persona natural con inicio de actividades.");
-  } else {
-    recommendations.push("Si no sabes si usar boletas o facturas, primero identifica si venderás a personas o empresas.");
-  }
-
-  if (answers.equipo === "socios") {
-    recommendations.push("Si trabajarás con socios, evalúa crear una empresa y dejar acuerdos básicos por escrito.");
-  } else {
-    recommendations.push("Si partirás solo, mantén el proceso simple y valida tu actividad antes de formalizar estructuras más complejas.");
-  }
-
-  if (answers.objetivo === "productos") {
-    recommendations.push("Para vender productos, revisa permisos municipales o sanitarios si corresponde al rubro.");
-  }
-
-  return {
-    title: "Parte por formalizar lo mínimo necesario",
-    summary: "Tu ruta inicial debería ordenar claves, tipo de actividad y documentos tributarios antes de tomar decisiones más grandes.",
-    routeSteps: ["Recupera o valida Clave Única / clave tributaria.", "Define si operarás como persona natural o empresa.", "Revisa inicio de actividades.", "Define si usarás boletas o facturas.", "Evalúa permisos extra según tu rubro."],
-    checklist,
-    recommendations,
-    warnings: ["Esta orientación no reemplaza asesoría contable.", "Los requisitos pueden cambiar según rubro, comuna y tipo de venta."],
-    links: [
-      { label: "Ver inicio de actividades", href: "./resultados.html?q=Inicio%20de%20actividades" },
-      { label: "Ver Clave Única", href: "./resultados.html?q=Clave%20Unica" },
-      { label: "Ir al SII", href: "https://www.sii.cl" }
-    ],
-    nextStep: "Revisa el trámite de inicio de actividades y anota tu giro antes de avanzar."
-  };
-};
-
-const buildHousingGuide = (answers) => {
-  const checklist = ["Revisa tu Registro Social de Hogares.", "Confirma si tienes ahorro disponible para vivienda.", "Compara subsidio, crédito hipotecario o una ruta mixta."];
-  const recommendations = [];
-
-  if (answers.rsh !== "si") {
-    recommendations.push("Antes de postular a subsidios, actualiza o solicita tu Registro Social de Hogares.");
-  }
-
-  if (answers.ahorro === "no") {
-    recommendations.push("Si no tienes ahorro, parte abriendo o revisando una cuenta de ahorro para la vivienda.");
-  } else if (answers.ahorro === "si") {
-    recommendations.push("Si ya tienes ahorro, confirma si cumple el mínimo y la fecha exigida del llamado vigente.");
-  }
-
-  if (answers.interes === "credito" || answers.interes === "ambos") {
-    recommendations.push("Si quieres comprar con crédito, revisa preaprobación bancaria y capacidad de dividendo antes de comprometerte.");
-  }
-
-  if (answers.objetivo === "subsidio" || answers.interes === "subsidio") {
-    recommendations.push("Para subsidio, revisa especialmente DS1, tramo, ahorro mínimo y fechas del Minvu.");
-  }
-
-  if (answers.subsidioPrevio === "si") {
-    recommendations.push("Si ya recibiste subsidio antes, confirma si puedes volver a postular o si aplica alguna restricción.");
-  }
-
-  return {
-    title: "Ordena primero RSH, ahorro y tipo de apoyo",
-    summary: "Para vivienda conviene evitar saltarse pasos: muchas postulaciones dependen de datos actualizados y fechas específicas.",
-    routeSteps: ["Revisa tu Registro Social de Hogares.", "Confirma ahorro disponible.", "Evalúa Subsidio DS1 u otro programa habitacional.", "Revisa llamado vigente y fechas oficiales.", "Compara con crédito hipotecario si aplica."],
-    checklist,
-    recommendations,
-    warnings: ["No garantiza aprobación de subsidio ni crédito.", "Confirma requisitos en Minvu, banco o entidad patrocinante."],
-    links: [
-      { label: "Ver Subsidio DS1", href: "./resultados.html?q=Subsidio%20DS1" },
-      { label: "Ver Registro Social de Hogares", href: "./resultados.html?q=Registro%20Social%20de%20Hogares" },
-      { label: "Ir al Minvu", href: "https://www.minvu.gob.cl" }
-    ],
-    nextStep: answers.rsh === "si" ? "Revisa el llamado vigente y el ahorro mínimo exigido." : "Actualiza tu Registro Social de Hogares antes de simular postulaciones."
-  };
-};
-
-const buildBenefitsGuide = (answers) => {
-  const suggestions = new Set();
-  const checklist = new Set([
-    "Reúne tu cédula de identidad y antecedentes familiares básicos.",
-    "Revisa fechas, requisitos y canales oficiales antes de postular."
-  ]);
-  const links = new Map();
-
-  const addLink = (label, href) => links.set(label, { label, href });
-
-  if (answers.rsh !== "si") {
-    suggestions.add("Te conviene comenzar por revisar o actualizar tu Registro Social de Hogares, porque muchos beneficios usan esa información.");
-    checklist.add("Confirma si tienes Registro Social de Hogares y si los integrantes del hogar están actualizados.");
-    addLink("Ver Registro Social de Hogares", "./resultados.html?q=Registro%20Social%20de%20Hogares");
-  } else {
-    checklist.add("Descarga o revisa tu cartola del Registro Social de Hogares antes de postular.");
-    addLink("Ver Registro Social de Hogares", "./resultados.html?q=Registro%20Social%20de%20Hogares");
-  }
-
-  if (answers.etapa === "pensionado") {
-    suggestions.add("Podrías revisar Bono Invierno y otros aportes para personas pensionadas, según requisitos vigentes.");
-    suggestions.add("Una buena siguiente revisión sería Fonasa, tramo de salud y canales de atención disponibles.");
-    addLink("Ver Bono Invierno", "./resultados.html?q=Bono%20Invierno");
-    addLink("Ver Fonasa", "./resultados.html?q=Fonasa");
-  }
-
-  if (answers.etapa === "estudiante") {
-    suggestions.add("Podrías revisar becas, beneficios estudiantiles y apoyos asociados a educación.");
-    suggestions.add("Si dependes económicamente de tu hogar, revisa que el Registro Social de Hogares refleje bien tu situación.");
-  }
-
-  if (answers.etapa === "sin-ingresos") {
-    suggestions.add("Te conviene priorizar Registro Social de Hogares, salud pública y beneficios de apoyo a ingresos.");
-    addLink("Ver Fonasa", "./resultados.html?q=Fonasa");
-  }
-
-  if (answers.etapa === "trabajando") {
-    suggestions.add("Podrías revisar beneficios compatibles con tu situación laboral y mantener datos previsionales y de salud actualizados.");
-    addLink("Ver Fonasa", "./resultados.html?q=Fonasa");
-  }
-
-  if (answers.etapa === "jefatura") {
-    suggestions.add("Si eres jefe/a de hogar, revisa apoyos familiares y beneficios que usen la composición de tu hogar.");
-  }
-
-  if (answers.cargas === "si") {
-    suggestions.add("Podrías revisar apoyos familiares o beneficios asociados a personas a cargo.");
-    checklist.add("Ten a mano antecedentes de hijos, cargas o personas bajo tu cuidado.");
-  }
-
-  if (answers.ayuda === "vivienda") {
-    suggestions.add("Para vivienda, una buena ruta es revisar Registro Social de Hogares y luego Subsidio DS1 u otros llamados habitacionales.");
-    addLink("Ver Subsidio DS1", "./resultados.html?q=Subsidio%20DS1");
-  }
-
-  if (answers.ayuda === "salud") {
-    suggestions.add("Para salud, podrías comenzar revisando Fonasa, tramo y cargas familiares si corresponde.");
-    addLink("Ver Fonasa", "./resultados.html?q=Fonasa");
-  }
-
-  if (answers.ayuda === "educacion") {
-    suggestions.add("Para educación, podrías revisar becas, beneficios estudiantiles y apoyos según nivel educativo.");
-  }
-
-  if (answers.ayuda === "ingresos") {
-    suggestions.add("Para ingresos o bonos, podrías revisar aportes estatales asociados a tu etapa y situación del hogar.");
-    addLink("Ver Bono Invierno", "./resultados.html?q=Bono%20Invierno");
-  }
-
-  if (answers.ayuda === "nose") {
-    suggestions.add("Si no sabes qué ayuda necesitas, parte por Registro Social de Hogares y luego revisa vivienda, salud e ingresos según prioridad.");
-    addLink("Ver Registro Social de Hogares", "./resultados.html?q=Registro%20Social%20de%20Hogares");
-    addLink("Ver Fonasa", "./resultados.html?q=Fonasa");
-  }
-
-  const recommendations = Array.from(suggestions).slice(0, 6);
-  const nextStep = answers.rsh !== "si"
-    ? "Te conviene comenzar por revisar tu Registro Social de Hogares."
-    : "Una buena siguiente revisión sería abrir los trámites sugeridos y confirmar requisitos oficiales.";
-
-  return {
-    title: "Podrías revisar estas opciones según tu situación",
-    summary: "Con tus respuestas armamos una orientación inicial. No confirma beneficios garantizados, pero ayuda a priorizar qué revisar primero.",
-    badge: "Orientación inicial, no resultado oficial",
-    routeSteps: [
-      answers.rsh !== "si" ? "Revisa o actualiza tu Registro Social de Hogares." : "Descarga o revisa tu cartola del Registro Social de Hogares.",
-      "Identifica la ayuda prioritaria: vivienda, salud, educación o ingresos.",
-      "Abre los trámites sugeridos y confirma requisitos oficiales.",
-      "Ten documentos familiares y personales a mano.",
-      "Guarda fechas y canales oficiales antes de postular."
-    ],
-    checklist: Array.from(checklist),
-    reasons: recommendations.slice(0, 4),
-    documents: ["Cédula de identidad.", "Cartola o datos del Registro Social de Hogares.", "Antecedentes de cargas familiares si corresponde.", "Datos de pensión, estudios o situación laboral si aplica."],
-    recommendations,
-    warnings: ["La elegibilidad depende de requisitos oficiales y evaluación institucional.", "Evita entregar datos sensibles en sitios no oficiales."],
-    links: Array.from(links.values()).slice(0, 4),
-    nextStep
-  };
-};
-
-const setupGuideForms = () => {
-  document.querySelectorAll("[data-guide-form]").forEach((form) => {
-    const module = form.dataset.guideForm;
-    const result = document.querySelector("[data-guide-result]");
-    const message = form.querySelector("[data-guide-message]");
-
-    form.addEventListener("submit", (event) => {
-      event.preventDefault();
-
-      if (!form.checkValidity()) {
-        if (message) message.textContent = "Responde todas las preguntas para generar una orientación.";
-        return;
-      }
-
-      if (message) message.textContent = "";
-      const answers = getFormValues(form);
-      let guide;
-
-      if (module === "emprender") guide = buildBusinessGuide(answers);
-      if (module === "casa") guide = buildHousingGuide(answers);
-      if (module === "beneficios") {
-        saveUserProfile({
-          etapa: answers.etapa,
-          situacion: answers.etapa,
-          cargas: answers.cargas,
-          rsh: answers.rsh,
-          interes: answers.ayuda,
-          ayuda: answers.ayuda
-        });
-        guide = buildBenefitsGuide(answers);
-        renderPersonalizedHub();
-        renderDynamicAlerts();
-      }
-
-      if (result && guide) {
-        result.innerHTML = renderGuideResult(guide);
-        result.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
-
-      // Futuro IA: aquí se pueden enviar las respuestas del cuestionario a una API.
-      // Futuro backend: aquí se puede guardar una sesión anónima para mejorar recomendaciones.
-      // Futuro motor dinámico: reemplazar estas reglas por un servicio que combine datos oficiales y contexto del usuario.
-    });
-
-    if (module === "beneficios") {
-      const params = new URLSearchParams(window.location.search);
-      const profile = getUserProfile();
-      if (params.get("modo") === "perfil" && profile && result) {
-        const guide = buildBenefitsGuide({
-          etapa: profile.etapa || profile.situacion || "sin-ingresos",
-          cargas: profile.cargas || (profile.situacion === "cargas" ? "si" : "no"),
-          rsh: profile.rsh || "nose",
-          ayuda: profile.ayuda || profile.interes || profile.necesidad || "nose"
-        });
-        result.innerHTML = renderGuideResult(guide);
-      }
-    }
-  });
-};
-
-const setupResultsPage = () => {
-  const mode = getPageMode();
-  if (mode === "educacion-diferencial") {
-    window.location.href = "./educacion-especial.html";
-    return;
-  }
-
-  const query = getSearchText();
-  const headerInput = document.querySelector("#header-search-input");
-  if (headerInput) headerInput.value = query;
-
-  if (!query.trim()) {
-    renderNoMatch("");
-    return;
-  }
-
-  const match = findBestMatch(query);
-  match ? renderResult(match) : renderNoMatch(query);
-};
-
-const buildDiagnosticGuide = (answers) => {
-  const links = [];
-  const routeSteps = [];
-  const recommendations = [];
-
-  if (answers.rsh !== "si") {
-    routeSteps.push("Revisa si tienes Registro Social de Hogares y actualiza datos del hogar.");
-    recommendations.push("Te conviene comenzar por RSH porque muchos beneficios dependen de esa información.");
-    links.push({ label: "Ver RSH", href: "./resultados.html?q=Registro%20Social%20de%20Hogares" });
-  }
-
-  const need = answers.necesidad;
-  const situation = answers.situacion;
-
-  if (need === "emprender" || situation === "cuenta-propia") {
-    routeSteps.push("Ordena tu ruta para trabajar independiente o formalizar un negocio.");
-    recommendations.push("Usa el asistente de emprender para decidir entre persona natural, empresa, boletas o facturas.");
-    links.push({ label: "Ir a emprender", href: "./emprender.html" });
-  }
-
-  if (need === "vivienda") {
-    routeSteps.push("Confirma ahorro, RSH y programa habitacional posible.");
-    recommendations.push("La ruta de vivienda puede ayudarte a ordenar Subsidio DS1, ahorro y crédito.");
-    links.push({ label: "Ir a vivienda", href: "./casa.html" });
-  }
-
-  if (need === "educacion") {
-    routeSteps.push("Identifica el tipo de apoyo educativo y busca opciones por comuna.");
-    recommendations.push("Educación especial permite diferenciar escuela especial, lenguaje y PIE.");
-    links.push({ label: "Buscar educación especial", href: "./educacion-especial.html" });
-  }
-
-  if (need === "salud") {
-    routeSteps.push("Revisa Fonasa, tramo o cobertura de salud disponible.");
-    recommendations.push("Fonasa puede ser una primera revisión útil para salud y cargas familiares.");
-    links.push({ label: "Ver Fonasa", href: "./resultados.html?q=Fonasa" });
-  }
-
-  if (need === "beneficios" || situation === "sin-ingresos" || situation === "pensionado" || situation === "cargas" || need === "nose") {
-    routeSteps.push("Haz una revisión inicial de beneficios sin asumir derecho garantizado.");
-    recommendations.push("El perfilador de beneficios puede priorizar opciones según etapa, cargas y RSH.");
-    links.push({ label: "Revisar beneficios", href: "./beneficios.html" });
-  }
-
-  if (answers.detalle === "detallada") {
-    routeSteps.push("Lee los próximos pasos y guarda los enlaces relevantes antes de iniciar trámites.");
-  }
-
-  return {
-    title: "Te conviene empezar por una ruta guiada",
-    summary: "Según tus respuestas, armamos una ruta inicial para que no tengas que adivinar qué trámite buscar primero.",
-    routeSteps: routeSteps.length ? routeSteps : ["Revisa beneficios.", "Consulta RSH.", "Usa el traductor si un término no se entiende.", "Elige una ruta por objetivo."],
-    checklist: ["Confirma datos personales básicos.", "Ten a mano información del hogar.", "Revisa enlaces oficiales antes de tomar decisiones."],
-    recommendations,
-    warnings: ["Esta orientación no es una resolución oficial.", "Sirve para ordenar el primer paso y descubrir rutas útiles."],
-    links: links.length ? links : [{ label: "Revisar beneficios", href: "./beneficios.html" }, { label: "Ver soluciones", href: "./index.html#soluciones" }],
-    nextStep: links[0] ? `Abre primero: ${links[0].label}.` : "Parte por el perfilador de beneficios.",
-    badge: "Ruta inicial personalizada"
-  };
-};
-
-const setupDiagnostic = () => {
-  const form = document.querySelector("[data-diagnostic-form]");
-  const result = document.querySelector("[data-diagnostic-result]");
-  const message = document.querySelector("[data-diagnostic-message]");
-  if (!form || !result) return;
-
-  form.addEventListener("submit", (event) => {
-    event.preventDefault();
-    if (!form.checkValidity()) {
-      if (message) message.textContent = "Responde todas las preguntas para crear tu ruta.";
-      return;
-    }
-
-    if (message) message.textContent = "";
-    const answers = getFormValues(form);
-    saveUserProfile({
-      necesidad: answers.necesidad,
-      situacion: answers.situacion,
-      rsh: answers.rsh,
-      preferencia: answers.detalle
-    });
-
-    const guide = buildDiagnosticGuide(answers);
-    result.innerHTML = renderGuideResult(guide);
-    result.scrollIntoView({ behavior: "smooth", block: "start" });
-    renderPersonalizedHub();
-    renderDynamicAlerts();
-
-    // Futuro IA: aquí se podrían enviar respuestas a un modelo para enriquecer la ruta.
-  });
-};
-
-const translateBureaucracy = (query) => {
-  const normalized = normalizeText(query);
-  if (!normalized) return null;
-
-  const exactKey = Object.keys(bureaucracyDictionary).find((key) => normalized === normalizeText(key));
-  if (exactKey) return bureaucracyDictionary[exactKey];
-
-  const partialKey = Object.keys(bureaucracyDictionary).find((key) => normalized.includes(normalizeText(key)) || normalizeText(key).includes(normalized));
-  if (partialKey) return bureaucracyDictionary[partialKey];
-
-  const related = Object.values(bureaucracyDictionary).find((item) =>
-    item.related.some((term) => normalizeText(term).split(/\s+/).some((word) => word.length > 2 && normalized.includes(word)))
-  );
-
-  return related ? {
-    title: "No encontramos una coincidencia exacta",
-    simple: `Todavía no tenemos una explicación exacta para ese término, pero podría estar relacionado con: ${related.title}.`,
-    related: related.related
-  } : null;
-};
-
-const setupTranslator = () => {
-  const input = document.querySelector("[data-translate-input]");
-  const button = document.querySelector("[data-translate-button]");
-  const result = document.querySelector("[data-translate-result]");
-  if (!input || !button || !result) return;
-
-  const run = () => {
-    const translation = translateBureaucracy(input.value);
-    if (!translation) {
-      result.innerHTML = `<h2>En simple</h2><p>Todavía no tenemos una explicación exacta para ese término. Prueba con RSH, PIE, DS1, tramo o carga familiar.</p>`;
-      return;
-    }
-
-    result.innerHTML = `
-      <h2>${translation.title}</h2>
-      <p><strong>En simple:</strong> ${translation.simple}</p>
-      <p class="translator-context-title">Esto suele aparecer en estos contextos:</p>
-      <div class="term-related">${translation.related.map((term) => `<span>${term}</span>`).join("")}</div>
-      <div class="result-links translator-links">
-        ${buildTranslatorLinks(translation).map((link) => `<a class="button button-secondary" href="${link.href}">${link.label}</a>`).join("")}
-      </div>
-    `;
-  };
-
-  button.addEventListener("click", run);
-  input.addEventListener("keydown", (event) => {
-    if (event.key === "Enter" && (event.ctrlKey || event.metaKey)) run();
-  });
-
-  document.querySelectorAll("[data-term]").forEach((termButton) => {
-    termButton.addEventListener("click", () => {
-      input.value = termButton.dataset.term;
-      run();
-    });
-  });
-};
-
-const buildTranslatorLinks = (translation) => {
-  const terms = normalizeText(`${translation.title} ${translation.related.join(" ")}`);
-  const links = [];
-
-  if (terms.includes("pie") || terms.includes("educacion") || terms.includes("colegio")) {
-    links.push({ label: "Ir a educación especial", href: "./educacion-especial.html" });
-    links.push({ label: "Ver caso apoyo escolar", href: "./casos.html?caso=apoyo-escolar" });
-  }
-
-  if (terms.includes("rsh") || terms.includes("beneficio") || terms.includes("carga")) {
-    links.push({ label: "Revisar beneficios", href: "./beneficios.html?modo=perfil" });
-  }
-
-  if (terms.includes("subsidio") || terms.includes("vivienda") || terms.includes("ahorro")) {
-    links.push({ label: "Ir a ruta vivienda", href: "./casa.html" });
-  }
-
-  if (terms.includes("sii") || terms.includes("giro") || terms.includes("boleta")) {
-    links.push({ label: "Ir a emprender", href: "./emprender.html" });
-  }
-
-  return links.slice(0, 3);
-};
-
-const renderCase = (caseId) => {
-  const result = document.querySelector("[data-case-result]");
-  const resolvedCaseId = caseAliases[caseId] || caseId;
-  const data = casesData[resolvedCaseId] || casesData["tengo-personas-a-cargo"];
-  const profile = getUserProfile();
-  if (!result || !data) return;
-
-  document.querySelectorAll("[data-case-button]").forEach((button) => {
-    button.classList.toggle("is-active", button.dataset.caseButton === resolvedCaseId);
-  });
-
-  const contextualLinks = [...data.links];
-  if (resolvedCaseId === "apoyo-escolar" && profile && profile.necesidad === "educacion") {
-    contextualLinks.unshift({ label: "Buscar por comuna", href: "./educacion-especial.html" });
-  }
-  if (resolvedCaseId === "sin-ingresos") {
-    contextualLinks.unshift({ label: "Beneficios con tu perfil", href: "./beneficios.html?modo=perfil" });
-  }
-
-  result.innerHTML = renderGuideResult({
-    title: data.title,
-    summary: data.summary,
-    routeSteps: data.steps,
-    checklist: ["Confirma datos personales y del hogar.", "Revisa requisitos oficiales antes de postular.", "Guarda enlaces y fechas importantes."],
-    recommendations: data.recommendations,
-    warnings: ["Esta ruta es referencial y no confirma acceso automático a beneficios."],
-    links: contextualLinks,
-    nextStep: contextualLinks[0] ? `Te conviene empezar por: ${contextualLinks[0].label}.` : "Te conviene partir por la ruta sugerida.",
-    badge: "Caso prearmado"
-  });
-};
-
-const setupCases = () => {
-  const params = new URLSearchParams(window.location.search);
-  const initialCase = caseAliases[params.get("caso")] || params.get("caso") || "tengo-personas-a-cargo";
-
-  document.querySelectorAll("[data-case-button]").forEach((button) => {
-    button.addEventListener("click", () => renderCase(button.dataset.caseButton));
-  });
-
-  renderCase(initialCase);
-};
-
-const setupAiBox = () => {
-  const form = document.querySelector("[data-ai-form]");
-  if (!form) return;
-
-  const response = document.querySelector("[data-ai-response]");
-  form.addEventListener("submit", (event) => {
-    event.preventDefault();
-    if (response) response.classList.add("is-visible");
-  });
-};
-
-const setupRevealAnimations = () => {
-  const items = document.querySelectorAll(".reveal");
-
-  if (!("IntersectionObserver" in window)) {
-    items.forEach((item) => item.classList.add("is-visible"));
-    return;
-  }
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("is-visible");
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.12 });
-
-  items.forEach((item) => observer.observe(item));
-};
-
-const resolveMobileMenuNav = (toggle) => {
-  const header = toggle.closest(".header-grid, .results-header");
-  return header ? header.querySelector(".main-nav") : null;
-};
-
-const closeAllMobileMenus = () => {
-  document.querySelectorAll("[data-menu-toggle]").forEach((toggle) => {
-    const nav = resolveMobileMenuNav(toggle);
-    toggle.classList.remove("is-open");
-    toggle.setAttribute("aria-expanded", "false");
-    if (nav) nav.classList.remove("is-open");
-  });
-};
-
-window.toggleMobileMenu = (toggle) => {
-  if (!toggle) return false;
-  const nav = resolveMobileMenuNav(toggle);
-  if (!nav) return false;
-
-  const shouldOpen = !nav.classList.contains("is-open");
-  closeAllMobileMenus();
-
-  if (shouldOpen) {
-    toggle.classList.add("is-open");
-    toggle.setAttribute("aria-expanded", "true");
-    nav.classList.add("is-open");
-  }
-
-  return false;
-};
-
-const setupMobileMenu = () => {
-  document.querySelectorAll("[data-menu-toggle]").forEach((toggle) => {
-    const nav = resolveMobileMenuNav(toggle);
-    if (!nav) return;
-
-    toggle.addEventListener("click", (event) => {
-      event.preventDefault();
-      event.stopPropagation();
-      window.toggleMobileMenu(toggle);
-    });
-
-    toggle.addEventListener("touchstart", (event) => {
-      event.preventDefault();
-      event.stopPropagation();
-      window.toggleMobileMenu(toggle);
-    }, { passive: false });
-
-    nav.querySelectorAll("a").forEach((link) => {
-      link.addEventListener("click", closeAllMobileMenus);
-    });
-  });
-
-  document.addEventListener("click", (event) => {
-    if (!event.target.closest(".main-nav") && !event.target.closest("[data-menu-toggle]")) {
-      closeAllMobileMenus();
-    }
-  });
-
-  window.addEventListener("resize", () => {
-    if (window.innerWidth > 720) closeAllMobileMenus();
-  });
-};
-const setupMobileNavState = () => {
-  const page = document.body ? document.body.dataset.page : "";
-  const activeByPage = {
-    home: "soluciones",
-    results: "soluciones",
-    diagnostico: "diagnostico",
-    translator: "traductor"
-  };
-  const activeKey = activeByPage[page] || "";
-
-  document.querySelectorAll(".site-header .main-nav").forEach((nav) => {
-    nav.querySelectorAll("a").forEach((link, index) => {
-      link.classList.remove("mobile-nav-active");
-      if (index > 2) return;
-
-      const href = (link.getAttribute("href") || "").toLowerCase();
-      const key = href.includes("traductor")
-        ? "traductor"
-        : href.includes("diagnostico")
-          ? "diagnostico"
-          : href.includes("soluciones") || href.includes("index.html")
-            ? "soluciones"
-            : "";
-
-      if (activeKey && key === activeKey) {
-        link.classList.add("mobile-nav-active");
-      }
-
-      link.addEventListener("click", () => {
-        nav.querySelectorAll("a").forEach((item, itemIndex) => {
-          if (itemIndex < 3) item.classList.remove("mobile-nav-active");
-        });
-        link.classList.add("mobile-nav-active");
-      });
-    });
-  });
-};
 document.addEventListener("DOMContentLoaded", () => {
-  setupSearchForms();
-  setupRevealAnimations();
-  setupMobileMenu();
-  setupMobileNavState();
-  renderPersonalizedHub();
-  renderDynamicAlerts();
+    console.log("🔄 Iniciando carga de datos...");
+    
+    setupVisualEnhancements();
+    setupFooterLegal();
+    setupFormTriggers();
+    setupMobileNav();
+    setupMiniHow();
+    renderLoadingSkeletons();
+    
+    Promise.all([
+        fetchSheetData("Publicaciones Locales"),
+        fetchSheetData("Publicaciones Tally"),
+        fetchOffersData()
+    ]).then(([localesData, joyitasData, ofertasData]) => {
+        console.log("📊 Datos RAW de Locales:", localesData);
+        console.log("📊 Datos RAW de Joyitas:", joyitasData);
+        console.log("📊 Datos RAW de Ofertas:", ofertasData);
+        
+        locales = (localesData || []).map(local => ({
+            name: getFieldValue(local, ["Nombre", "name"], ["nombre"]),
+            comuna: getFieldValue(local, ["Comuna", "comuna"], ["comuna"]),
+            loc: getFieldValue(local, ["Dirección", "Direccion", "loc"], ["direccion", "ubicacion", "direccionexacta"]),
+            desc: getFieldValue(local, ["Descripción", "Descripcion", "desc"], ["descripcion"]),
+            tags: getFieldValue(local, ["Tags", "tags", "Comunidad", "comunidad"], ["tags", "comunidad"]),
+            horLV: getScheduleValue(local, ["Horario_LV", "Horario LV", "HorarioLV"], ["horariolv"]),
+            horS: getScheduleValue(local, ["Horario_S", "Horario S", "HorarioS"], ["horarios"]),
+            horD: getScheduleValue(local, ["Horario_D", "Horario D", "HorarioD"], ["horariod"]),
+            img: (local.Imagen || local.Img || local.img || "sin-imagen.png"),
+            wa: getFieldValue(local, ["WhatsApp", "Whatsapp", "whatsapp", "wa"], ["whatsapp", "telefono", "contacto", "celular"]),
+            category: getFieldValue(local, ["Categoria", "Categoría", "category"], ["categoria"]),
+            prioridad: getPriorityValue(local),
+            raw: local
+        })).sort((a, b) => {
+            const prioridadA = a.prioridad ?? 999;
+            const prioridadB = b.prioridad ?? 999;
+            if (prioridadA !== prioridadB) return prioridadA - prioridadB;
 
-  if (document.body.dataset.page === "home") setupHomeInteractions();
-  if (document.body.dataset.page === "results") setupResultsPage();
-  if (document.body.dataset.page === "assistant") setupGuideForms();
-  if (document.body.dataset.page === "education-special") setupSchoolFinder();
-  if (document.body.dataset.page === "revision-tecnica") setupPrtFinder();
-  if (document.body.dataset.page === "documents") setupDocumentsPage();
-  if (document.body.dataset.page === "diagnostico") setupDiagnostic();
-  if (document.body.dataset.page === "translator") setupTranslator();
-  if (document.body.dataset.page === "cases") setupCases();
+            const abiertaA = estaAbiertoAhora(getTodaySchedule(a)) ? 1 : 0;
+            const abiertaB = estaAbiertoAhora(getTodaySchedule(b)) ? 1 : 0;
+            if (abiertaA !== abiertaB) return abiertaB - abiertaA;
 
-  // Punto de extensión: aquí se puede cargar el dataset desde un backend o una base de datos real.
-  // Punto de extensión: la caja "Preguntar a la IA" puede conectarse luego a una API de IA.
+            return a.name.localeCompare(b.name, "es", { sensitivity: "base" });
+        });
+        
+        joyitas = (joyitasData || []).map(j => {
+            console.log("🎉 Joyita cruda:", j);
+            return {
+                localName: j["Nombre del Local"] || j.localName || "",
+                name: j["¿Dónde lo encontraste?"] || j.name || j.Nombre || "",
+                desc: j["Comentario sobre la Picada"] || j["Cuéntanos el dato"] || j.desc || j.Descripción || "",
+                img: (j["Untitled file upload field"] || j["Untitled file upload"] || j["Untitled file uplo"] || j.Imagen || j.img || "sin-imagen.png"),
+                price: j["¿Precio? (opcional)"] || j["💰Precio? (opcional)"] || "",
+                autor: j["Tu Nombre"] ? String(j["Tu Nombre"]).trim() : "",
+                category: j.Categoria || j.category || "",
+                comuna: j["Comuna"] || j["Comun"] || j.Comuna || j.comuna || "",
+                ubicacion: j["¿Dónde lo encontraste?"] || j.loc || "",
+                estado: j.Estado || j.estado || "",
+                prioridad: getPriorityValue(j)
+            };
+        }).filter(j => {
+            const estadoLimpio = String(j.estado).trim().toLowerCase();
+            return estadoLimpio === "" || estadoLimpio.includes("aprob");
+        }).sort((a, b) => {
+            const prioridadA = a.prioridad ?? 999;
+            const prioridadB = b.prioridad ?? 999;
+            if (prioridadA !== prioridadB) return prioridadA - prioridadB;
+
+            const tituloA = (a.localName || a.name || "").trim();
+            const tituloB = (b.localName || b.name || "").trim();
+            return tituloA.localeCompare(tituloB, "es", { sensitivity: "base" });
+        });
+
+        ofertasHoy = (ofertasData || []).map(oferta => ({
+            local: getFieldValue(oferta, ["Local", "Nombre del local", "Nombre", "name"], ["local", "nombre"]),
+            texto: getFieldValue(oferta, ["Oferta", "Texto", "Mensaje", "Promocion", "Promoción"], ["oferta", "texto", "mensaje", "promo", "promocion"]),
+            comuna: getFieldValue(oferta, ["Comuna", "comuna"], ["comuna"]),
+            desde: getFieldValue(oferta, ["Desde", "Fecha", "Inicio"], ["desde", "fecha", "inicio"]),
+            tiempo: getFieldValue(oferta, ["Tiempo", "Duracion", "Duración"], ["tiempo", "duracion"]),
+            tiempoMs: parseDurationMs(getFieldValue(oferta, ["Tiempo", "Duracion", "Duración"], ["tiempo", "duracion"])),
+            estado: getFieldValue(oferta, ["Estado", "estado"], ["estado"]),
+            prioridad: getPriorityValue(oferta)
+        })).filter(oferta => {
+            const estado = String(oferta.estado || "").trim().toLowerCase();
+            return oferta.local && oferta.texto && (!estado || estado.includes("aprob")) && isOfferActive(oferta);
+        }).sort((a, b) => {
+            const prioridadA = a.prioridad ?? 999;
+            const prioridadB = b.prioridad ?? 999;
+            if (prioridadA !== prioridadB) return prioridadA - prioridadB;
+            return a.local.localeCompare(b.local, "es", { sensitivity: "base" });
+        });
+        
+        console.log("✅ Locales procesados:", locales);
+        console.log("✅ Joyitas procesadas:", joyitas);
+        
+        renderJoyitas();
+        renderTrending();
+        renderLocales();
+        renderOffers();
+        initTrendingCompact();
+        refreshRevealTargets();
+    }).catch(err => {
+        console.error("❌ Error cargando datos:", err);
+        clearLoadingSkeletons();
+        refreshRevealTargets();
+    });
+
+    function renderJoyitas(){
+        const joyitasGrid = document.getElementById("joyitas-grid");
+        if(!joyitasGrid) {
+            console.error("❌ No encontré el elemento joyitas-grid");
+            return;
+        }
+        joyitasGrid.innerHTML = "";
+        console.log("🎨 Renderizando joyitas, cantidad:", joyitas.length);
+        
+        if (joyitas.length === 0) {
+            joyitasGrid.innerHTML = "<p style='padding:2em;text-align:center;color:#bbb;'>No hay recomendaciones aún.</p>";
+            return;
+        }
+        joyitas.forEach((j, idx) => {
+            console.log(`🎴 Card #${idx}:`, j);
+            const c = document.createElement("article");
+            c.className = "comm-card";
+            c.style.cursor = "pointer";
+            
+            const imgSrc = j.img && String(j.img).startsWith("http") 
+                ? j.img 
+                : (j.img && j.img !== "sin-imagen.png" 
+                    ? `images/${j.img}` 
+                    : "images/sin-imagen.png");
+            
+            c.innerHTML = `
+                <div class="comm-img-box">
+                    <img src="${imgSrc}" alt="Dato recomendado" onerror="this.src='images/sin-imagen.png'">
+                    <div class="comm-image-overlay">
+                        <span class="comm-tag">${j.comuna || "Sin comuna"}</span>
+                        <span class="comm-chip">Joyita</span>
+                    </div>
+                </div>
+                <div class="comm-info">
+                    <div class="comm-info-top">
+                        <b>${j.localName || j.name || "Recomendación local"}</b>
+                        <span class="comm-author-line">por ${j.autor && j.autor.trim() ? j.autor : "Anónimo"}</span>
+                    </div>
+                    <p>"${j.desc || ""}"</p>
+                </div>
+            `;
+            c.addEventListener("click", (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                abrirDetalleJoyita(j);
+            });
+            joyitasGrid.appendChild(c);
+        });
+
+        refreshRevealTargets();
+    }
+
+    const grid = document.getElementById("locals-grid");
+    const searchInput = document.getElementById("main-search");
+    const searchButton = document.querySelector(".btn-buscar-main");
+    const comunaSelect = document.getElementById("comuna-select");
+    const comunaLabel = document.getElementById("current-comuna-label");
+    const noResults = document.getElementById("no-results");
+    const loadMoreHint = document.getElementById("load-more-hint");
+    const categoryButtons = document.querySelectorAll(".category-pill");
+    const openNowFilter = document.getElementById("open-now-filter");
+
+    let categoriaActiva = "Todas";
+    let soloAbiertos = false;
+
+    function renderLocales() {
+        if(!grid) {
+            console.error("❌ No encontré el elemento locals-grid");
+            return;
+        }
+        grid.innerHTML = "";
+        console.log("🏪 Renderizando locales, cantidad:", locales.length);
+        
+        const imagenesPorCategoria = {
+            "Almacén": "images/almacen.jpg",
+            "Botillería": "images/botilleria.jpg",
+            "Comida rápida": "images/comida-rapida.jpg",
+            "Comida Rápida": "images/comida-rapida.jpg",
+            "Panadería": "images/panaderia.jpg",
+            "Cafetería": "images/panaderia.jpg",
+            "Cafeterías": "images/panaderia.jpg",
+            "Pastelería": "images/pasteleria.jpg",
+            "Florería": "images/sin-imagen.png",
+            "Pizzería": "images/pizzeria.jpg",
+            "Completos": "images/comida-rapida.jpg",
+            "Sushi": "images/comida-rapida.jpg",
+            "Empanadas": "images/comida-rapida.jpg",
+            "Colaciones": "images/panaderia.jpg",
+            "Pizzas": "images/pizzeria.jpg",
+            "Servicios": "images/sin-imagen.png"
+        };
+        
+        const isInitialLoad = (searchInput?.value || "").trim() === "" && 
+                              (comunaSelect?.value || "") === "";
+        const maxCards = isInitialLoad ? 10 : locales.length;
+        
+        const localesToRender = locales.slice(0, maxCards);
+        
+        localesToRender.forEach((local) => {
+            const abierta = estaAbiertoAhora(getTodaySchedule(local));
+            const card = document.createElement("article");
+            card.className = "local-card";
+            card.dataset.comuna = local.comuna;
+            card.dataset.category = local.category;
+            card.dataset.search = normalizeSearchText(`${local.name} ${local.loc} ${local.desc} ${local.category} ${local.tags || ""}`);
+            card.dataset.open = abierta ? "true" : "false";
+            
+            let imgSrc = "images/sin-imagen.png";
+            
+            if (local.img && String(local.img).startsWith("http")) {
+                imgSrc = local.img;
+            } else if (local.img && local.img !== "sin-imagen.png" && String(local.img).trim() !== "") {
+                imgSrc = `images/${local.img}`;
+            } else {
+                imgSrc = imagenesPorCategoria[local.category] || "images/sin-imagen.png";
+            }
+            
+            card.innerHTML = `
+                <div class="local-img-wrap">
+                    <div class="local-img-box">
+                        <img src="${imgSrc}" alt="${local.name}" onerror="this.src='images/sin-imagen.png'">
+                        <div class="local-image-overlay">
+                            <div class="local-headline">
+                                <span class="local-inline-tag">${local.category}</span>
+                                <span class="local-status ${abierta ? "open" : "closed"}">${abierta ? "Abierto" : "Cerrado"}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="local-body">
+                    <div class="local-topline">
+                        <h3>${local.name}</h3>
+                    </div>
+                    <div class="local-meta">
+                        <p><b>${local.comuna}</b></p>
+                        <p>${local.loc}</p>
+                    </div>
+                    <button type="button" class="btn-ver">Ver más</button>
+                </div>
+            `;
+            card.addEventListener("click", (e) => {
+                e.preventDefault();
+                abrirDetalle(local);
+            });
+            card.querySelector(".btn-ver").addEventListener("click", (event) => {
+                event.stopPropagation();
+                abrirDetalle(local);
+            });
+            grid.appendChild(card);
+        });
+        
+        if (isInitialLoad && locales.length > 10) {
+            if (loadMoreHint) loadMoreHint.hidden = false;
+        } else {
+            if (loadMoreHint) loadMoreHint.hidden = true;
+        }
+        
+        filtrarLocales();
+        refreshRevealTargets();
+    }
+
+    function updateCategoryButtons() {
+        if(!categoryButtons) return;
+        categoryButtons.forEach((button) => {
+            button.classList.toggle("is-active", button.dataset.category === categoriaActiva);
+        });
+    }
+
+    function filtrarLocales() {
+        if (!grid) return;
+        const termino = normalizeSearchText(searchInput?.value || "");
+        const terminoVariantes = getSearchVariants(termino);
+        const comunaSeleccionada = comunaSelect?.value || "";
+        const cards = grid.querySelectorAll(".local-card");
+        let visibles = 0;
+        
+        if (comunaLabel) {
+            if (comunaSeleccionada === "") {
+                comunaLabel.textContent = "Todas las comunas";
+            } else {
+                comunaLabel.textContent = comunaSeleccionada;
+            }
+        }
+        
+        cards.forEach((card) => {
+            const coincideBusqueda = termino === "" || terminoVariantes.some((variant) => card.dataset.search.includes(variant));
+            const coincideComuna = comunaSeleccionada === "" || card.dataset.comuna === comunaSeleccionada;
+            const coincideCategoria = categoriaActiva === "Todas" || card.dataset.category === categoriaActiva;
+            const coincideAbierto = !soloAbiertos || card.dataset.open === "true";
+            const mostrar = coincideBusqueda && coincideComuna && coincideCategoria && coincideAbierto;
+            card.classList.toggle("is-hidden", !mostrar);
+            if (mostrar) visibles += 1;
+        });
+        if (noResults) noResults.hidden = visibles !== 0;
+    }
+
+    if (searchInput) searchInput.addEventListener("input", filtrarLocales);
+    if (searchButton) searchButton.addEventListener("click", filtrarLocales);
+    if (comunaSelect) comunaSelect.addEventListener("change", filtrarLocales);
+    categoryButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+            categoriaActiva = button.dataset.category || "Todas";
+            updateCategoryButtons();
+            filtrarLocales();
+        });
+    });
+    if (openNowFilter) {
+        openNowFilter.addEventListener("click", () => {
+            soloAbiertos = !soloAbiertos;
+            openNowFilter.classList.toggle("is-active", soloAbiertos);
+            filtrarLocales();
+        });
+    }
+    updateCategoryButtons();
 });
 
+let revealObserver;
 
+function setupVisualEnhancements() {
+    const revealTargets = document.querySelectorAll(
+        ".hero, .community-section, .locals-section-wrapper, .destacados-section, .cta-banner, .footer-extended, .site-footer"
+    );
 
+    revealTargets.forEach((element) => element.classList.add("ui-reveal"));
 
+    if (!("IntersectionObserver" in window)) {
+        revealTargets.forEach((element) => element.classList.add("is-visible"));
+        return;
+    }
 
+    revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add("is-visible");
+            revealObserver.unobserve(entry.target);
+        });
+    }, {
+        threshold: 0.16,
+        rootMargin: "0px 0px -40px 0px"
+    });
 
+    revealTargets.forEach((element) => revealObserver.observe(element));
+}
+
+function refreshRevealTargets() {
+    const dynamicTargets = document.querySelectorAll(".comm-card, .local-card, .trending-compact-item");
+
+    dynamicTargets.forEach((element, index) => {
+        if (element.dataset.revealReady === "true") return;
+        element.dataset.revealReady = "true";
+        element.classList.add("ui-reveal");
+        element.style.transitionDelay = `${Math.min(index * 35, 210)}ms`;
+
+        if (revealObserver) {
+            revealObserver.observe(element);
+        } else {
+            element.classList.add("is-visible");
+        }
+    });
+}
+
+function renderLoadingSkeletons() {
+    const joyitasGrid = document.getElementById("joyitas-grid");
+    const localsGrid = document.getElementById("locals-grid");
+    const trendingCompact = document.getElementById("trending-compact");
+    const offersFeed = document.getElementById("offers-feed");
+
+    if (joyitasGrid) {
+        joyitasGrid.innerHTML = Array.from({ length: 4 }, () => '<article class="ui-skeleton" aria-hidden="true"></article>').join("");
+    }
+
+    if (localsGrid) {
+        localsGrid.innerHTML = Array.from({ length: 6 }, () => '<article class="ui-skeleton ui-skeleton--local" aria-hidden="true"></article>').join("");
+    }
+
+    if (trendingCompact) {
+        trendingCompact.innerHTML = Array.from({ length: 3 }, () => '<div class="ui-skeleton ui-skeleton--compact" aria-hidden="true"></div>').join("");
+    }
+
+    if (offersFeed) {
+        offersFeed.innerHTML = Array.from({ length: 3 }, () => '<div class="ui-skeleton ui-skeleton--compact" aria-hidden="true"></div>').join("");
+    }
+
+    refreshRevealTargets();
+}
+
+function clearLoadingSkeletons() {
+    const joyitasGrid = document.getElementById("joyitas-grid");
+    const localsGrid = document.getElementById("locals-grid");
+    const trendingCompact = document.getElementById("trending-compact");
+    const offersFeed = document.getElementById("offers-feed");
+
+    if (joyitasGrid && joyitasGrid.querySelector(".ui-skeleton")) {
+        joyitasGrid.innerHTML = "";
+    }
+
+    if (localsGrid && localsGrid.querySelector(".ui-skeleton")) {
+        localsGrid.innerHTML = "";
+    }
+
+    if (trendingCompact && trendingCompact.querySelector(".ui-skeleton")) {
+        trendingCompact.innerHTML = "";
+    }
+
+    if (offersFeed && offersFeed.querySelector(".ui-skeleton")) {
+        offersFeed.innerHTML = "";
+    }
+}
+
+function renderOffers() {
+    const section = document.getElementById("offers-section");
+    const feed = document.getElementById("offers-feed");
+    if (!section || !feed) return;
+
+    if (!ofertasHoy.length) {
+        section.classList.add("is-hidden");
+        feed.innerHTML = "";
+        return;
+    }
+
+    section.classList.remove("is-hidden");
+    feed.innerHTML = ofertasHoy.map((oferta) => `
+        <article class="offer-item">
+            <strong>${oferta.local}</strong>
+            <p>${oferta.texto}</p>
+            ${oferta.comuna ? `<span>${oferta.comuna}</span>` : ""}
+            ${getOfferExpiryDate(oferta) ? `<small>Válido hasta el ${formatDateDisplay(getOfferExpiryDate(oferta))}</small>` : ""}
+        </article>
+    `).join("");
+}
+
+function convertirHoraAMinutos(valor) {
+    const match = valor.match(/^(\d{1,2}):(\d{2})$/);
+    if (!match) return null;
+    return Number(match[1]) * 60 + Number(match[2]);
+}
+
+function estaAbiertoAhora(horario) {
+    if (!horario || !horario.includes("-")) return false;
+    const ahora = new Date();
+    const minutosActuales = ahora.getHours() * 60 + ahora.getMinutes();
+    const partes = horario.split("-").map((parte) => parte.trim());
+    if (partes.length !== 2) return false;
+    const inicio = convertirHoraAMinutos(partes[0]);
+    const fin = convertirHoraAMinutos(partes[1]);
+    if (inicio === null || fin === null) return false;
+    if (inicio <= fin) return minutosActuales >= inicio && minutosActuales <= fin;
+    return minutosActuales >= inicio || minutosActuales <= fin;
+}
+
+function abrirDetalle(local) {
+    const el = id => document.getElementById(id) || { innerText:"", src: "", alt:"", href:"#", classList:{toggle:()=>{}}, style:{} };
+    const horarioDetalle = getScheduleSummary(local);
+    const horarioDetalleHtml = getScheduleSummaryHtml(local);
+    const contactoDetalle = local.wa || getFieldValue(local.raw, ["WhatsApp", "Whatsapp", "whatsapp", "wa"], ["whatsapp", "telefono", "contacto", "celular"]);
+    const contactoLink = getPhoneHref(contactoDetalle);
+
+    el("modal-titulo").innerText = local.name || "";
+    el("modal-categoria").innerText = local.category || "";
+    el("modal-dir").innerText = local.loc ? `Dirección: ${local.loc}` : "";
+    el("modal-desc").innerText = local.desc || "Sin descripción disponible.";
+    el("modal-hor").innerHTML = horarioDetalleHtml ? `Horario:<br>${horarioDetalleHtml}` : "Horario no informado";
+    el("modal-contacto").innerText = typeof contactoDetalle === "string" && contactoDetalle.trim() !== ""
+        ? contactoDetalle.trim()
+        : "Sin contacto";
+    el("modal-contacto").href = contactoLink || "#";
+    el("modal-contacto").target = contactoLink ? "_self" : "";
+    el("modal-precio").innerText = '';
+    el("modal-autor").innerText = '';
+    
+    const imgSrc = local.img && String(local.img).startsWith("http")
+        ? local.img
+        : (local.img && local.img !== "sin-imagen.png"
+            ? `images/${local.img}`
+            : "images/sin-imagen.png");
+    el("modal-img").src = imgSrc;
+    el("modal-img").alt = local.name || "";
+    
+    const waBtn = el("modal-wa");
+    waBtn.href = "#";
+    if (waBtn.classList) waBtn.classList.add("is-hidden");
+    el("modal-detalle").style.display = "flex";
+}
+
+function abrirDetalleJoyita(j) {
+    const el = id => document.getElementById(id) || {
+        innerText:"", src:"", alt:"", href:"#",
+        style:{},
+        classList:{ add:()=>{}, remove:()=>{}, toggle:()=>{} }
+    };
+    const titulo = j.localName && j.localName.trim() ? j.localName.trim() : (j.name || "Recomendación");
+    const comuna = j.comuna && j.comuna.trim() ? `Comuna: ${j.comuna.trim()}` : "";
+    const encontrado = j.name && j.name.trim() ? `¿Dónde lo encontraste?: ${j.name.trim()}` : "";
+    const descripcion = j.desc && j.desc.trim() ? j.desc.trim() : "Sin comentario disponible.";
+    const autor = j.autor && j.autor.trim() ? j.autor.trim() : "Anónimo";
+
+    el("modal-titulo").innerText = titulo;
+    el("modal-categoria").innerText = "";
+    el("modal-categoria").classList.add("is-hidden");
+    el("modal-dir").innerText = comuna;
+    el("modal-dir").style.display = comuna ? "block" : "none";
+    el("modal-desc").innerText = descripcion;
+    el("modal-desc").style.display = "block";
+    el("modal-hor").innerText = encontrado;
+    el("modal-hor").style.display = encontrado ? "block" : "none";
+    el("modal-contacto").innerText = `Recomendado por: ${autor}`;
+    el("modal-contacto").href = "#";
+    el("modal-contacto").target = "";
+    el("modal-precio").innerText = "";
+    el("modal-autor").innerText = '';
+    
+    const imgSrc = j.img && String(j.img).startsWith("http")
+        ? j.img
+        : (j.img && j.img !== "sin-imagen.png"
+            ? `images/${j.img}`
+            : "images/sin-imagen.png");
+    el("modal-img").src = imgSrc;
+    el("modal-img").alt = j.localName || j.name || '';
+    
+    el("modal-wa").classList.add('is-hidden');
+    el("modal-wa").href = "#";
+    el("modal-detalle").style.display = "flex";
+}
+
+function cerrarModal() {
+    const el = id => document.getElementById(id) || { style:{} };
+    el("modal-detalle").style.display = "none";
+}
+
+function abrirFormulario(tipoFormulario) {
+    if (tipoFormulario === "business") {
+        const businessModal = document.getElementById("business-form-modal");
+        if (businessModal) businessModal.style.display = "flex";
+        return;
+    }
+
+    const modal = document.getElementById("form-modal");
+    const frame = document.getElementById("form-modal-frame");
+    const url = {
+        tally: "https://tally.so/r/ja7DOQ",
+        business: "https://forms.gle/k3VE5zWxYB5Fxrdk6"
+    }[tipoFormulario];
+    if (!modal || !frame || !url) return;
+    frame.src = url;
+    modal.style.display = "flex";
+}
+
+function cerrarFormulario() {
+    const modal = document.getElementById("form-modal");
+    const frame = document.getElementById("form-modal-frame");
+    if (!modal || !frame) return;
+    modal.style.display = "none";
+    frame.src = "";
+}
+
+function cerrarBusinessFormulario() {
+    const modal = document.getElementById("business-form-modal");
+    if (modal) modal.style.display = "none";
+}
+
+function abrirFAQ() {
+    const modal = document.getElementById("faq-modal");
+    if (modal) modal.style.display = "flex";
+}
+
+function cerrarFAQ() {
+    const modal = document.getElementById("faq-modal");
+    if (modal) modal.style.display = "none";
+}
+
+function abrirComoUsar() {
+    const modal = document.getElementById("como-usar-modal");
+    if (modal) modal.style.display = "flex";
+}
+
+function cerrarComoUsar() {
+    const modal = document.getElementById("como-usar-modal");
+    if (modal) modal.style.display = "none";
+}
+
+function abrirQuienesSomos() {
+    const modal = document.getElementById("quienes-somos-modal");
+    if (modal) modal.style.display = "flex";
+}
+
+function cerrarQuienesSomos() {
+    const modal = document.getElementById("quienes-somos-modal");
+    if (modal) modal.style.display = "none";
+}
+
+function setupFooterLegal() {
+    const footerLinks = document.querySelector(".footer-links");
+    if (footerLinks) {
+        footerLinks.innerHTML = `
+            <p>LlamaBarrio © 2026 · Creado por <a href="https://www.fullcreator.cl" target="_blank" rel="noopener noreferrer">FullCreator Lab</a></p>
+            <p><a href="javascript:void(0);" onclick="abrirTerminos(); return false;">Términos</a> · <a href="javascript:void(0);" onclick="abrirPrivacidad(); return false;">Privacidad</a></p>
+        `;
+    }
+
+    createLegalModal(
+        "terminos-modal",
+        "Términos de uso",
+        [
+            ["Uso de la plataforma", "LlamaBarrio es una plataforma informativa y comunitaria para descubrir picadas y recomendaciones locales. El contenido publicado tiene fines referenciales y puede cambiar con el tiempo."],
+            ["Responsabilidad de los negocios", "Cada local publicado es independiente y responsable de sus productos, precios, horarios, medios de contacto y calidad de servicio. LlamaBarrio no vende ni opera en nombre de los negocios."],
+            ["Contenido enviado por usuarios", "Las recomendaciones recibidas mediante formularios pueden ser revisadas, aprobadas, editadas o descartadas para mantener la calidad, pertinencia y seguridad de la comunidad."],
+            ["Actualizaciones", "Podemos modificar el diseño, las funcionalidades, el contenido y estos términos para mejorar la plataforma. El uso continuado del sitio implica aceptación de dichas actualizaciones."]
+        ]
+    );
+
+    createLegalModal(
+        "privacidad-modal",
+        "Política de privacidad",
+        [
+            ["Datos recibidos", "Cuando un usuario completa formularios de recomendación o contacto, podemos recibir datos como nombre, comuna, descripción, fotografías y medios de contacto entregados voluntariamente."],
+            ["Uso de la información", "La información se utiliza para revisar recomendaciones, publicar contenidos relevantes, responder consultas y mejorar la experiencia general dentro de la plataforma."],
+            ["No venta de datos", "LlamaBarrio no vende datos personales a terceros. Solo se publica la información necesaria para mostrar una recomendación o facilitar el contacto con un negocio cuando corresponde."],
+            ["Corrección o eliminación", "Si necesitas corregir, actualizar o solicitar la eliminación de un contenido o dato enviado a la plataforma, puedes contactarnos y revisaremos tu solicitud."]
+        ]
+    );
+}
+
+function createLegalModal(id, title, items) {
+    if (document.getElementById(id)) return;
+
+    const steps = items.map(([heading, text], index) => `
+        <div class="info-step">
+            <div class="step-number">${index + 1}</div>
+            <div class="step-desc">
+                <strong>${heading}</strong>
+                <p>${text}</p>
+            </div>
+        </div>
+    `).join("");
+
+    const modal = document.createElement("div");
+    modal.id = id;
+    modal.className = "modal-overlay";
+    modal.innerHTML = `
+        <div class="info-modal-card">
+            <button type="button" class="close-btn" onclick="${id === "terminos-modal" ? "cerrarTerminos()" : "cerrarPrivacidad()"}">&times;</button>
+            <div class="info-content">
+                <h2>${title}</h2>
+                <div class="info-steps">${steps}</div>
+            </div>
+        </div>
+    `;
+
+    document.body.appendChild(modal);
+}
+
+function abrirTerminos() {
+    const modal = document.getElementById("terminos-modal");
+    if (modal) modal.style.display = "flex";
+}
+
+function cerrarTerminos() {
+    const modal = document.getElementById("terminos-modal");
+    if (modal) modal.style.display = "none";
+}
+
+function abrirPrivacidad() {
+    const modal = document.getElementById("privacidad-modal");
+    if (modal) modal.style.display = "flex";
+}
+
+function cerrarPrivacidad() {
+    const modal = document.getElementById("privacidad-modal");
+    if (modal) modal.style.display = "none";
+}
+
+function toggleFAQ(button) {
+    const item = button.parentElement;
+    const wasActive = item.classList.contains("active");
+    
+    document.querySelectorAll(".faq-item").forEach(i => i.classList.remove("active"));
+    
+    if (!wasActive) {
+        item.classList.add("active");
+    }
+}
+
+window.onclick = function (event) {
+    if (event.target === document.getElementById("modal-detalle")) cerrarModal();
+    if (event.target === document.getElementById("form-modal")) cerrarFormulario();
+    if (event.target === document.getElementById("business-form-modal")) cerrarBusinessFormulario();
+    if (event.target === document.getElementById("faq-modal")) cerrarFAQ();
+    if (event.target === document.getElementById("como-usar-modal")) cerrarComoUsar();
+    if (event.target === document.getElementById("quienes-somos-modal")) cerrarQuienesSomos();
+    if (event.target === document.getElementById("terminos-modal")) cerrarTerminos();
+    if (event.target === document.getElementById("privacidad-modal")) cerrarPrivacidad();
+};
+
+function setupFormTriggers() {
+    const formTriggers = document.querySelectorAll("[data-form-modal]");
+    formTriggers.forEach((trigger) => {
+        trigger.addEventListener("click", (event) => {
+            event.preventDefault();
+            const formType = trigger.getAttribute("data-form-modal");
+            abrirFormulario(formType);
+        });
+    });
+}
+
+function setupMobileNav() {
+    const mobileNavItems = document.querySelectorAll(".mobile-nav-item");
+    
+    mobileNavItems.forEach((item) => {
+        item.addEventListener("click", (e) => {
+            e.preventDefault();
+            const section = item.getAttribute("data-section");
+            const formModal = item.getAttribute("data-form-modal");
+            
+            if (formModal) {
+                abrirFormulario(formModal);
+                return;
+            }
+            
+            mobileNavItems.forEach(i => i.classList.remove("active"));
+            item.classList.add("active");
+            
+            if (section === "inicio") {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+            } else if (section === "joyitas") {
+                const joyitasSection = document.querySelector(".community-section");
+                if (joyitasSection) {
+                    joyitasSection.scrollIntoView({ behavior: "smooth" });
+                }
+            }
+        });
+    });
+}
+
+function setupMiniHow() {
+    const header = document.querySelector('.mini-how-header');
+    const steps = document.querySelector('.mini-how-steps');
+    const section = document.querySelector('.mini-how-section');
+    
+    if (header && steps && section) {
+        section.addEventListener('click', () => {
+            steps.classList.toggle('collapsed');
+        });
+        
+        steps.classList.add('collapsed');
+    }
+}
+
+function renderTrending() {
+    const localesConteo = {};
+    
+    if (joyitas && joyitas.length > 0) {
+        joyitas.forEach(joyita => {
+            const nombreLocal = joyita.localName;
+            if (nombreLocal && nombreLocal.trim() !== "") {
+                localesConteo[nombreLocal] = (localesConteo[nombreLocal] || 0) + 1;
+            }
+        });
+    }
+    
+    const trending = Object.entries(localesConteo)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 5);
+    
+    const trendingContainer = document.getElementById('trending-section');
+    if (!trendingContainer) {
+        console.log("ℹ️ No hay sección de trending configurada");
+        return;
+    }
+    
+    if (trending.length === 0) {
+        trendingContainer.innerHTML = '<p style="text-align:center;color:#999;padding:20px;">Aún no hay recomendaciones</p>';
+        return;
+    }
+}
+
+function initTrendingCompact() {
+    const trendingCompact = document.getElementById('trending-compact');
+    if (!trendingCompact) return;
+    
+    const localesConteo = {};
+    
+    if (joyitas && joyitas.length > 0) {
+        joyitas.forEach(joyita => {
+            const nombreLocal = joyita.localName;
+            if (nombreLocal && nombreLocal.trim() !== "") {
+                localesConteo[nombreLocal] = (localesConteo[nombreLocal] || 0) + 1;
+            }
+        });
+    }
+    
+    const trending = Object.entries(localesConteo)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 3);
+    
+    if (trending.length === 0) {
+        trendingCompact.innerHTML = '<p style="color:#999; text-align: center; padding: 12px;">Sin datos aún</p>';
+        return;
+    }
+    
+    const html = trending.map(([nombre, cantidad], idx) => `
+        <div class="trending-compact-item">
+            <strong>#${idx + 1} ${nombre}</strong><br>
+            ⭐ ${cantidad} recomendaciones
+        </div>
+    `).join('');
+    
+    trendingCompact.innerHTML = html;
+}
 
 
