@@ -3083,6 +3083,31 @@ body::before {
     padding: 14px;
   }
 
+  .document-card h3 {
+    font-size: 1.08rem;
+    line-height: 1.18;
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.02em;
+  }
+
+  .document-card p,
+  .document-use span {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  .document-use strong {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--muted-strong);
+  }
+
+  .document-option-stack .button,
+  .document-card .button {
+    font-weight: 800;
+  }
+
   .objective-icon {
     width: 42px;
     height: 42px;
