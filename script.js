@@ -1551,7 +1551,320 @@ const setupPrtFinder = async () => {
   });
 };
 
+const formatCurrency = (value) => new Intl.NumberFormat("es-CL", {
+  style: "currency",
+  currency: "CLP",
+  maximumFractionDigits: 0
+}).format(Number(value) || 0);
+
+const sanitizeLogoSource = (value) =>
+  String(value || "").startsWith("data:image/") ? value : "";
+
+const readFileAsDataUrl = (file) =>
+  new Promise((resolve) => {
+    if (!file) {
+      resolve("");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => resolve(typeof reader.result === "string" ? reader.result : "");
+    reader.onerror = () => resolve("");
+    reader.readAsDataURL(file);
+  });
+
+const budgetBaseFields = [
+  { name: "businessName", label: "Nombre del negocio o persona", placeholder: "Ej: Servicios Gómez", required: true },
+  { name: "businessRut", label: "RUT del negocio o persona", placeholder: "12.345.678-9", required: false },
+  { name: "businessPhone", label: "Teléfono o WhatsApp", placeholder: "+56 9 1234 5678", required: false },
+  { name: "businessEmail", label: "Correo", placeholder: "contacto@ejemplo.cl", required: false },
+  { name: "clientName", label: "Nombre del cliente", placeholder: "Nombre de la persona o empresa", required: true },
+  { name: "clientContact", label: "Contacto del cliente", placeholder: "Correo o teléfono", required: false },
+  { name: "city", label: "Ciudad", placeholder: "Ej: Santiago", required: true },
+  { name: "date", label: "Fecha", placeholder: "Ej: 28 de abril de 2026", required: true },
+  { name: "validity", label: "Vigencia del presupuesto", placeholder: "Ej: 7 días", required: false },
+  { name: "paymentTerms", label: "Forma de pago", placeholder: "Ej: 50% al inicio y 50% contra entrega", required: false },
+  { name: "notes", label: "Notas o alcance", placeholder: "Ej: no incluye materiales extra o visitas adicionales", required: false, type: "textarea" },
+  {
+    name: "logo",
+    label: "Logo del negocio (opcional)",
+    required: false,
+    type: "file",
+    accept: "image/png,image/jpeg,image/webp,image/svg+xml",
+    help: "Puedes subir una imagen desde tu teléfono, galería o archivos."
+  }
+];
+
+const budgetVariants = {
+  presupuestoSimple: {
+    title: "Presupuesto simple",
+    description: "Prepara una cotización clara y ordenada para enviar a un cliente.",
+    uses: "Suele servir para trabajos, servicios, arreglos, instalaciones o ventas que necesitan una propuesta previa.",
+    itemsTitle: "Ítems del presupuesto",
+    itemsDescription: "Agrega servicios, productos o materiales con cantidad y valor.",
+    itemLabel: "Detalle",
+    itemPlaceholder: "Ej: Instalación, visita técnica, materiales",
+    quantityLabel: "Cantidad",
+    priceLabel: "Valor unitario",
+    totalLabel: "Total estimado",
+    textTitle: "PRESUPUESTO SIMPLE"
+  },
+  presupuestoServicios: {
+    title: "Presupuesto por servicios",
+    description: "Ordena servicios, etapas o sesiones de forma clara para enviar una propuesta más profesional.",
+    uses: "Suele servir para asesorías, mantenciones, trabajos técnicos, diseño, soporte o servicios por etapa.",
+    itemsTitle: "Servicios incluidos",
+    itemsDescription: "Agrega cada servicio, sesión o etapa con su cantidad y valor.",
+    itemLabel: "Servicio o etapa",
+    itemPlaceholder: "Ej: Diagnóstico, instalación, mantención mensual",
+    quantityLabel: "Cantidad",
+    priceLabel: "Valor por servicio",
+    totalLabel: "Total estimado del servicio",
+    textTitle: "PRESUPUESTO POR SERVICIOS"
+  },
+  presupuestoMaterialesManoObra: {
+    title: "Presupuesto por materiales + mano de obra",
+    description: "Separa materiales y mano de obra para que el cliente entienda mejor el valor total.",
+    uses: "Suele servir para reparaciones, construcción, instalaciones, mejoras del hogar o trabajos con insumos.",
+    itemsTitle: "Materiales y mano de obra",
+    itemsDescription: "Separa cada material o tramo de trabajo para que el presupuesto quede más claro.",
+    itemLabel: "Detalle",
+    itemPlaceholder: "Ej: Pintura, traslado, instalación de enchufes",
+    quantityLabel: "Cantidad",
+    priceLabel: "Valor unitario",
+    totalLabel: "Total estimado",
+    textTitle: "PRESUPUESTO POR MATERIALES Y MANO DE OBRA",
+    showCategory: true,
+    categoryLabel: "Tipo"
+  }
+};
+
+const budgetDocumentIds = Object.keys(budgetVariants);
+
+const renderBudgetItemRow = (config, index = 0) => `
+  <div class="budget-item-row ${config.showCategory ? "budget-item-row-extended" : ""}" data-budget-item-row>
+    ${config.showCategory ? `
+      <div class="field-group">
+        <label for="budget-category-${index}">${config.categoryLabel || "Tipo"}</label>
+        <select id="budget-category-${index}" name="budgetCategory">
+          <option value="Material">Material</option>
+          <option value="Mano de obra">Mano de obra</option>
+        </select>
+      </div>
+    ` : ""}
+    <div class="field-group budget-item-description">
+      <label for="budget-description-${index}">${config.itemLabel}</label>
+      <input id="budget-description-${index}" name="budgetDescription" type="text" placeholder="${config.itemPlaceholder}" required>
+    </div>
+    <div class="field-group">
+      <label for="budget-quantity-${index}">${config.quantityLabel}</label>
+      <input id="budget-quantity-${index}" name="budgetQuantity" type="number" min="1" step="1" value="1" required>
+    </div>
+    <div class="field-group">
+      <label for="budget-price-${index}">${config.priceLabel}</label>
+      <input id="budget-price-${index}" name="budgetPrice" type="number" min="0" step="1" placeholder="Ej: 25000" required>
+    </div>
+    <button class="budget-item-remove" type="button" data-remove-budget-item aria-label="Quitar ítem">×</button>
+  </div>
+`;
+
+const renderBudgetItemsEditor = (config) => `
+  <div class="budget-items-builder" data-budget-items-builder>
+    <div class="budget-items-header">
+      <div>
+        <h3>${config.itemsTitle}</h3>
+        <p>${config.itemsDescription}</p>
+      </div>
+      <button class="button button-small button-secondary" type="button" data-add-budget-item>Agregar ítem</button>
+    </div>
+    <div class="budget-item-list" data-budget-items-list>
+      ${Array.from({ length: 2 }, (_, index) => renderBudgetItemRow(config, index)).join("")}
+    </div>
+  </div>
+`;
+
+const renderBudgetDocumentHtml = (data, config) => {
+  const total = data.items.reduce((sum, item) => sum + item.total, 0);
+  const safeLogo = sanitizeLogoSource(data.logo);
+  const groupedItems = config.showCategory
+    ? {
+        "Materiales": data.items.filter((item) => item.category === "Material"),
+        "Mano de obra": data.items.filter((item) => item.category === "Mano de obra")
+      }
+    : null;
+
+  return `
+    <section class="budget-preview-card">
+      <div class="budget-preview-header">
+        <div class="budget-brand">
+          ${safeLogo ? `<img src="${safeLogo}" alt="Logo del negocio" class="budget-logo">` : ""}
+          <div>
+            <strong>${escapeHtml(data.businessName)}</strong>
+            ${data.businessRut ? `<span>RUT: ${escapeHtml(data.businessRut)}</span>` : ""}
+            ${data.businessPhone ? `<span>${escapeHtml(data.businessPhone)}</span>` : ""}
+            ${data.businessEmail ? `<span>${escapeHtml(data.businessEmail)}</span>` : ""}
+          </div>
+        </div>
+        <div class="budget-meta">
+          <strong>${escapeHtml(config.title)}</strong>
+          <span>${escapeHtml(data.city)}</span>
+          <span>${escapeHtml(data.date)}</span>
+          ${data.validity ? `<span>Vigencia: ${escapeHtml(data.validity)}</span>` : ""}
+        </div>
+      </div>
+
+      <div class="budget-client">
+        <div>
+          <span>Cliente</span>
+          <strong>${escapeHtml(data.clientName)}</strong>
+          ${data.clientContact ? `<small>${escapeHtml(data.clientContact)}</small>` : ""}
+        </div>
+      </div>
+
+      ${groupedItems
+        ? Object.entries(groupedItems)
+          .filter(([, items]) => items.length)
+          .map(([groupLabel, items]) => `
+            <div class="budget-group-title">${groupLabel}</div>
+            <div class="budget-table">
+              <div class="budget-table-head">
+                <span>${config.itemLabel}</span>
+                <span>Cant.</span>
+                <span>${config.priceLabel}</span>
+                <span>Total</span>
+              </div>
+              ${items.map((item) => `
+                <div class="budget-table-row">
+                  <span>${escapeHtml(item.description)}</span>
+                  <span>${item.quantity}</span>
+                  <span>${formatCurrency(item.price)}</span>
+                  <strong>${formatCurrency(item.total)}</strong>
+                </div>
+              `).join("")}
+            </div>
+          `).join("")
+        : `
+          <div class="budget-table">
+            <div class="budget-table-head">
+              <span>${config.itemLabel}</span>
+              <span>Cant.</span>
+              <span>${config.priceLabel}</span>
+              <span>Total</span>
+            </div>
+            ${data.items.map((item) => `
+              <div class="budget-table-row">
+                <span>${escapeHtml(item.description)}</span>
+                <span>${item.quantity}</span>
+                <span>${formatCurrency(item.price)}</span>
+                <strong>${formatCurrency(item.total)}</strong>
+              </div>
+            `).join("")}
+          </div>
+        `}
+
+      <div class="budget-total">
+        <span>${config.totalLabel}</span>
+        <strong>${formatCurrency(total)}</strong>
+      </div>
+
+      ${data.paymentTerms ? `
+        <div class="budget-extra">
+          <strong>Forma de pago</strong>
+          <p>${escapeHtml(data.paymentTerms)}</p>
+        </div>
+      ` : ""}
+
+      ${data.notes ? `
+        <div class="budget-extra">
+          <strong>Notas</strong>
+          <p>${escapeHtml(data.notes)}</p>
+        </div>
+      ` : ""}
+      <div class="budget-signature"><span>Generado con Tramiteca.cl</span></div>
+    </section>
+  `;
+};
+
+const buildBudgetOutput = (data, config) => {
+  const total = data.items.reduce((sum, item) => sum + item.total, 0);
+  const detailLines = data.items
+    .map((item, index) => `${index + 1}. ${item.category ? `${item.category} - ` : ""}${item.description} | Cantidad: ${item.quantity} | Unitario: ${formatCurrency(item.price)} | Total: ${formatCurrency(item.total)}`)
+    .join("\n");
+
+  const text = `${config.textTitle}
+
+Emisor: ${data.businessName}${data.businessRut ? ` | RUT ${data.businessRut}` : ""}
+Contacto: ${[data.businessPhone, data.businessEmail].filter(Boolean).join(" | ")}
+Cliente: ${data.clientName}${data.clientContact ? ` | ${data.clientContact}` : ""}
+Ciudad y fecha: ${data.city}, ${data.date}
+${data.validity ? `Vigencia: ${data.validity}` : ""}
+
+DETALLE
+${detailLines}
+
+${config.totalLabel.toUpperCase()}: ${formatCurrency(total)}
+${data.paymentTerms ? `\nForma de pago: ${data.paymentTerms}` : ""}
+${data.notes ? `\nNotas: ${data.notes}` : ""}
+
+Generado con Tramiteca.cl`;
+
+  const html = renderBudgetDocumentHtml(data, config);
+  return { text, html };
+};
+
+const getBrandLogoSrc = () => {
+  const existingLogo = document.querySelector(".brand-logo");
+  if (existingLogo && "src" in existingLogo && existingLogo.src) {
+    return existingLogo.src;
+  }
+
+  return new URL("./assets/logo.png", document.baseURI).href;
+};
+
+const renderBrandedTextDocumentHtml = (title, text) => `
+  <section class="plain-document-card">
+    <div class="plain-document-header">
+      <div class="plain-document-brand">
+        <div>
+          <strong>Tramiteca.cl</strong>
+          <span>Formato de orientación inicial</span>
+        </div>
+      </div>
+      <strong>${escapeHtml(title)}</strong>
+    </div>
+    <pre>${escapeHtml(text)}</pre>
+    <div class="plain-document-signature"><span>Generado con Tramiteca.cl</span></div>
+  </section>
+`;
+
 const documentsData = {
+  presupuestoOnline: {
+    title: "Presupuesto online",
+    description: "Elige el formato que más te convenga y genera una versión ordenada para enviar a tu cliente.",
+    uses: "Suele servir para cotizaciones rápidas, servicios por etapa o trabajos que separan materiales y mano de obra.",
+    variants: budgetDocumentIds
+  },
+  presupuestoSimple: {
+    ...budgetVariants.presupuestoSimple,
+    hiddenFromGrid: true,
+    disclaimers: ["Confirma si necesitas agregar condiciones comerciales o tributarias especiales.", "Te conviene revisar valores, vigencia y forma de pago antes de enviarlo."],
+    fields: budgetBaseFields,
+    template: (data) => buildBudgetOutput(data, budgetVariants.presupuestoSimple)
+  },
+  presupuestoServicios: {
+    ...budgetVariants.presupuestoServicios,
+    hiddenFromGrid: true,
+    disclaimers: ["Te conviene detallar bien qué incluye cada servicio y qué queda fuera.", "Si el trabajo tiene etapas o fechas, conviene dejarlas por escrito."],
+    fields: budgetBaseFields,
+    template: (data) => buildBudgetOutput(data, budgetVariants.presupuestoServicios)
+  },
+  presupuestoMaterialesManoObra: {
+    ...budgetVariants.presupuestoMaterialesManoObra,
+    hiddenFromGrid: true,
+    disclaimers: ["Te conviene confirmar si los materiales pueden variar según stock o precio del proveedor.", "Si hay traslado, retiro o instalación extra, conviene dejarlo indicado."],
+    fields: budgetBaseFields,
+    template: (data) => buildBudgetOutput(data, budgetVariants.presupuestoMaterialesManoObra)
+  },
   poderSimple: {
     title: "Poder simple",
     description: "Autoriza a otra persona a realizar una gestión específica en tu nombre.",
@@ -1683,11 +1996,13 @@ RUT: ${data.rutPrestador}`
   }
 };
 
-let selectedDocumentId = "poderSimple";
+let selectedDocumentId = "presupuestoSimple";
 let currentDocumentText = "";
+let currentDocumentHtml = "";
 
-const renderDocumentCards = () =>
-  Object.entries(documentsData).map(([id, document]) => `
+const renderBudgetSelectorCard = () => {
+  const document = documentsData.presupuestoOnline;
+  return `
     <article class="document-card reveal">
       <h3>${document.title}</h3>
       <p>${document.description}</p>
@@ -1695,25 +2010,57 @@ const renderDocumentCards = () =>
         <strong>Cuándo suele usarse</strong>
         <span>${document.uses}</span>
       </div>
-      <button class="button button-small" type="button" data-document-select="${id}">Generar</button>
+      <div class="document-option-stack">
+        ${document.variants.map((id) => `
+          <button class="button button-small ${selectedDocumentId === id ? "" : "button-secondary"}" type="button" data-document-select="${id}">
+            ${documentsData[id].title}
+          </button>
+        `).join("")}
+      </div>
     </article>
-  `).join("");
+  `;
+};
+
+const renderDocumentCards = () =>
+  [
+    renderBudgetSelectorCard(),
+    ...Object.entries(documentsData)
+      .filter(([id, document]) => id !== "presupuestoOnline" && !document.hiddenFromGrid)
+      .map(([id, document]) => `
+        <article class="document-card reveal">
+          <h3>${document.title}</h3>
+          <p>${document.description}</p>
+          <div class="document-use">
+            <strong>Cuándo suele usarse</strong>
+            <span>${document.uses}</span>
+          </div>
+          <button class="button button-small" type="button" data-document-select="${id}">Generar</button>
+        </article>
+      `)
+  ].join("");
 
 const renderDocumentForm = (id) => {
   const document = documentsData[id];
   if (!document) return "";
+  const budgetConfig = budgetVariants[id];
 
   return `
     <p class="section-kicker">Generador guiado</p>
     <h2>${document.title}</h2>
     <p>${document.description}</p>
-    <form class="document-form-grid" data-document-form>
+    <form class="document-form-grid ${budgetConfig ? "document-form-grid-budget" : ""}" data-document-form>
       ${document.fields.map((field) => `
         <div class="field-group">
           <label for="doc-${field.name}">${field.label}</label>
-          <input id="doc-${field.name}" name="${field.name}" type="text" placeholder="${field.placeholder}" required>
+          ${field.type === "textarea"
+            ? `<textarea id="doc-${field.name}" name="${field.name}" rows="4" placeholder="${field.placeholder || ""}" ${field.required === false ? "" : "required"}></textarea>`
+            : field.type === "file"
+              ? `<input id="doc-${field.name}" name="${field.name}" type="file" accept="${field.accept || "image/*"}" ${field.required === false ? "" : "required"}>`
+              : `<input id="doc-${field.name}" name="${field.name}" type="text" placeholder="${field.placeholder || ""}" ${field.required === false ? "" : "required"}>`}
+          ${field.help ? `<small class="field-help">${field.help}</small>` : ""}
         </div>
       `).join("")}
+      ${budgetConfig ? renderBudgetItemsEditor(budgetConfig) : ""}
       <p class="form-message" data-document-message role="status" aria-live="polite"></p>
       <button class="button" type="submit">Generar documento</button>
     </form>
@@ -1725,14 +2072,67 @@ const renderDocumentForm = (id) => {
   `;
 };
 
-const updateDocumentPreview = (text = "") => {
+const updateDocumentPreview = (content = "") => {
   const preview = document.querySelector("[data-document-preview]");
   if (!preview) return;
 
-  currentDocumentText = text;
-  preview.innerHTML = text
-    ? `<pre>${escapeHtml(text)}</pre>`
+  if (typeof content === "object" && content !== null) {
+    currentDocumentText = content.text || "";
+    currentDocumentHtml = content.html || "";
+    preview.innerHTML = currentDocumentHtml || `<pre>${escapeHtml(currentDocumentText)}</pre>`;
+    return;
+  }
+
+  currentDocumentText = content;
+  currentDocumentHtml = content
+    ? renderBrandedTextDocumentHtml(documentsData[selectedDocumentId]?.title || "Documento", currentDocumentText)
+    : "";
+  preview.innerHTML = content
+    ? currentDocumentHtml
     : `<p>Completa el formulario y aquí aparecerá una vista previa lista para copiar o descargar.</p>`;
+};
+
+const setupBudgetItems = (form, config) => {
+  const list = form.querySelector("[data-budget-items-list]");
+  const addButton = form.querySelector("[data-add-budget-item]");
+  if (!list || !addButton) return;
+
+  const bindRemoveButtons = () => {
+    list.querySelectorAll("[data-remove-budget-item]").forEach((button) => {
+      button.onclick = () => {
+        const rows = list.querySelectorAll("[data-budget-item-row]");
+        if (rows.length <= 1) return;
+        button.closest("[data-budget-item-row]")?.remove();
+      };
+    });
+  };
+
+  addButton.addEventListener("click", () => {
+    const index = list.querySelectorAll("[data-budget-item-row]").length;
+    list.insertAdjacentHTML("beforeend", renderBudgetItemRow(config, index));
+    bindRemoveButtons();
+  });
+
+  bindRemoveButtons();
+};
+
+const collectBudgetItems = (form, config) => {
+  const descriptions = Array.from(form.querySelectorAll('[name="budgetDescription"]')).map((input) => input.value.trim());
+  const quantities = Array.from(form.querySelectorAll('[name="budgetQuantity"]')).map((input) => Number(input.value) || 0);
+  const prices = Array.from(form.querySelectorAll('[name="budgetPrice"]')).map((input) => Number(input.value) || 0);
+  const categories = config.showCategory
+    ? Array.from(form.querySelectorAll('[name="budgetCategory"]')).map((input) => input.value.trim() || "Material")
+    : [];
+
+  return descriptions
+    .map((description, index) => ({
+      category: config.showCategory ? (categories[index] || "Material") : "",
+      description,
+      quantity: quantities[index] || 1,
+      price: prices[index] || 0,
+      total: (quantities[index] || 1) * (prices[index] || 0)
+    }))
+    .filter((item) => item.description && item.price > 0);
 };
 
 const setSelectedDocument = (id) => {
@@ -1747,7 +2147,12 @@ const setSelectedDocument = (id) => {
   });
 
   const form = builder.querySelector("[data-document-form]");
-  if (form) form.addEventListener("submit", (event) => {
+  const budgetConfig = budgetVariants[id];
+  if (budgetConfig && form) {
+    setupBudgetItems(form, budgetConfig);
+  }
+
+  if (form) form.addEventListener("submit", async (event) => {
     event.preventDefault();
     if (!form.checkValidity()) {
       const message = form.querySelector("[data-document-message]");
@@ -1755,9 +2160,26 @@ const setSelectedDocument = (id) => {
       return;
     }
 
-    const data = Object.fromEntries(new FormData(form).entries());
-    const text = documentsData[selectedDocumentId].template(data);
     const message = form.querySelector("[data-document-message]");
+    const data = Object.fromEntries(new FormData(form).entries());
+
+    if (budgetConfig) {
+      const items = collectBudgetItems(form, budgetConfig);
+      if (!items.length) {
+        if (message) message.textContent = "Agrega al menos un ítem con detalle y valor para generar el presupuesto.";
+        return;
+      }
+
+      const logoInput = form.querySelector('[name="logo"]');
+      const logoFile = logoInput && "files" in logoInput ? logoInput.files[0] : null;
+      const logo = await readFileAsDataUrl(logoFile);
+      const output = documentsData[selectedDocumentId].template({ ...data, items, logo });
+      if (message) message.textContent = "Presupuesto generado. Revísalo antes de enviarlo.";
+      updateDocumentPreview(output);
+      return;
+    }
+
+    const text = documentsData[selectedDocumentId].template(data);
     if (message) message.textContent = "Documento generado. Revísalo antes de usarlo.";
     updateDocumentPreview(text);
   });
@@ -1770,9 +2192,50 @@ const downloadDocument = (type = "txt") => {
 
   const title = documentsData[selectedDocumentId] ? documentsData[selectedDocumentId].title : "documento";
   const safeName = normalizeText(title).replace(/\s+/g, "-") || "documento";
+  const brandLogo = getBrandLogoSrc();
   const content = type === "html"
-    ? `<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><title>${title}</title><style>body{font-family:Arial,sans-serif;line-height:1.6;max-width:760px;margin:40px auto;padding:0 24px;white-space:pre-wrap;color:#1f2937;}</style></head><body>${escapeHtml(currentDocumentText)}</body></html>`
-    : currentDocumentText;
+    ? currentDocumentHtml
+      ? `<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><title>${title}</title><style>
+        body{font-family:Arial,sans-serif;line-height:1.6;max-width:860px;margin:40px auto;padding:0 24px;color:#1f2937;background:#fff}
+        .budget-preview-card{border:1px solid #d9e2ef;border-radius:16px;padding:28px}
+        .budget-preview-header{display:flex;justify-content:space-between;gap:24px;align-items:flex-start;padding-bottom:20px;border-bottom:1px solid #d9e2ef}
+        .budget-brand{display:flex;gap:16px;align-items:flex-start}
+        .budget-brand strong,.budget-meta strong{display:block;font-size:1.2rem}
+        .budget-brand span,.budget-meta span,.budget-client small{display:block;color:#5f6f8b}
+        .budget-logo{width:72px;height:72px;object-fit:contain;border-radius:12px;border:1px solid #d9e2ef;padding:8px;background:#fff}
+        .budget-client{padding:18px 0}
+        .budget-client span{display:block;color:#5f6f8b;font-size:.9rem}
+        .budget-client strong{display:block;font-size:1.05rem}
+        .budget-table{display:grid;border:1px solid #d9e2ef;border-radius:12px;overflow:hidden}
+        .budget-table-head,.budget-table-row{display:grid;grid-template-columns:minmax(0,1.8fr) 90px 140px 140px;gap:12px;padding:14px 16px;align-items:center}
+        .budget-table-head{background:#f5fbff;font-weight:700}
+        .budget-table-row{border-top:1px solid #e6edf7}
+        .budget-total{display:flex;justify-content:space-between;align-items:center;margin-top:18px;padding:16px;border-radius:12px;background:#eef7ff}
+        .budget-total strong{font-size:1.25rem}
+        .budget-extra{margin-top:18px;padding-top:18px;border-top:1px solid #e6edf7}
+        .budget-extra strong{display:block;margin-bottom:6px}
+        .budget-extra p{margin:0;color:#42536f;white-space:pre-wrap}
+        .budget-group-title{margin:18px 0 10px;font-weight:700;color:#1763c2}
+        .budget-signature{margin-top:24px;text-align:right;font-size:12px;color:#5f6f8b}
+        .plain-document-card{border:1px solid #d9e2ef;border-radius:16px;padding:28px}
+        .plain-document-header{display:flex;justify-content:space-between;gap:24px;align-items:flex-start;padding-bottom:18px;border-bottom:1px solid #e6edf7;margin-bottom:18px}
+        .plain-document-brand{display:flex;gap:14px;align-items:center}
+        .plain-document-logo{width:52px;height:52px;object-fit:contain}
+        .plain-document-brand strong{display:block}
+        .plain-document-brand span{display:block;color:#5f6f8b;font-size:13px}
+        pre{margin:0;font-family:Arial,sans-serif;white-space:pre-wrap}
+      </style></head><body>${currentDocumentHtml}</body></html>`
+      : `<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><title>${title}</title><style>
+        body{font-family:Arial,sans-serif;line-height:1.6;max-width:760px;margin:40px auto;padding:0 24px;color:#1f2937;}
+        .plain-document-card{border:1px solid #d9e2ef;border-radius:16px;padding:28px}
+        .plain-document-header{display:flex;justify-content:space-between;gap:24px;align-items:flex-start;padding-bottom:18px;border-bottom:1px solid #e6edf7;margin-bottom:18px}
+        .plain-document-brand{display:flex;gap:14px;align-items:center}
+        .plain-document-logo{width:52px;height:52px;object-fit:contain}
+        .plain-document-brand strong{display:block}
+        .plain-document-brand span{display:block;color:#5f6f8b;font-size:13px}
+        pre{margin:0;white-space:pre-wrap}
+      </style></head><body><section class="plain-document-card"><div class="plain-document-header"><div class="plain-document-brand"><img src="${brandLogo}" alt="Tramiteca.cl" class="plain-document-logo"><div><strong>Tramiteca.cl</strong><span>Formato de orientación inicial</span></div></div><strong>${escapeHtml(title)}</strong></div><pre>${escapeHtml(currentDocumentText)}</pre></section></body></html>`
+    : `${currentDocumentText}\n\nGenerado con Tramiteca.cl`;
   const blob = new Blob([content], { type: type === "html" ? "text/html;charset=utf-8" : "text/plain;charset=utf-8" });
   const link = document.createElement("a");
   link.href = URL.createObjectURL(blob);
@@ -1781,6 +2244,82 @@ const downloadDocument = (type = "txt") => {
   link.click();
   link.remove();
   URL.revokeObjectURL(link.href);
+};
+
+const buildPrintableDocumentHtml = () => {
+  const title = documentsData[selectedDocumentId] ? documentsData[selectedDocumentId].title : "documento";
+  if (currentDocumentHtml) {
+    return `<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><title>${title}</title><style>
+      @page{size:auto;margin:18mm}
+      body{font-family:Arial,sans-serif;line-height:1.6;max-width:860px;margin:24px auto;padding:0 18px;color:#1f2937;background:#fff}
+      .budget-preview-card{border:1px solid #d9e2ef;border-radius:16px;padding:28px}
+      .budget-preview-header{display:flex;justify-content:space-between;gap:24px;align-items:flex-start;padding-bottom:20px;border-bottom:1px solid #d9e2ef}
+      .budget-brand{display:flex;gap:16px;align-items:flex-start}
+      .budget-brand strong,.budget-meta strong{display:block;font-size:1.2rem}
+      .budget-brand span,.budget-meta span,.budget-client small{display:block;color:#5f6f8b}
+      .budget-logo{width:72px;height:72px;max-width:72px;max-height:72px;object-fit:contain;border-radius:12px;border:1px solid #d9e2ef;padding:8px;background:#fff}
+      .budget-client{padding:18px 0}
+      .budget-client span{display:block;color:#5f6f8b;font-size:.9rem}
+      .budget-client strong{display:block;font-size:1.05rem}
+      .budget-table{display:grid;border:1px solid #d9e2ef;border-radius:12px;overflow:hidden}
+      .budget-table-head,.budget-table-row{display:grid;grid-template-columns:minmax(0,1.8fr) 90px 140px 140px;gap:12px;padding:14px 16px;align-items:center}
+      .budget-table-head{background:#f5fbff;font-weight:700}
+      .budget-table-row{border-top:1px solid #e6edf7}
+      .budget-total{display:flex;justify-content:space-between;align-items:center;margin-top:18px;padding:16px;border-radius:12px;background:#eef7ff}
+      .budget-total strong{font-size:1.25rem}
+      .budget-extra{margin-top:18px;padding-top:18px;border-top:1px solid #e6edf7}
+      .budget-extra strong{display:block;margin-bottom:6px}
+      .budget-extra p{margin:0;color:#42536f;white-space:pre-wrap}
+      .budget-group-title{margin:18px 0 10px;font-weight:700;color:#1763c2}
+      .budget-signature{display:inline-flex;align-items:center;gap:10px;justify-content:flex-end;margin-top:24px;font-size:12px;color:#5f6f8b}
+      .plain-document-card{border:1px solid #d9e2ef;border-radius:16px;padding:28px}
+      .plain-document-header{display:flex;justify-content:space-between;gap:24px;align-items:flex-start;padding-bottom:18px;border-bottom:1px solid #e6edf7;margin-bottom:18px}
+      .plain-document-brand,.plain-document-signature{display:flex;gap:14px;align-items:center}
+      .plain-document-brand strong{display:block}
+      .plain-document-brand span,.plain-document-signature span{display:block;color:#5f6f8b;font-size:13px}
+      .plain-document-signature{justify-content:flex-end;margin-top:18px}
+      pre{margin:0;font-family:Arial,sans-serif;white-space:pre-wrap}
+      .print-toolbar{display:flex;justify-content:flex-end;gap:10px;margin:0 auto 18px;max-width:860px}
+      .print-toolbar button{font:inherit;padding:10px 14px;border-radius:8px;border:1px solid #d9e2ef;background:#1763c2;color:#fff;cursor:pointer}
+      .print-note{max-width:860px;margin:0 auto 16px;color:#5f6f8b;font-size:14px}
+      @media print {.print-toolbar,.print-note{display:none} body{max-width:none;margin:0;padding:0}}
+      @media (max-width:720px){.budget-preview-header,.budget-brand,.plain-document-header,.plain-document-brand,.plain-document-signature{flex-direction:column;align-items:flex-start}.budget-table-head,.budget-table-row{grid-template-columns:1fr}}
+    </style></head><body><div class="print-toolbar"><button type="button" onclick="window.print()">Guardar o imprimir PDF</button></div><p class="print-note">En computador puedes elegir “Guardar como PDF”. En celular puedes imprimir o compartir como PDF desde tu navegador.</p>${currentDocumentHtml}</body></html>`;
+  }
+
+  return `<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><title>${title}</title><style>
+    @page{size:auto;margin:18mm}
+    body{font-family:Arial,sans-serif;line-height:1.6;max-width:760px;margin:24px auto;padding:0 18px;color:#1f2937;background:#fff;}
+    .plain-document-card{border:1px solid #d9e2ef;border-radius:16px;padding:28px}
+    .plain-document-header{display:flex;justify-content:space-between;gap:24px;align-items:flex-start;padding-bottom:18px;border-bottom:1px solid #e6edf7;margin-bottom:18px}
+    .plain-document-brand,.plain-document-signature{display:flex;gap:14px;align-items:center}
+    .plain-document-brand strong{display:block}
+    .plain-document-brand span,.plain-document-signature span{display:block;color:#5f6f8b;font-size:13px}
+    .plain-document-signature{justify-content:flex-end;margin-top:18px}
+    pre{margin:0;white-space:pre-wrap}
+    .print-toolbar{display:flex;justify-content:flex-end;gap:10px;margin:0 auto 18px;max-width:760px}
+    .print-toolbar button{font:inherit;padding:10px 14px;border-radius:8px;border:1px solid #d9e2ef;background:#1763c2;color:#fff;cursor:pointer}
+    .print-note{max-width:760px;margin:0 auto 16px;color:#5f6f8b;font-size:14px}
+    @media print {.print-toolbar,.print-note{display:none} body{max-width:none;margin:0;padding:0}}
+    @media (max-width:720px){.plain-document-header,.plain-document-brand,.plain-document-signature{flex-direction:column;align-items:flex-start}}
+  </style></head><body><div class="print-toolbar"><button type="button" onclick="window.print()">Guardar o imprimir PDF</button></div><p class="print-note">En computador puedes elegir “Guardar como PDF”. En celular puedes imprimir o compartir como PDF desde tu navegador.</p><section class="plain-document-card"><div class="plain-document-header"><div class="plain-document-brand"><div><strong>Tramiteca.cl</strong><span>Formato de orientación inicial</span></div></div><strong>${escapeHtml(title)}</strong></div><pre>${escapeHtml(currentDocumentText)}</pre><div class="plain-document-signature"><span>Generado con Tramiteca.cl</span></div></section></body></html>`;
+};
+
+const openDocumentForPdf = () => {
+  if (!currentDocumentText) return;
+
+  const printableHtml = buildPrintableDocumentHtml();
+  const blob = new Blob([printableHtml], { type: "text/html;charset=utf-8" });
+  const printUrl = URL.createObjectURL(blob);
+  const printWindow = window.open(printUrl, "_blank", "noopener");
+
+  if (!printWindow) {
+    const message = document.querySelector("[data-document-action-message]");
+    if (message) message.textContent = "Tu navegador bloqueó la apertura. Permite la nueva pestaña para guardar el PDF.";
+    return;
+  }
+
+  setTimeout(() => URL.revokeObjectURL(printUrl), 30000);
 };
 
 const setupDocumentsPage = () => {
@@ -1815,8 +2354,27 @@ const setupDocumentsPage = () => {
 
   const downloadTxtButton = actions.querySelector("[data-download-txt]");
   if (downloadTxtButton) downloadTxtButton.addEventListener("click", () => downloadDocument("txt"));
-  const downloadHtmlButton = actions.querySelector("[data-download-html]");
-  if (downloadHtmlButton) downloadHtmlButton.addEventListener("click", () => downloadDocument("html"));
+  const downloadPdfButton = actions.querySelector("[data-download-pdf]");
+  if (downloadPdfButton) downloadPdfButton.addEventListener("click", () => {
+    const message = document.querySelector("[data-document-action-message]");
+    if (!currentDocumentText) {
+      if (message) message.textContent = "Primero genera un documento para poder abrirlo como PDF.";
+      return;
+    }
+    openDocumentForPdf();
+    if (message) message.textContent = "Se abrió una vista lista para guardar o imprimir en PDF.";
+  });
+  const whatsappButton = actions.querySelector("[data-share-whatsapp]");
+  if (whatsappButton) whatsappButton.addEventListener("click", () => {
+    const message = document.querySelector("[data-document-action-message]");
+    if (!currentDocumentText) {
+      if (message) message.textContent = "Primero genera un documento para poder enviarlo por WhatsApp.";
+      return;
+    }
+    const text = `${currentDocumentText}\n\nGenerado con Tramiteca.cl`;
+    window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, "_blank", "noopener");
+    if (message) message.textContent = "Se abrió WhatsApp con tu documento listo para compartir.";
+  });
 
   setSelectedDocument(selectedDocumentId);
 };
